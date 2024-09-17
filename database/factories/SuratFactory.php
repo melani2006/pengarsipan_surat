@@ -26,7 +26,7 @@ class SuratFactory extends Factory
             'Tanggal_Surat' => $this->faker->date(), 
             'Tanggal_Diterima' => $this->faker->date(), 
             'deskripsi' => $this->faker->sentence(7), 
-            'catatan' => $this->faker->sentence(3),
+            'catatan' => $this->faker->sentence(3), 
             'type' => $this->faker->randomElement([LetterType::INCOMING->type(), LetterType::OUTGOING->type()]),
             'kategori_code' => 'ADM', 
             'user_id' => 1, 
