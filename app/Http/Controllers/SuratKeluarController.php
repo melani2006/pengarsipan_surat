@@ -39,11 +39,11 @@ class SuratKeluarController extends Controller
     public function agenda(Request $request): View
     {
         return view('pages.transaksi.keluar.agenda', [
-            'data' => Surat::outgoing()->agenda($request->since, $request->until, $request->filter)->render($request->search),
+            'data' => Surat::outgoing()->agenda($request->since, $request->until, $request->cari)->render($request->search),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
-            'filter' => $request->filter,
+            'cari' => $request->cari,
             'query' => $request->getQueryString(),
         ]);
     }
@@ -58,11 +58,11 @@ class SuratKeluarController extends Controller
         $surat = __('menu.agenda.surat_keluar');
         $title = App::getLocale() == 'id' ? "$agenda $surat" : "$surat $agenda";
         return view('pages.transaksi.keluar.print', [
-            'data' => Surat::keluar()->agenda($request->since, $request->until, $request->filter)->get(),
+            'data' => Surat::keluar()->agenda($request->since, $request->until, $request->cari)->get(),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
-            'filter' => $request->filter,
+            'cari' => $request->cari,
             'config' => Config::pluck('value','code')->toArray(),
             'title' => $title,
         ]);

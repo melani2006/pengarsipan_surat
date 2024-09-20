@@ -20,9 +20,24 @@
                     </div>
                     <div class="col">
                         <div class="mb-3">
+                            <label for="cari" class="form-label">Cari Berdasarkan</label>
+                            <select class="form-select" id="cari" name="cari">
+                                <option
+                                    value="tanggal_surat" @selected(old('cari', $cari) == 'tanggal_surat')>Tanggal Surat</option>
+                                <option
+                                    value="tanggal_diterima" @selected(old('cari', $cari) == 'tanggal_diterima')>Tanggal Diterima</option>
+                                <option
+                                    value="created_at" @selected(old('cari', $cari) == 'created_at')>Tanggal Dibuat</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
                             <label class="form-label">Aksi</label>
                             <div class="row">
                                 <div class="col">
+                                    <button class="btn btn-primary"
+                                            type="submit">Cari</button>
                                     <a
                                         href="{{ route('agenda.masuk.print') . '?' . $query }}"
                                         target="_blank"
@@ -81,5 +96,5 @@
         </div>
     </div>
 
-    {!! $data->appends(['search' => $search, 'since' => $since, 'until' => $until, 'filter' => $filter])->links() !!}
+    {!! $data->appends(['search' => $search, 'since' => $since, 'until' => $until, 'cari' => $cari])->links() !!}
 @endsection

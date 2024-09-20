@@ -6,7 +6,7 @@
                 document.write(new Date().getFullYear());
             </script>
             , Dibuat oleh
-            <a target="_blank" class="footer-link fw-bolder">Arsip Surat</a>
+            <a target="_blank" class="footer-link fw-bolder">Meilany Herlita Putri</a>
         </div>
     </div>
 </footer>

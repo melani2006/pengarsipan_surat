@@ -111,11 +111,11 @@ class Surat extends Model
             ]);
     }
 
-    public function scopeAgenda($query, $since, $until, $filter)
+    public function scopeAgenda($query, $since, $until, $cari)
     {
         return $query
-            ->when($since && $until && $filter, function ($query, $condition) use ($since, $until, $filter) {
-                return $query->whereBetween(DB::raw('DATE(' . $filter . ')'), [$since, $until]);
+            ->when($since && $until && $cari, function ($query, $condition) use ($since, $until, $cari) {
+                return $query->whereBetween(DB::raw('DATE(' . $cari . ')'), [$since, $until]);
             });
     }
 

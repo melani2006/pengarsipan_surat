@@ -35,7 +35,7 @@
             padding: 10px;
         }
 
-        #filter-section {
+        #cari-section {
             margin: 30px 0;
             text-align: start;
         }
@@ -49,9 +49,9 @@
 
 <h2>{{ $title }}</h2>
 
-@if($since && $until && $filter)
-    <div id="filter-section">
-        Filter: {{ $filter }}: {{ "$since - $until" }}
+@if($since && $until && $cari)
+    <div id="cari-section">
+        Cari: {{ $cari }}: {{ "$since - $until" }}
         <br>
         Total: {{ count($data) }}
     </div>
