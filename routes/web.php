@@ -57,25 +57,25 @@ Route::middleware(['auth'])->group(function () {
         ->name('settings.update')
         ->middleware(['role:admin']);
 
-    Route::delete('attachment', [\App\Http\Controllers\PageController::class, 'removeAttachment'])
-        ->name('attachment.destroy');
+    Route::delete('lampiran', [\App\Http\Controllers\PageController::class, 'removelampiran'])
+        ->name('lampiran.destroy');
 
     Route::prefix('transaksi')->as('transaksi.')->group(function () {
         Route::resource('masuk', \App\Http\Controllers\SuratMasukController::class);
         Route::resource('keluar', \App\Http\Controllers\SuratKeluarController::class);
-        Route::resource('{letter}/disposisi', \App\Http\Controllers\DisposisiController::class)->except(['show']);
+        Route::resource('{surat}/disposisi', \App\Http\Controllers\DisposisiController::class)->except(['show']);
     });
 
     Route::prefix('agenda')->as('agenda.')->group(function () {
-        Route::get('incoming', [\App\Http\Controllers\SuratMasukController::class, 'agenda'])->name('incoming');
-        Route::get('incoming/print', [\App\Http\Controllers\SuratMasukController::class, 'print'])->name('incoming.print');
-        Route::get('outgoing', [\App\Http\Controllers\SuratKeluarController::class, 'agenda'])->name('outgoing');
-        Route::get('outgoing/print', [\App\Http\Controllers\SuratKeluarController::class, 'print'])->name('outgoing.print');
+        Route::get('masuk', [\App\Http\Controllers\SuratMasukController::class, 'agenda'])->name('masuk');
+        Route::get('masuk/print', [\App\Http\Controllers\SuratMasukController::class, 'print'])->name('masuk.print');
+        Route::get('keluar', [\App\Http\Controllers\SuratKeluarController::class, 'agenda'])->name('keluar');
+        Route::get('keluar/print', [\App\Http\Controllers\SuratKeluarController::class, 'print'])->name('keluar.print');
     });
 
     Route::prefix('riwayat')->as('riwayat.')->group(function () {
-        Route::get('incoming', [\App\Http\Controllers\RiwayatController::class, 'incoming'])->name('masuk');
-        Route::get('outgoing', [\App\Http\Controllers\RiwayatController::class, 'outgoing'])->name('keluar');
+        Route::get('masuk', [\App\Http\Controllers\RiwayatController::class, 'masuk'])->name('masuk');
+        Route::get('keluar', [\App\Http\Controllers\RiwayatController::class, 'keluar'])->name('keluar');
     });
 
     Route::prefix('reference')->as('reference.')->middleware(['role:admin'])->group(function () {

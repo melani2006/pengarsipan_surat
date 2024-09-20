@@ -48,13 +48,13 @@
                 <div>Agenda</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.incoming') ? 'active' : '' }}">
-                    <a href="{{ route('agenda.incoming') }}" class="menu-link">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.masuk') ? 'active' : '' }}">
+                    <a href="{{ route('agenda.masuk') }}" class="menu-link">
                         <div>Surat Masuk</div>
                     </a>
                 </li>
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.outgoing') ? 'active' : '' }}">
-                    <a href="{{ route('agenda.outgoing') }}" class="menu-link">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.keluar') ? 'active' : '' }}">
+                    <a href="{{ route('agenda.keluar') }}" class="menu-link">
                         <div>Surat Keluar</div>
                     </a>
                 </li>
@@ -64,7 +64,7 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Menu Lainnya</span>
         </li>
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('gallery.*') ? 'active open' : '' }}">
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-images"></i>
                 <div>riwayat</div>

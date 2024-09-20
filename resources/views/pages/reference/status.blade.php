@@ -12,14 +12,13 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb
-        :values="['Referensi', 'Status']">
+    <x-breadcrumb :values="['Referensi', 'Status']">
         <button
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#createModal">
-            Tambah
+            Buat Baru
         </button>
     </x-breadcrumb>
 
@@ -60,8 +59,8 @@
                 @else
                     <tbody>
                     <tr>
-                        <td colspan="3" class="text-center">
-                            Tidak ada data
+                        <td colspan="4" class="text-center">
+                            Data Kosong
                         </td>
                     </tr>
                     </tbody>
@@ -85,16 +84,16 @@
             <form class="modal-content" method="post" action="{{ route('reference.status.store') }}">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalTitle">Tambah</h5>
+                    <h5 class="modal-title" id="createModalTitle">Buat Baru</h5>
                     <button
                         type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Tutup"
+                        aria-label="Close"
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <x-input-form name="status" :label="'Status'"/>
+                    <x-input-form name="status" label="Status"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -118,12 +117,12 @@
                         type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Tutup"
+                        aria-label="Close"
                     ></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" value="">
-                    <x-input-form name="status" :label="'Status'"/>
+                    <x-input-form name="status" label="Status"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">

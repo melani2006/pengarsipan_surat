@@ -11,20 +11,20 @@
                 <input type="hidden" name="search" value="{{ $search ?? '' }}">
                 <div class="row">
                     <div class="col">
-                        <x-input-form name="since" :label="'Tanggal Mulai'" type="date"
+                        <x-input-form name="since" label="Tanggal Mulai" type="date"
                                       :value="$since ? date('Y-m-d', strtotime($since)) : ''"/>
                     </div>
                     <div class="col">
-                        <x-input-form name="until" :label="'Tanggal Akhir'" type="date"
+                        <x-input-form name="until" label="Tanggal Selesai" type="date"
                                       :value="$until ? date('Y-m-d', strtotime($until)) : ''"/>
                     </div>
                     <div class="col">
                         <div class="mb-3">
-                            <label class="form-label">Tindakan</label>
+                            <label class="form-label">Aksi</label>
                             <div class="row">
                                 <div class="col">
                                     <a
-                                        href="{{ route('agenda.incoming.print') . '?' . $query }}"
+                                        href="{{ route('agenda.masuk.print') . '?' . $query }}"
                                         target="_blank"
                                         class="btn btn-primary">
                                         Cetak
@@ -41,8 +41,8 @@
                 <thead>
                 <tr>
                     <th>Nomor Agenda</th>
-                    <th>Nomor Referensi</th>
-                    <th>pengirim</th>
+                    <th>Nomor Surat</th>
+                    <th>Pengirim</th>
                     <th>Tanggal Surat</th>
                 </tr>
                 </thead>
@@ -51,12 +51,12 @@
                     @foreach($data as $agenda)
                         <tr>
                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                <strong>{{ $agenda->agenda_number }}</strong></td>
+                                <strong>{{ $agenda->nomor_agenda }}</strong></td>
                             <td>
-                                <a href="{{ route('transaksi.masuk.show', $agenda) }}">{{ $agenda->reference_number }}</a>
+                                <a href="{{ route('transaksi.masuk.show', $agenda) }}">{{ $agenda->nomor_surat }}</a>
                             </td>
-                            <td>{{ $agenda->from }}</td>
-                            <td>{{ $agenda->formatted_Tanggal_Surat }}</td>
+                            <td>{{ $agenda->pengirim }}</td>
+                            <td>{{ $agenda->formatted_tanggal_surat }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -64,7 +64,7 @@
                     <tbody>
                     <tr>
                         <td colspan="4" class="text-center">
-                            Data kosong
+                            Tidak ada data
                         </td>
                     </tr>
                     </tbody>
@@ -72,8 +72,8 @@
                 <tfoot class="table-border-bottom-0">
                 <tr>
                     <th>Nomor Agenda</th>
-                    <th>Nomor Referensi</th>
-                    <th>pengirim</th>
+                    <th>Nomor Surat</th>
+                    <th>Pengirim</th>
                     <th>Tanggal Surat</th>
                 </tr>
                 </tfoot>

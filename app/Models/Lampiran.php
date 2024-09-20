@@ -25,8 +25,6 @@ class Lampiran extends Model
     ];
 
     /**
-     * Mendapatkan URL path untuk lampiran.
-     *
      * @return string
      */
     public function getPathUrlAttribute(): string {
@@ -34,16 +32,9 @@ class Lampiran extends Model
             return $this->path;
         }
 
-        return asset('storage/attachments/' . $this->filename);
+        return asset('storage/lampirans/' . $this->filename);
     }
 
-    /**
-     * Scope untuk memfilter berdasarkan tipe surat.
-     *
-     * @param $query
-     * @param LetterType $type
-     * @return mixed
-     */
     public function scopeType($query, LetterType $type)
     {
         return $query->whereHas('surat', function ($query) use ($type) {
@@ -51,53 +42,27 @@ class Lampiran extends Model
         });
     }
 
-    /**
-     * Scope untuk memfilter surat masuk.
-     *
-     * @param $query
-     * @return mixed
-     */
-    public function scopeMasuk($query)
+    public function scopeIncoming($query)
     {
         return $this->scopeType($query, LetterType::INCOMING);
     }
 
-    /**
-     * Scope untuk memfilter surat keluar.
-     *
-     * @param $query
-     * @return mixed
-     */
-    public function scopeKeluar($query)
+    public function scopeOutgoing($query)
     {
         return $this->scopeType($query, LetterType::OUTGOING);
     }
 
-    /**
-     * Scope untuk mencari lampiran berdasarkan kriteria pencarian.
-     *
-     * @param $query
-     * @param $search
-     * @return mixed
-     */
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function($query, $find) {
             return $query
                 ->where('filename', 'LIKE', '%' . $find . '%')
                 ->orWhereHas('surat', function ($query) use ($find) {
-                    return $query->where('reference_number', $find);
+                    return $query->where('nomor_surat', $find);
                 });
         });
     }
 
-    /**
-     * Scope untuk merender hasil pencarian dengan paginasi.
-     *
-     * @param $query
-     * @param $search
-     * @return mixed
-     */
     public function scopeRender($query, $search)
     {
         return $query
@@ -111,8 +76,6 @@ class Lampiran extends Model
     }
 
     /**
-     * Relasi ke model Surat.
-     *
      * @return BelongsTo
      */
     public function surat(): BelongsTo
@@ -121,8 +84,6 @@ class Lampiran extends Model
     }
 
     /**
-     * Relasi ke model User.
-     *
      * @return BelongsTo
      */
     public function user(): BelongsTo

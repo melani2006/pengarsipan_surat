@@ -2,7 +2,7 @@
 
 @section('content')
     <x-breadcrumb
-        :values="['Menu Agenda', 'Surat Keluar']">
+        :values="['Agenda', 'Surat Keluar']">
     </x-breadcrumb>
 
     <div class="card mb-5">
@@ -23,12 +23,8 @@
                             <label class="form-label">Aksi</label>
                             <div class="row">
                                 <div class="col">
-                                    <a
-                                        href="{{ route('agenda.outgoing.print') . '?' . $query }}"
-                                        target="_blank"
-                                        class="btn btn-primary">
-                                        Cetak
-                                    </a>
+                                    <a href="{{ route('agenda.keluar.print') . '?' . $query }}"
+                                       target="_blank" class="btn btn-primary">Cetak</a>
                                 </div>
                             </div>
                         </div>
@@ -41,8 +37,8 @@
                 <thead>
                 <tr>
                     <th>Nomor Agenda</th>
-                    <th>Nomor Referensi</th>
-                    <th>Tujuan</th>
+                    <th>Nomor Surat</th>
+                    <th>Penerima</th>
                     <th>Tanggal Surat</th>
                 </tr>
                 </thead>
@@ -51,12 +47,12 @@
                     @foreach($data as $agenda)
                         <tr>
                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                <strong>{{ $agenda->agenda_number }}</strong></td>
+                                <strong>{{ $agenda->nomor_agenda }}</strong></td>
                             <td>
-                                <a href="{{ route('transaksi.keluar.show', $agenda) }}">{{ $agenda->reference_number }}</a>
+                                <a href="{{ route('transaksi.keluar.show', $agenda) }}">{{ $agenda->nomor_surat }}</a>
                             </td>
-                            <td>{{ $agenda->to }}</td>
-                            <td>{{ $agenda->formatted_Tanggal_Surat }}</td>
+                            <td>{{ $agenda->penerima }}</td>
+                            <td>{{ $agenda->formatted_tanggal_surat }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -64,7 +60,7 @@
                     <tbody>
                     <tr>
                         <td colspan="4" class="text-center">
-                            Tidak ada data
+                            Data Kosong
                         </td>
                     </tr>
                     </tbody>
@@ -72,8 +68,8 @@
                 <tfoot class="table-border-bottom-0">
                 <tr>
                     <th>Nomor Agenda</th>
-                    <th>Nomor Referensi</th>
-                    <th>Tujuan</th>
+                    <th>Nomor Surat</th>
+                    <th>Penerima</th>
                     <th>Tanggal Surat</th>
                 </tr>
                 </tfoot>

@@ -11,11 +11,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use TheSeer\Tokenizer\Exception;
 
 class UserController extends Controller
 {
     /**
-     * Menampilkan daftar pengguna.
+     * Display a listing of the resource.
      *
      * @param Request $request
      * @return View
@@ -29,7 +30,7 @@ class UserController extends Controller
     }
 
     /**
-     * Menyimpan pengguna baru.
+     * Store a newly created resource in storage.
      *
      * @param StoreUserRequest $request
      * @return RedirectResponse
@@ -40,14 +41,14 @@ class UserController extends Controller
             $newUser = $request->validated();
             $newUser['password'] = Hash::make(Config::getValueByCode(ConfigEnum::DEFAULT_PASSWORD));
             User::create($newUser);
-            return back()->with('success', 'Pengguna berhasil disimpan.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
 
     /**
-     * Memperbarui data pengguna.
+     * Update the specified resource in storage.
      *
      * @param UpdateUserRequest $request
      * @param User $user
@@ -61,14 +62,14 @@ class UserController extends Controller
             if ($request->reset_password)
                 $newUser['password'] = Hash::make(Config::getValueByCode(ConfigEnum::DEFAULT_PASSWORD));
             $user->update($newUser);
-            return back()->with('success', 'Pengguna berhasil diperbarui.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
 
     /**
-     * Menghapus pengguna.
+     * Remove the specified resource from storage.
      *
      * @param User $user
      * @return RedirectResponse
@@ -78,7 +79,7 @@ class UserController extends Controller
     {
         try {
             $user->delete();
-            return back()->with('success', 'Pengguna berhasil dihapus.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

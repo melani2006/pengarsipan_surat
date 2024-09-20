@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Enums\LetterType;
-use App\Http\Requests\StoreLetterRequest;
-use App\Http\Requests\UpdateLetterRequest;
+use App\Http\Requests\StoreSuratRequest;
+use App\Http\Requests\UpdateSuratRequest;
 use App\Models\Lampiran;
-use App\Models\Kategori; 
+use App\Models\Kategori;
 use App\Models\Config;
 use App\Models\Surat;
 use Illuminate\Contracts\View\View;
@@ -17,41 +17,29 @@ use Illuminate\Support\Facades\App;
 class SuratKeluarController extends Controller
 {
     /**
-     * Menampilkan daftar resource.
+     * Display a listing of the resource.
      *
      * @param Request $request
      * @return View
      */
     public function index(Request $request): View
     {
-        $query = Surat::outgoing();
-
-        if (auth()->user()->role != 'admin') {
-            $query->where('user_id', auth()->id());
-        }
-
         return view('pages.transaksi.keluar.index', [
-            'data' => $query->render($request->search),
+            'data' => Surat::keluar()->render($request->search),
             'search' => $request->search,
         ]);
     }
 
     /**
-     * Menampilkan daftar agenda surat keluar.
+     * Display a listing of the surat keluar agenda.
      *
      * @param Request $request
      * @return View
      */
     public function agenda(Request $request): View
     {
-        $query = Surat::outgoing()->agenda($request->since, $request->until, $request->filter);
-
-        if (auth()->user()->role != 'admin') {
-            $query->where('user_id', auth()->id());
-        }
-
         return view('pages.transaksi.keluar.agenda', [
-            'data' => $query->render($request->search),
+            'data' => Surat::outgoing()->agenda($request->since, $request->until, $request->filter)->render($request->search),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
@@ -66,18 +54,11 @@ class SuratKeluarController extends Controller
      */
     public function print(Request $request): View
     {
-        $query = Surat::outgoing()->agenda($request->since, $request->until, $request->filter);
-
-        if (auth()->user()->role != 'admin') {
-            $query->where('user_id', auth()->id());
-        }
-
-        $agenda = "Agenda";
-        $surat = "Surat Keluar";
+        $agenda = __('menu.agenda.menu');
+        $surat = __('menu.agenda.surat_keluar');
         $title = App::getLocale() == 'id' ? "$agenda $surat" : "$surat $agenda";
-
         return view('pages.transaksi.keluar.print', [
-            'data' => $query->get(),
+            'data' => Surat::keluar()->agenda($request->since, $request->until, $request->filter)->get(),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
@@ -88,39 +69,39 @@ class SuratKeluarController extends Controller
     }
 
     /**
-     * Menampilkan form untuk membuat resource baru.
+     * Show the form for creating a new resource.
      *
      * @return View
      */
     public function create(): View
     {
         return view('pages.transaksi.keluar.create', [
-            'kategoris' => Kategori::all(), 
+            'kategoris' => Kategori::all(),
         ]);
     }
 
     /**
-     * Menyimpan resource baru ke dalam storage.
+     * Store a newly created resource in storage.
      *
-     * @param StoreLetterRequest $request
+     * @param StoreSuratRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreLetterRequest $request): RedirectResponse
+    public function store(StoreSuratRequest $request): RedirectResponse
     {
         try {
             $user = auth()->user();
 
-            if ($request->type != LetterType::OUTGOING->type()) throw new \Exception("Tipe surat tidak sesuai.");
+            if ($request->type != LetterType::OUTGOING->type()) throw new \Exception(__('menu.transaksi.surat_keluar'));
             $newSurat = $request->validated();
             $newSurat['user_id'] = $user->id;
-            $surat = Surat::create($newSurat);
+            $Surat = Surat::create($newSurat);
             if ($request->hasFile('lampirans')) {
-                foreach ($request->lampirans as $attachment) {
-                    $extension = $attachment->getClientOriginalExtension();
+                foreach ($request->lampirans as $lampiran) {
+                    $extension = $lampiran->getClientOriginalExtension();
                     if (!in_array($extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
-                    $filename = time() . '-'. $attachment->getClientOriginalName();
+                    $filename = time() . '-'. $lampiran->getClientOriginalName();
                     $filename = str_replace(' ', '-', $filename);
-                    $attachment->storeAs('public/attachments', $filename);
+                    $lampiran->storeAs('public/lampirans', $filename);
                     Lampiran::create([
                         'filename' => $filename,
                         'extension' => $extension,
@@ -131,84 +112,84 @@ class SuratKeluarController extends Controller
             }
             return redirect()
                 ->route('transaksi.keluar.index')
-                ->with('success', 'Berhasil menyimpan data.');
+                ->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
 
     /**
-     * Menampilkan resource yang ditentukan.
+     * Display the specified resource.
      *
-     * @param Surat $outgoing
+     * @param Surat $keluar
      * @return View
      */
-    public function show(Surat $outgoing): View
+    public function show(Surat $keluar): View
     {
         return view('pages.transaksi.keluar.show', [
-            'data' => $outgoing->load(['kategori', 'user', 'lampirans']),
+            'data' => $keluar->load(['kategori', 'user', 'lampirans']),
         ]);
     }
 
     /**
-     * Menampilkan form untuk mengedit resource yang ditentukan.
+     * Show the form for editing the specified resource.
      *
-     * @param Surat $outgoing
+     * @param Surat $keluar
      * @return View
      */
-    public function edit(Surat $outgoing): View
+    public function edit(Surat $keluar): View
     {
         return view('pages.transaksi.keluar.edit', [
-            'data' => $outgoing,
+            'data' => $keluar,
             'kategoris' => Kategori::all(),
         ]);
     }
 
     /**
-     * Memperbarui resource yang ditentukan dalam storage.
+     * Update the specified resource in storage.
      *
-     * @param UpdateLetterRequest $request
-     * @param Surat $outgoing
+     * @param UpdateSuratRequest $request
+     * @param Surat $keluar
      * @return RedirectResponse
      */
-    public function update(UpdateLetterRequest $request, Surat $outgoing): RedirectResponse
+    public function update(UpdateSuratRequest $request, Surat $keluar): RedirectResponse
     {
         try {
-            $outgoing->update($request->validated());
+            $keluar->update($request->validated());
             if ($request->hasFile('lampirans')) {
-                foreach ($request->lampirans as $attachment) { 
-                    $extension = $attachment->getClientOriginalExtension();
+                foreach ($request->lampirans as $lampiran) {
+                    $extension = $lampiran->getClientOriginalExtension();
                     if (!in_array($extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
-                    $filename = time() . '-'. $attachment->getClientOriginalName();
+                    $filename = time() . '-'. $lampiran->getClientOriginalName();
                     $filename = str_replace(' ', '-', $filename);
-                    $attachment->storeAs('public/attachments', $filename);
+                    $lampiran->storeAs('public/lampirans', $filename);
                     Lampiran::create([
                         'filename' => $filename,
                         'extension' => $extension,
                         'user_id' => auth()->user()->id,
-                        'surat_id' => $outgoing->id,
+                        'surat_id' => $keluar->id,
                     ]);
                 }
             }
-            return back()->with('success', 'Berhasil memperbarui data.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
 
     /**
-     * Menghapus resource yang ditentukan dari storage.
+     * Remove the specified resource from storage.
      *
-     * @param Surat $outgoing
+     * @param Surat $keluar
      * @return RedirectResponse
      */
-    public function destroy(Surat $outgoing): RedirectResponse
+    public function destroy(Surat $keluar): RedirectResponse
     {
         try {
-            $outgoing->delete();
+            $keluar->delete();
             return redirect()
                 ->route('transaksi.keluar.index')
-                ->with('success', 'Berhasil menghapus data.');
+                ->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

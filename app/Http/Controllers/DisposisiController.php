@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreDispositionRequest;
-use App\Http\Requests\UpdateDispositionRequest;
+use App\Http\Requests\StoreDisposisiRequest;
+use App\Http\Requests\UpdateDisposisiRequest;
 use App\Models\Disposisi;
 use App\Models\Surat;
 use App\Models\StatusSurat;
@@ -47,10 +47,10 @@ class DisposisiController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Surat $surat
-     * @param StoreDispositionRequest $request
+     * @param StoreDisposisiRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreDispositionRequest $request, Surat $surat): RedirectResponse
+    public function store(StoreDisposisiRequest $request, Surat $surat): RedirectResponse
     {
         try {
             $newDisposisi = $request->validated();
@@ -84,12 +84,12 @@ class DisposisiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateDispositionRequest $request
+     * @param UpdateDisposisiRequest $request
      * @param Surat $surat
      * @param Disposisi $disposisi
      * @return RedirectResponse
      */
-    public function update(UpdateDispositionRequest $request, Surat $surat, Disposisi $disposisi): RedirectResponse
+    public function update(UpdateDisposisiRequest $request, Surat $surat, Disposisi $disposisi): RedirectResponse
     {
         try {
             $disposisi->update($request->validated());

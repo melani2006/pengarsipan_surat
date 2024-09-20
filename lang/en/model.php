@@ -2,7 +2,7 @@
 
 return [
     'letter' => [
-        'agenda_number' => 'Agenda Number',
+        'nomor_agenda' => 'Agenda Number',
         'pengirim' => 'Sender',
         'penerima' => 'Receiver',
         'Nomor_Surat' => 'Reference Number',
@@ -11,23 +11,23 @@ return [
         'deskripsi' => 'Brief Contents',
         'Catatan' => 'Catatan',
         'dispose' => 'Dispose',
-        'attachment' => 'Attachment',
+        'lampiran' => 'Lampiran',
         'status' => [
             'all' => 'All',
             'disposed' => 'Disposed',
             'not_disposed' => 'Not Disposed',
         ],
-        'classification_code' => 'Classification Code',
+        'kategori_code' => 'Kategori Code',
     ],
-    'disposition' => [
+    'disposisi' => [
         'penerima' => 'Receiver',
         'Isi' => 'Isi',
         'status' => 'Status',
         'Catatan' => 'Catatan',
         'Tanggal_Jatuh_Tempo' => 'Due Date',
-        'notice_me' => 'Disposition letter for :Nomor_Surat.',
+        'notice_me' => 'Disposisi letter for :Nomor_Surat.',
     ],
-    'classification' => [
+    'kategori' => [
         'code' => 'Code',
         'type' => 'Type',
         'deskripsi' => 'Deskripsi',

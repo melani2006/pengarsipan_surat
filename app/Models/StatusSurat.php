@@ -14,13 +14,6 @@ class StatusSurat extends Model
         'status',
     ];
 
-    /**
-     * Scope untuk mencari status surat berdasarkan kata kunci.
-     *
-     * @param $query
-     * @param $search
-     * @return mixed
-     */
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function($query, $find) {
@@ -29,13 +22,6 @@ class StatusSurat extends Model
         });
     }
 
-    /**
-     * Scope untuk merender daftar status surat dengan pencarian.
-     *
-     * @param $query
-     * @param $search
-     * @return mixed
-     */
     public function scopeRender($query, $search)
     {
         return $query

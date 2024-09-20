@@ -2,36 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lampiran;
 use App\Models\Surat;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class RiwayatController extends Controller
 {
-    /**
-     * Menampilkan riwayat surat masuk.
-     *
-     * @param Request $request
-     * @return View
-     */
-    public function incoming(Request $request): View
+    public function masuk(Request $request): View
     {
         return view('pages.riwayat.masuk', [
-            'data' => Surat::incoming()->render($request->search),
+            'data' => Lampiran::incoming()->render($request->search),
             'search' => $request->search,
         ]);
     }
 
-    /**
-     * Menampilkan riwayat surat keluar.
-     *
-     * @param Request $request
-     * @return View
-     */
-    public function outgoing(Request $request): View
+    public function keluar(Request $request): View
     {
         return view('pages.riwayat.keluar', [
-            'data' => Surat::outgoing()->render($request->search),
+            'data' => Lampiran::outgoing()->render($request->search),
             'search' => $request->search,
         ]);
     }

@@ -4,7 +4,7 @@
             <div>
                 <h5 class="card-title mb-0 text-uppercase">{{ $extension }}</h5>
                 <small>
-                    @if($surat->type == 'incoming')
+                    @if($surat->type == 'masuk')
                         <a href="{{ route('transaksi.masuk.show', $surat) }}" class="fw-bold">{{ $surat->Nomor_Surat }}</a>
                     @else
                         <a href="{{ route('transaksi.keluar.show', $surat) }}" class="fw-bold">{{ $surat->Nomor_Surat }}</a>

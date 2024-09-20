@@ -16,7 +16,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * Atribut yang dapat diisi secara massal.
+     * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
@@ -31,7 +31,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Atribut yang harus disembunyikan saat serialisasi.
+     * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
@@ -41,7 +41,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Atribut yang harus di-cast.
+     * The attributes that should be cast.
      *
      * @var array<string, string>
      */
@@ -51,7 +51,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Mendapatkan gambar profil pengguna.
+     * Get the user's profile picture
      *
      * @return Attribute
      */
@@ -67,36 +67,16 @@ class User extends Authenticatable
         );
     }
 
-    /**
-     * Scope untuk mendapatkan pengguna yang aktif.
-     *
-     * @param $query
-     * @return mixed
-     */
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
 
-    /**
-     * Scope untuk mendapatkan pengguna berdasarkan peran.
-     *
-     * @param $query
-     * @param Role $role
-     * @return mixed
-     */
     public function scopeRole($query, Role $role)
     {
         return $query->where('role', $role->status());
     }
 
-    /**
-     * Scope untuk mencari pengguna berdasarkan kata kunci.
-     *
-     * @param $query
-     * @param $search
-     * @return mixed
-     */
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function($query, $find) {
@@ -107,13 +87,6 @@ class User extends Authenticatable
         });
     }
 
-    /**
-     * Scope untuk merender daftar pengguna dengan pencarian dan paginasi.
-     *
-     * @param $query
-     * @param $search
-     * @return mixed
-     */
     public function scopeRender($query, $search)
     {
         return $query

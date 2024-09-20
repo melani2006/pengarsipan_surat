@@ -51,7 +51,7 @@
 
 @if($since && $until && $filter)
     <div id="filter-section">
-        Filter: {{ "$since - $until" }}
+        Filter: {{ $filter }}: {{ "$since - $until" }}
         <br>
         Total: {{ count($data) }}
     </div>
@@ -61,7 +61,7 @@
     <thead>
     <tr>
         <th>Nomor Agenda</th>
-        <th>Nomor Referensi</th>
+        <th>Nomor Surat</th>
         <th>Pengirim</th>
         <th>Tanggal Surat</th>
         <th>Deskripsi</th>
@@ -69,14 +69,14 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($data as $letter)
+    @foreach($data as $surat)
         <tr>
-            <td>{{ $letter->agenda_number }}</td>
-            <td>{{ $letter->reference_number }}</td>
-            <td>{{ $letter->from }}</td>
-            <td>{{ $letter->formatted_Tanggal_Surat }}</td>
-            <td>{{ $letter->deskripsi }}</td>
-            <td>{{ $letter->Catatan }}</td>
+            <td>{{ $surat->nomor_agenda }}</td>
+            <td>{{ $surat->nomor_surat }}</td>
+            <td>{{ $surat->pengirim }}</td>
+            <td>{{ $surat->formatted_tanggal_surat }}</td>
+            <td>{{ $surat->deskripsi }}</td>
+            <td>{{ $surat->catatan }}</td>
         </tr>
     @endforeach
     </tbody>

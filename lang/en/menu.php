@@ -6,14 +6,14 @@ return [
     'transaction' => [
         'menu' => 'Transaction',
         'incoming_letter' => 'Incoming Letter',
-        'outgoing_letter' => 'Outgoing Letter',
-        'disposition_letter' => 'Disposition Letter',
+        'surat_keluar' => 'Outgoing Letter',
+        'disposisi_letter' => 'Disposisi Letter',
     ],
     'agenda' => [
         'menu' => 'Agenda',
         'incoming_letter' => 'Incoming Letter',
-        'outgoing_letter' => 'Outgoing Letter',
-        'disposition_letter' => 'Disposition Letter',
+        'surat_keluar' => 'Outgoing Letter',
+        'disposisi_letter' => 'Disposisi Letter',
         'filter_by' => 'Filter By',
         'start_date' => 'Start Date',
         'end_date' => 'End Date',
@@ -21,12 +21,12 @@ return [
     'gallery' => [
         'menu' => 'Letter Gallery',
         'incoming_letter' => 'Incoming Letter',
-        'outgoing_letter' => 'Outgoing Letter',
-        'disposition_letter' => 'Disposition Letter',
+        'surat_keluar' => 'Outgoing Letter',
+        'disposisi_letter' => 'Disposisi Letter',
     ],
     'reference' => [
         'menu' => 'Reference',
-        'classification' => 'Classification',
+        'kategori' => 'Kategori',
         'status' => 'Status',
     ],
     'header' => [

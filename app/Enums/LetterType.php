@@ -10,8 +10,8 @@ enum LetterType
     public function type(): string
     {
         return match ($this) {
-            self::INCOMING => 'incoming',
-            self::OUTGOING => 'outgoing',
+            self::INCOMING => 'masuk',
+            self::OUTGOING => 'keluar',
         };
     }
 }

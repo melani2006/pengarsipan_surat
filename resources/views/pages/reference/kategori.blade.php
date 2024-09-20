@@ -4,7 +4,6 @@
     <script>
         $(document).on('click', '.btn-edit', function () {
             const id = $(this).data('id');
-            // [Controller: Mengarahkan ke rute untuk memperbarui data berdasarkan id]
             $('#editModal form').attr('action', '{{ route('reference.kategori.index') }}/' + id);
             $('#editModal input:hidden#id').val(id);
             $('#editModal input#code').val($(this).data('code'));
@@ -16,13 +15,13 @@
 
 @section('content')
     <x-breadcrumb
-        :values="['Referensi', 'Kategori']">
+        :values="['Referensi Menu', 'Kategori']">
         <button
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#createModal">
-            Tambah
+            Buat Baru
         </button>
     </x-breadcrumb>
 
@@ -31,9 +30,9 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Kode</th>
-                    <th>Jenis</th>
-                    <th>Deskripsi</th>
+                    <th>Kode Kategori</th>
+                    <th>Jenis Kategori</th>
+                    <th>Deskripsi Kategori</th>
                     <th>Aksi</th>
                 </tr>
                 </thead>
@@ -41,11 +40,8 @@
                     <tbody>
                     @foreach($data as $kategori)
                         <tr>
-                            <!-- [Model: Mengambil data 'code' dari model Kategori] -->
                             <td>{{ $kategori->code }}</td>
-                            <!-- [Model: Mengambil data 'type' dari model Kategori] -->
                             <td>{{ $kategori->type }}</td>
-                            <!-- [Model: Mengambil data 'deskripsi' dari model Kategori] -->
                             <td>{{ $kategori->deskripsi }}</td>
                             <td>
                                 <button class="btn btn-info btn-sm btn-edit"
@@ -57,7 +53,6 @@
                                         data-bs-target="#editModal">
                                     Edit
                                 </button>
-                                <!-- [Controller: Form untuk menghapus data Kategori berdasarkan id] -->
                                 <form action="{{ route('reference.kategori.destroy', $kategori) }}" class="d-inline" method="post">
                                     @csrf
                                     @method('DELETE')
@@ -72,16 +67,16 @@
                     <tbody>
                     <tr>
                         <td colspan="4" class="text-center">
-                            Tidak ada data
+                            Tidak ada data.
                         </td>
                     </tr>
                     </tbody>
                 @endif
                 <tfoot class="table-border-bottom-0">
                 <tr>
-                    <th>Kode</th>
-                    <th>Jenis</th>
-                    <th>Deskripsi</th>
+                    <th>Kode Kategori</th>
+                    <th>Jenis Kategori</th>
+                    <th>Deskripsi Kategori</th>
                     <th>Aksi</th>
                 </tr>
                 </tfoot>
@@ -89,27 +84,26 @@
         </div>
     </div>
 
-    <!-- [Controller: Form untuk menambah data baru Kategori] -->
+    {!! $data->appends(['search' => $search])->links() !!}
+
+    <!-- Create Modal -->
     <div class="modal fade" id="createModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
             <form class="modal-content" method="post" action="{{ route('reference.kategori.store') }}">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalTitle">Tambah</h5>
+                    <h5 class="modal-title" id="createModalTitle">Buat Baru</h5>
                     <button
                         type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Tutup"
+                        aria-label="Close"
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <!-- [Model: Field 'code' disimpan di dalam model Kategori] -->
-                    <x-input-form name="code" :label="'Kode'"/>
-                    <!-- [Model: Field 'type' disimpan di dalam model Kategori] -->
-                    <x-input-form name="type" :label="'Jenis'"/>
-                    <!-- [Model: Field 'deskripsi' disimpan di dalam model Kategori] -->
-                    <x-input-form name="deskripsi" :label="'Deskripsi'"/>
+                    <x-input-form name="code" label="Kode Kategori"/>
+                    <x-input-form name="type" label="Jenis Kategori"/>
+                    <x-input-form name="deskripsi" label="Deskripsi Kategori"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -121,7 +115,7 @@
         </div>
     </div>
 
-    <!-- [Controller: Form untuk memperbarui data Kategori] -->
+    <!-- Edit Modal -->
     <div class="modal fade" id="editModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
             <form class="modal-content" method="post" action="">
@@ -133,14 +127,14 @@
                         type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
-                        aria-label="Tutup"
+                        aria-label="Close"
                     ></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" value="">
-                    <x-input-form name="code" :label="'Kode'"/>
-                    <x-input-form name="type" :label="'Jenis'"/>
-                    <x-input-form name="deskripsi" :label="'Deskripsi'"/>
+                    <x-input-form name="code" label="Kode Kategori"/>
+                    <x-input-form name="type" label="Jenis Kategori"/>
+                    <x-input-form name="deskripsi" label="Deskripsi Kategori"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">

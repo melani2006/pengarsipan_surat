@@ -9,16 +9,16 @@ use Illuminate\View\Component;
 
 class DispositionCard extends Component
 {
-    public Disposition $disposition;
+    public Disposisi $disposisi;
     public Surat $surat;
 
     /**
-     * @param Disposition $disposition
+     * @param Disposisi $disposisi
      * @param Surat $surat
      */
-    public function __construct(Disposition $disposition, Surat $surat)
+    public function __construct(Disposisi $disposisi, Surat $surat)
     {
-        $this->disposition = $disposition;
+        $this->disposisi = $disposisi;
         $this->surat = $surat;
     }
 

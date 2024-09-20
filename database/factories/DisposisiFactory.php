@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Disposisi;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +17,10 @@ class DisposisiFactory extends Factory
     public function definition(): array
     {
         return [
-            'to' => $this->faker->name(),
-            'due_date' => $this->faker->date(),
+            'penerima' => $this->faker->name(),
+            'batas_waktu' => $this->faker->date(),
             'content' => $this->faker->sentence(10),
-            'Catatan' => $this->faker->sentence(3),
+            'catatan' => $this->faker->sentence(3),
             'status_surat' => $this->faker->numberBetween(1,3),
             'surat_id' => $this->faker->numberBetween(1, 50),
             'user_id' => 1,

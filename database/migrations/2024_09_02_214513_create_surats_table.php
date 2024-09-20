@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Jalankan migration.
+     * Run the migrations.
      *
      * @return void
      */
@@ -19,20 +19,20 @@ return new class extends Migration
             $table->string('nomor_agenda');
             $table->string('pengirim')->nullable();
             $table->string('penerima')->nullable();
-            $table->date('Tanggal_Surat')->nullable();
-            $table->date('Tanggal_Diterima')->nullable();
+            $table->date('tanggal_surat')->nullable();
+            $table->date('tanggal_diterima')->nullable();
             $table->text('deskripsi')->nullable();
-            $table->text('Catatan');
-            $table->string('type')->default('incoming')->comment('Jenis Surat (incoming/outgoing)');
-            $table->string('kategoris_code');
-            $table->foreign('kategoris_code')->references('code')->on('kategoris')->onDelete('cascade');
+            $table->text('catatan')->nullable();
+            $table->string('type')->default('masuk')->comment('Surat Masuk (masuk)/Surat Keluar (keluar)');
+            $table->string('kategori_code');
+            $table->foreign('kategori_code')->references('code')->on('kategoris');
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate();
             $table->timestamps();
         });
     }
 
     /**
-     * Balikkan migration.
+     * Reverse the migrations.
      *
      * @return void
      */

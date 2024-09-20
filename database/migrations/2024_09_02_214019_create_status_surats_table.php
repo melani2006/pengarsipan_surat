@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Jalankan migration.
+     * Run the migrations.
      *
      * @return void
      */
@@ -21,7 +21,7 @@ return new class extends Migration
     }
 
     /**
-     * Balikkan migration.
+     * Reverse the migrations.
      *
      * @return void
      */

@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreClassificationRequest;
-use App\Http\Requests\UpdateClassificationRequest;
+use App\Http\Requests\StoreKategoriRequest;
+use App\Http\Requests\UpdateKategoriRequest;
 use App\Models\Kategori;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class KategoriController extends Controller
 {
     /**
-     * Menampilkan daftar resource.
+     * Display a listing of the resource.
      *
      * @param Request $request
      * @return View
@@ -26,40 +27,40 @@ class KategoriController extends Controller
     }
 
     /**
-     * Menyimpan resource yang baru dibuat.
+     * Store a newly created resource in storage.
      *
-     * @param StoreClassificationRequest $request
+     * @param StoreKategoriRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreClassificationRequest $request): RedirectResponse
+    public function store(StoreKategoriRequest $request): RedirectResponse
     {
         try {
             Kategori::create($request->validated());
-            return back()->with('success', 'Berhasil menyimpan data.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
 
     /**
-     * Memperbarui resource yang ditentukan.
+     * Update the specified resource in storage.
      *
-     * @param UpdateClassificationRequest $request
+     * @param UpdateKategoriRequest $request
      * @param Kategori $kategori
      * @return RedirectResponse
      */
-    public function update(UpdateClassificationRequest $request, Kategori $kategori): RedirectResponse
+    public function update(UpdateKategoriRequest $request, Kategori $kategori): RedirectResponse
     {
         try {
             $kategori->update($request->validated());
-            return back()->with('success', 'Berhasil memperbarui data.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
 
     /**
-     * Menghapus resource yang ditentukan.
+     * Remove the specified resource from storage.
      *
      * @param Kategori $kategori
      * @return RedirectResponse
@@ -68,7 +69,7 @@ class KategoriController extends Controller
     {
         try {
             $kategori->delete();
-            return back()->with('success', 'Berhasil menghapus data.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

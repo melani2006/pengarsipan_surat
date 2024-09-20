@@ -3,12 +3,12 @@
 @section('content')
     <x-breadcrumb
         :values="['Transaksi', 'Surat Masuk']">
-        <a href="{{ route('transaksi.masuk.create') }}" class="btn btn-primary">Tambah</a>
+        <a href="{{ route('transaksi.masuk.create') }}" class="btn btn-primary">Buat Surat</a>
     </x-breadcrumb>
 
-    @foreach($data as $letter)
+    @foreach($data as $surat)
         <x-letter-card
-            :letter="$letter"
+            :surat="$surat"
         />
     @endforeach
 

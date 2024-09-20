@@ -18,45 +18,42 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use JetBrains\PhpStorm\NoReturn;
 
 class PageController extends Controller
 {
     /**
-     * Menampilkan halaman utama.
-     *
      * @param Request $request
      * @return View
      */
     public function index(Request $request): View
     {
-        $todayIncomingLetter = Surat::incoming()->today()->count();
-        $todayOutgoingLetter = Surat::outgoing()->today()->count();
-        $todayDispositionLetter = Disposisi::today()->count();
-        $todayLetterTransaction = $todayIncomingLetter + $todayOutgoingLetter + $todayDispositionLetter;
+        $todaySuratMasuk = Surat::incoming()->today()->count();
+        $todaySuratKeluar = Surat::outgoing()->today()->count();
+        $todayDisposisiSurat = Disposisi::today()->count();
+        $todaySuratTransaksi = $todaySuratMasuk + $todaySuratKeluar + $todayDisposisiSurat;
 
-        $yesterdayIncomingLetter = Surat::incoming()->yesterday()->count();
-        $yesterdayOutgoingLetter = Surat::outgoing()->yesterday()->count();
-        $yesterdayDispositionLetter = Disposisi::yesterday()->count();
-        $yesterdayLetterTransaction = $yesterdayIncomingLetter + $yesterdayOutgoingLetter + $yesterdayDispositionLetter;
+        $yesterdaySuratMasuk = Surat::incoming()->yesterday()->count();
+        $yesterdaySuratKeluar = Surat::outgoing()->yesterday()->count();
+        $yesterdayDisposisiSurat = Disposisi::yesterday()->count();
+        $yesterdaySuratTransaksi = $yesterdaySuratMasuk + $yesterdaySuratKeluar + $yesterdayDisposisiSurat;
 
         return view('pages.dashboard', [
             'greeting' => GeneralHelper::greeting(),
             'currentDate' => Carbon::now()->isoFormat('dddd, D MMMM YYYY'),
-            'todayIncomingLetter' => $todayIncomingLetter,
-            'todayOutgoingLetter' => $todayOutgoingLetter,
-            'todayDispositionLetter' => $todayDispositionLetter,
-            'todayLetterTransaction' => $todayLetterTransaction,
+            'todaySuratMasuk' => $todaySuratMasuk,
+            'todaySuratKeluar' => $todaySuratKeluar,
+            'todayDisposisiSurat' => $todayDisposisiSurat,
+            'todaySuratTransaksi' => $todaySuratTransaksi,
             'activeUser' => User::active()->count(),
-            'percentageIncomingLetter' => GeneralHelper::calculateChangePercentage($yesterdayIncomingLetter, $todayIncomingLetter),
-            'percentageOutgoingLetter' => GeneralHelper::calculateChangePercentage($yesterdayOutgoingLetter, $todayOutgoingLetter),
-            'percentageDispositionLetter' => GeneralHelper::calculateChangePercentage($yesterdayDispositionLetter, $todayDispositionLetter),
-            'percentageLetterTransaction' => GeneralHelper::calculateChangePercentage($yesterdayLetterTransaction, $todayLetterTransaction),
+            'percentageSuratMasuk' => GeneralHelper::calculateChangePercentage($yesterdaySuratMasuk, $todaySuratMasuk),
+            'percentageSuratKeluar' => GeneralHelper::calculateChangePercentage($yesterdaySuratKeluar, $todaySuratKeluar),
+            'percentageDisposisiSurat' => GeneralHelper::calculateChangePercentage($yesterdayDisposisiSurat, $todayDisposisiSurat),
+            'percentageSuratTransaksi' => GeneralHelper::calculateChangePercentage($yesterdaySuratTransaksi, $todaySuratTransaksi),
         ]);
     }
 
     /**
-     * Menampilkan halaman profil.
-     *
      * @param Request $request
      * @return View
      */
@@ -68,8 +65,6 @@ class PageController extends Controller
     }
 
     /**
-     * Memperbarui profil pengguna.
-     *
      * @param UpdateUserRequest $request
      * @return RedirectResponse
      */
@@ -78,14 +73,14 @@ class PageController extends Controller
         try {
             $newProfile = $request->validated();
             if ($request->hasFile('profile_picture')) {
-                // Hapus foto lama
+//               DELETE OLD PICTURE
                 $oldPicture = auth()->user()->profile_picture;
                 if (str_contains($oldPicture, '/storage/avatars/')) {
                     $url = parse_url($oldPicture, PHP_URL_PATH);
                     Storage::delete(str_replace('/storage', 'public', $url));
                 }
 
-                // Upload foto baru
+//                UPLOAD NEW PICTURE
                 $filename = time() .
                     '-' . $request->file('profile_picture')->getFilename() .
                     '.' . $request->file('profile_picture')->getClientOriginalExtension();
@@ -93,15 +88,13 @@ class PageController extends Controller
                 $newProfile['profile_picture'] = asset('storage/avatars/' . $filename);
             }
             auth()->user()->update($newProfile);
-            return back()->with('success', 'Berhasil memperbarui profil.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
 
     /**
-     * Menonaktifkan akun pengguna.
-     *
      * @return RedirectResponse
      */
     public function deactivate(): RedirectResponse
@@ -109,15 +102,13 @@ class PageController extends Controller
         try {
             auth()->user()->update(['is_active' => false]);
             Auth::logout();
-            return back()->with('success', 'Akun berhasil dinonaktifkan.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
     }
 
     /**
-     * Menampilkan halaman pengaturan.
-     *
      * @param Request $request
      * @return View
      */
@@ -129,8 +120,6 @@ class PageController extends Controller
     }
 
     /**
-     * Memperbarui pengaturan.
-     *
      * @param UpdateConfigRequest $request
      * @return RedirectResponse
      */
@@ -142,7 +131,7 @@ class PageController extends Controller
                 Config::where('code', $code)->update(['value' => $value]);
             }
             DB::commit();
-            return back()->with('success', 'Pengaturan berhasil diperbarui.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             DB::rollBack();
             return back()->with('error', $exception->getMessage());
@@ -150,22 +139,20 @@ class PageController extends Controller
     }
 
     /**
-     * Menghapus lampiran.
-     *
      * @param Request $request
      * @return RedirectResponse
      */
-    public function removeAttachment(Request $request): RedirectResponse
+    public function removeLampiran(Request $request): RedirectResponse
     {
         try {
             $lampiran = Lampiran::find($request->id);
             $oldPicture = $lampiran->path_url;
-            if (str_contains($oldPicture, '/storage/attachments/')) {
+            if (str_contains($oldPicture, '/storage/lampirans/')) {
                 $url = parse_url($oldPicture, PHP_URL_PATH);
                 Storage::delete(str_replace('/storage', 'public', $url));
             }
             $lampiran->delete();
-            return back()->with('success', 'Lampiran berhasil dihapus.');
+            return back()->with('success', __('menu.general.success'));
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

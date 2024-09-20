@@ -14,25 +14,12 @@ class Config extends Model
         'value',
     ];
 
-    /**
-     * Mengambil nilai berdasarkan kode konfigurasi.
-     *
-     * @param \App\Enums\Config $code
-     * @return string
-     */
     public static function getValueByCode(\App\Enums\Config $code): string
     {
         $config = self::code($code)->first();
         return $config->value;
     }
 
-    /**
-     * Scope untuk mencari konfigurasi berdasarkan kode.
-     *
-     * @param $query
-     * @param \App\Enums\Config $code
-     * @return mixed
-     */
     public function scopeCode($query, \App\Enums\Config $code)
     {
         return $query->where('code', $code->value());

@@ -16,13 +16,6 @@ class Kategori extends Model
         'deskripsi',
     ];
 
-    /**
-     * Scope untuk mencari klasifikasi berdasarkan kriteria pencarian.
-     *
-     * @param $query
-     * @param $search
-     * @return mixed
-     */
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function($query, $find) {
@@ -32,13 +25,6 @@ class Kategori extends Model
         });
     }
 
-    /**
-     * Scope untuk merender hasil pencarian dengan paginasi.
-     *
-     * @param $query
-     * @param $search
-     * @return mixed
-     */
     public function scopeRender($query, $search)
     {
         return $query

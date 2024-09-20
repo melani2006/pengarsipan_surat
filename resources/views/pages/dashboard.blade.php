@@ -13,7 +13,7 @@
             },
             series: [{
                 name: 'Transaksi Surat',
-                data: [{{ $todayIncomingLetter }},{{ $todayOutgoingLetter }},{{ $todayDispositionLetter }}]
+                data: [{{ $todaySuratMasuk }},{{ $todaySuratKeluar }},{{ $todayDisposisiSurat }}]
             }],
             stroke: {
                 curve: 'smooth',
@@ -68,16 +68,16 @@
                                     <span class="badge bg-label-warning rounded-pill">Hari Ini</span>
                                 </div>
                                 <div class="mt-sm-auto">
-                                    @if($percentageLetterTransaction > 0)
+                                    @if($percentageSuratTransaksi > 0)
                                     <small class="text-success text-nowrap fw-semibold">
-                                        <i class="bx bx-chevron-up"></i> {{ $percentageLetterTransaction }}%
+                                        <i class="bx bx-chevron-up"></i> {{ $percentageSuratTransaksi }}%
                                     </small>
-                                    @elseif($percentageLetterTransaction < 0)
+                                    @elseif($percentageSuratTransaksi < 0)
                                         <small class="text-danger text-nowrap fw-semibold">
-                                            <i class="bx bx-chevron-down"></i> {{ $percentageLetterTransaction }}%
+                                            <i class="bx bx-chevron-down"></i> {{ $percentageSuratTransaksi }}%
                                         </small>
                                     @endif
-                                    <h3 class="mb-0 display-4">{{ $todayLetterTransaction }}</h3>
+                                    <h3 class="mb-0 display-4">{{ $todaySuratTransaksi }}</h3>
                                 </div>
                             </div>
                             <div id="profileReportChart" style="min-height: 80px; width: 80%">
@@ -93,31 +93,31 @@
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <x-dashboard-card-simple
                         :label="'Surat Masuk'"
-                        :value="$todayIncomingLetter"
+                        :value="$todaySuratMasuk"
                         :daily="true"
                         color="success"
                         icon="bx-envelope"
-                        :percentage="$percentageIncomingLetter"
+                        :percentage="$percentageSuratMasuk"
                     />
                 </div>
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <x-dashboard-card-simple
                         :label="'Surat Keluar'"
-                        :value="$todayOutgoingLetter"
+                        :value="$todaySuratKeluar"
                         :daily="true"
                         color="danger"
                         icon="bx-envelope"
-                        :percentage="$percentageOutgoingLetter"
+                        :percentage="$percentageSuratKeluar"
                     />
                 </div>
                 <div class="col-lg-6 col-md-12 col-6 mb-4">
                     <x-dashboard-card-simple
                         :label="'Surat Disposisi'"
-                        :value="$todayDispositionLetter"
+                        :value="$todayDisposisiSurat"
                         :daily="true"
                         color="primary"
                         icon="bx-envelope"
-                        :percentage="$percentageDispositionLetter"
+                        :percentage="$percentageDisposisiSurat"
                     />
                 </div>
                 <div class="col-lg-6 col-md-12 col-6 mb-4">

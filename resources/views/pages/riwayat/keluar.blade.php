@@ -1,8 +1,8 @@
 @extends('layout.main')
 
-@section('z')
+@section('content')
     <x-breadcrumb
-        :values="['riwayat', 'Surat Keluar']">
+        :values="[__('riwayat'), __('surat keluar')]">
     </x-breadcrumb>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
@@ -12,11 +12,12 @@
                     :filename="$lampiran->filename"
                     :extension="$lampiran->extension"
                     :path="$lampiran->path_url"
-                    :letter="$lampiran->letter"
+                    :surat="$lampiran->surat"
                 />
             </div>
         @endforeach
     </div>
+
 
     {!! $data->appends(['search' => $search])->links() !!}
 

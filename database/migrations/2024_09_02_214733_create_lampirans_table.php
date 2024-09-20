@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Jalankan migration.
+     * Run the migrations.
      *
      * @return void
      */
@@ -16,17 +16,16 @@ return new class extends Migration
         Schema::create('lampirans', function (Blueprint $table) {
             $table->id();
             $table->string('path')->nullable();
-            $table->string('Nama File');
-            $table->string('Ekstensi')->default('pdf');
-            $table->unsignedBigInteger('surat_id')->comment('ID Surat');
-            $table->foreign('surat_id')->references('id')->on('surats')->onDelete('cascade');
+            $table->string('filename');
+            $table->string('extension')->default('pdf');
+            $table->foreignId('surat_id')->constrained('surats')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate();
             $table->timestamps();
         });
     }
 
     /**
-     * Balikkan migration.
+     * Reverse the migrations.
      *
      * @return void
      */
