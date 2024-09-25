@@ -65,7 +65,7 @@
         <th>Pengirim</th>
         <th>Tanggal Surat</th>
         <th>Deskripsi</th>
-        <th>Catatan</th>
+        <th>catatan</th>
     </tr>
     </thead>
     <tbody>

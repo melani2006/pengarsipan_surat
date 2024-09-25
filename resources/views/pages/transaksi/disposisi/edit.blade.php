@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-8">
-                    <x-input-form name="catatan" :value="$data->catatan ?? ''" label="Catatan"/>
+                    <x-input-form name="catatan" :value="$data->catatan ?? ''" label="catatan"/>
                 </div>
             </div>
             <div class="card-footer pt-0">

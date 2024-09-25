@@ -13,7 +13,7 @@
             <div class="card-title d-flex flex-row">
                 <div class="d-inline-block mx-2 text-end text-black">
                     <small class="d-block text-secondary">Tanggal Surat</small>
-                    {{ $surat->formatted_Tanggal_Surat }}
+                    {{ $surat->formatted_tanggal_surat }}
                 </div>
                 @if($surat->type == 'masuk')
                     <div class="mx-3">
@@ -70,7 +70,7 @@
         <hr>
         <p>{{ $surat->deskripsi }}</p>
         <div class="d-flex justify-content-between flex-column flex-sm-row">
-            <small class="text-secondary">{{ $surat->Catatan }}</small>
+            <small class="text-secondary">{{ $surat->catatan }}</small>
             @if(count($surat->lampirans))
                 <div>
                     @foreach($surat->lampirans as $lampiran)

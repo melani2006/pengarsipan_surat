@@ -23,7 +23,7 @@ class StoreDisposisiRequest extends FormRequest
             'content' => __('model.disposisi.content'),
             'batas_waktu' => __('model.disposisi.batas_waktu'),
             'status_surat' => __('model.dispossi.status'),
-            'Catatan' => __('model.disposisi.Catatan'),
+            'catatan' => __('model.disposisi.catatan'),
         ];
     }
 
@@ -39,7 +39,7 @@ class StoreDisposisiRequest extends FormRequest
             'content' => ['required'],
             'batas_waktu' => ['required'],
             'status_surat' => ['required'],
-            'Catatan' => ['nullable'],
+            'catatan' => ['nullable'],
         ];
     }
 }

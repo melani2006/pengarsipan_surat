@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
-                    <x-input-form name="catatan" label="Catatan"/>
+                    <x-input-form name="catatan" label="catatan"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">

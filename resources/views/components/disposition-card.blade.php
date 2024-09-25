@@ -33,7 +33,7 @@
     <div class="card-body">
         <hr>
         <p>{{ $disposisi->content }}</p>
-        <small class="text-secondary">{{ $disposisi->Catatan }}</small>
+        <small class="text-secondary">{{ $disposisi->catatan }}</small>
         {{ $slot }}
     </div>
 </div>
