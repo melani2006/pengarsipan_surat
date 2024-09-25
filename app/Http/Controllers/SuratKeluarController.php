@@ -39,7 +39,7 @@ class SuratKeluarController extends Controller
     public function agenda(Request $request): View
     {
         return view('pages.transaksi.keluar.agenda', [
-            'data' => Surat::outgoing()->agenda($request->since, $request->until, $request->cari)->render($request->search),
+            'data' => Surat::keluar()->agenda($request->since, $request->until, $request->cari)->render($request->search),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,

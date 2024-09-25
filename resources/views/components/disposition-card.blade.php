@@ -7,7 +7,7 @@
             </div>
             <div class="card-title d-flex flex-row">
                 <div class="d-inline-block mx-2 text-end text-black">
-                    <small class="d-block text-secondary">Tanggal Jatuh Tempo</small>
+                    <small class="d-block text-secondary">batas waktu</small>
                     {{ $disposisi->formatted_batas_waktu }}
                 </div>
                 <div class="dropdown d-inline-block">

@@ -63,7 +63,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\View\\Components\\Breadcrumb' => $baseDir . '/app/View/Components/Breadcrumb.php',
     'App\\View\\Components\\DashboardCardSimple' => $baseDir . '/app/View/Components/DashboardCardSimple.php',
-    'App\\View\\Components\\DisposisiCard' => $baseDir . '/app/View/Components/DisposisiCard.php',
+    'App\\View\\Components\\DispositionCard' => $baseDir . '/app/View/Components/DispositionCard.php',
     'App\\View\\Components\\GalleryCard' => $baseDir . '/app/View/Components/GalleryCard.php',
     'App\\View\\Components\\InputForm' => $baseDir . '/app/View/Components/InputForm.php',
     'App\\View\\Components\\InputTextareaForm' => $baseDir . '/app/View/Components/InputTextareaForm.php',

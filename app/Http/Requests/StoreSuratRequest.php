@@ -23,7 +23,7 @@ class StoreSuratRequest extends FormRequest
         return [
             'nomor_agenda' => __('model.Surat.nomor_agenda'),
             'pengirim' => __('model.Surat.pengirim'),
-            // 'penerima' => __('model.Surat.penerima'),
+            'penerima' => __('model.Surat.penerima'),
             'nomor_surat' => __('model.Surat.nomor_surat'),
             'tanggal_diterima' => __('model.Surat.Tanggal_Diterima'),
             'tanggal_surat' => __('model.Surat.Tanggal_Surat'),
@@ -43,7 +43,7 @@ class StoreSuratRequest extends FormRequest
         return [
             'nomor_agenda' => ['required'],
             'pengirim' => [Rule::requiredIf($this->type == LetterType::INCOMING->type())],
-            // 'penerima' => [Rule::requiredIf($this->type == LetterType::OUTGOING->type())],
+            'penerima' => [Rule::requiredIf($this->type == LetterType::OUTGOING->type())],
             'type' => ['required'],
             'nomor_surat' => ['required', Rule::unique('surats')],
             'tanggal_diterima' => [Rule::requiredIf($this->type == LetterType::INCOMING->type())],

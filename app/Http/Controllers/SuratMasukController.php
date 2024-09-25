@@ -40,7 +40,7 @@ class SuratMasukController extends Controller
     public function agenda(Request $request): View
     {
         return view('pages.transaksi.masuk.agenda', [
-            'data' => Surat::incoming()->agenda($request->since, $request->until, $request->cari)->render($request->search),
+            'data' => Surat::masuk()->agenda($request->since, $request->until, $request->cari)->render($request->search),
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
