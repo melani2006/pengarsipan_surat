@@ -11,11 +11,6 @@ use Illuminate\Http\Request;
 
 class StatusSuratController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return View
-     */
     public function index(Request $request): View
     {
         return view('pages.reference.status', [
