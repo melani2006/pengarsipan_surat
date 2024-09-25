@@ -15,7 +15,7 @@
                                       :value="$since ? date('Y-m-d', strtotime($since)) : ''"/>
                     </div>
                     <div class="col">
-                        <x-input-form name="until" label="Tanggal selesai" type="date"
+                        <x-input-form name="until" label="Tanggal Selesai" type="date"
                                       :value="$until ? date('Y-m-d', strtotime($until)) : ''"/>
                     </div>
                     <div class="col">
