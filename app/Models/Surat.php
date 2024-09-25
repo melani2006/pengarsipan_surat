@@ -68,12 +68,12 @@ class Surat extends Model
         return $query->where('type', $type->type());
     }
 
-    public function scopeIncoming($query)
+    public function scopeMasuk($query)
     {
         return $this->scopeType($query, LetterType::INCOMING);
     }
 
-    public function scopeOutgoing($query)
+    public function scopeKeluar($query)
     {
         return $this->scopeType($query, LetterType::OUTGOING);
     }

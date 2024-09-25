@@ -23,12 +23,12 @@ class StoreSuratRequest extends FormRequest
         return [
             'nomor_agenda' => __('model.Surat.nomor_agenda'),
             'pengirim' => __('model.Surat.pengirim'),
-            'penerima' => __('model.Surat.penerima'),
+            // 'penerima' => __('model.Surat.penerima'),
             'nomor_surat' => __('model.Surat.nomor_surat'),
-            'Tanggal_Diterima' => __('model.Surat.Tanggal_Diterima'),
-            'Tanggal_Surat' => __('model.Surat.Tanggal_Surat'),
+            'tanggal_diterima' => __('model.Surat.Tanggal_Diterima'),
+            'tanggal_surat' => __('model.Surat.Tanggal_Surat'),
             'deskripsi' => __('model.Surat.deskripsi'),
-            'Catatan' => __('model.Surat.Catatan'),
+            'catatan' => __('model.Surat.Catatan'),
             'kategori_code' => __('model.Surat.kategori_code'),
         ];
     }
@@ -43,13 +43,13 @@ class StoreSuratRequest extends FormRequest
         return [
             'nomor_agenda' => ['required'],
             'pengirim' => [Rule::requiredIf($this->type == LetterType::INCOMING->type())],
-            'penerima' => [Rule::requiredIf($this->type == LetterType::OUTGOING->type())],
+            // 'penerima' => [Rule::requiredIf($this->type == LetterType::OUTGOING->type())],
             'type' => ['required'],
             'nomor_surat' => ['required', Rule::unique('surats')],
-            'Tanggal_Diterima' => [Rule::requiredIf($this->type == LetterType::INCOMING->type())],
-            'Tanggal_Surat' => ['required'],
+            'tanggal_diterima' => [Rule::requiredIf($this->type == LetterType::INCOMING->type())],
+            'tanggal_surat' => ['required'],
             'deskripsi' => ['required'],
-            'Catatan' => ['nullable'],
+            'catatan' => ['nullable'],
             'kategori_code' => ['required'],
         ];
     }

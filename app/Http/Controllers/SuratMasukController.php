@@ -26,7 +26,7 @@ class SuratMasukController extends Controller
     public function index(Request $request): View
     {
         return view('pages.transaksi.masuk.index', [
-            'data' => Surat::incoming()->render($request->search),
+            'data' => Surat::masuk()->render($request->search),
             'search' => $request->search,
         ]);
     }

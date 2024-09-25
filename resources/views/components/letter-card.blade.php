@@ -18,7 +18,7 @@
                 @if($surat->type == 'masuk')
                     <div class="mx-3">
                         <a href="{{ route('transaksi.disposisi.index', $surat) }}"
-                           class="btn btn-primary btn">Disposisi <span>({{ $surat->disposisis->count() }})</span></a>
+                           class="btn btn-primary btn">Disposisi <span>({{ $surat->disposisi->count() }})</span></a>
                     </div>
                 @endif
                 <div class="dropdown d-inline-block">
