@@ -73,11 +73,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('keluar/print', [\App\Http\Controllers\SuratKeluarController::class, 'print'])->name('keluar.print');
     });
 
-    Route::prefix('riwayat')->as('riwayat.')->group(function () {
-        Route::get('masuk', [\App\Http\Controllers\RiwayatController::class, 'masuk'])->name('masuk');
-        Route::get('keluar', [\App\Http\Controllers\RiwayatController::class, 'keluar'])->name('keluar');
-    });
-
     Route::prefix('reference')->as('reference.')->middleware(['role:admin'])->group(function () {
         Route::resource('kategori', \App\Http\Controllers\KategoriController::class)->except(['show', 'create', 'edit']);
         Route::resource('status', \App\Http\Controllers\StatusSuratController::class)->except(['show', 'create', 'edit']);

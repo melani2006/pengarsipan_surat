@@ -70,7 +70,7 @@
                                     <span class="d-none d-sm-block">Batal</span>
                                 </button>
 
-                                <p class="text-muted mb-0">< 800K (JPG, GIF, PNG)</p>
+                                <p class="text-muted mb-0">< 800K (JPG, PNG)</p>
                             </div>
                         </div>
                     </div>

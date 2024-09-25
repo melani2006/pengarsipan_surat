@@ -21,7 +21,6 @@ return array(
     'App\\Http\\Controllers\\DisposisiController' => $baseDir . '/app/Http/Controllers/DisposisiController.php',
     'App\\Http\\Controllers\\KategoriController' => $baseDir . '/app/Http/Controllers/KategoriController.php',
     'App\\Http\\Controllers\\PageController' => $baseDir . '/app/Http/Controllers/PageController.php',
-    'App\\Http\\Controllers\\RiwayatController' => $baseDir . '/app/Http/Controllers/RiwayatController.php',
     'App\\Http\\Controllers\\StatusSuratController' => $baseDir . '/app/Http/Controllers/StatusSuratController.php',
     'App\\Http\\Controllers\\SuratKeluarController' => $baseDir . '/app/Http/Controllers/SuratKeluarController.php',
     'App\\Http\\Controllers\\SuratMasukController' => $baseDir . '/app/Http/Controllers/SuratMasukController.php',

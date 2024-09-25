@@ -64,24 +64,6 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Menu Lainnya</span>
         </li>
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.*') ? 'active open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-images"></i>
-                <div>riwayat</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.masuk') ? 'active' : '' }}">
-                    <a href="{{ route('riwayat.masuk') }}" class="menu-link">
-                        <div>Surat Masuk</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.keluar') ? 'active' : '' }}">
-                    <a href="{{ route('riwayat.keluar') }}" class="menu-link">
-                        <div>Surat Keluar</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
         @if(auth()->user()->role == 'admin')
             <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.*') ? 'active open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">

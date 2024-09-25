@@ -28,13 +28,13 @@ class PageController extends Controller
      */
     public function index(Request $request): View
     {
-        $todaySuratMasuk = Surat::incoming()->today()->count();
-        $todaySuratKeluar = Surat::outgoing()->today()->count();
+        $todaySuratMasuk = Surat::masuk()->today()->count();
+        $todaySuratKeluar = Surat::keluar()->today()->count();
         $todayDisposisiSurat = Disposisi::today()->count();
         $todaySuratTransaksi = $todaySuratMasuk + $todaySuratKeluar + $todayDisposisiSurat;
 
-        $yesterdaySuratMasuk = Surat::incoming()->yesterday()->count();
-        $yesterdaySuratKeluar = Surat::outgoing()->yesterday()->count();
+        $yesterdaySuratMasuk = Surat::masuk()->yesterday()->count();
+        $yesterdaySuratKeluar = Surat::keluar()->yesterday()->count();
         $yesterdayDisposisiSurat = Disposisi::yesterday()->count();
         $yesterdaySuratTransaksi = $yesterdaySuratMasuk + $yesterdaySuratKeluar + $yesterdayDisposisiSurat;
 

@@ -545,7 +545,6 @@ class ComposerStaticInit2931fb0f1628e8cec2b065218a85959d
         'App\\Http\\Controllers\\DisposisiController' => __DIR__ . '/../..' . '/app/Http/Controllers/DisposisiController.php',
         'App\\Http\\Controllers\\KategoriController' => __DIR__ . '/../..' . '/app/Http/Controllers/KategoriController.php',
         'App\\Http\\Controllers\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/PageController.php',
-        'App\\Http\\Controllers\\RiwayatController' => __DIR__ . '/../..' . '/app/Http/Controllers/RiwayatController.php',
         'App\\Http\\Controllers\\StatusSuratController' => __DIR__ . '/../..' . '/app/Http/Controllers/StatusSuratController.php',
         'App\\Http\\Controllers\\SuratKeluarController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuratKeluarController.php',
         'App\\Http\\Controllers\\SuratMasukController' => __DIR__ . '/../..' . '/app/Http/Controllers/SuratMasukController.php',
