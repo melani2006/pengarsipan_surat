@@ -24,6 +24,16 @@ class SuratKeluarController extends Controller
      */
     public function index(Request $request): View
     {
+        $user = auth()->user();
+
+        if ($user->role === 'admin') {
+            // Admin can view all outgoing letters
+            $surats = Surat::keluar()->render($request->search);
+        } else {
+            // Staff can only view their own outgoing letters
+            $surats = Surat::where('user_id', $user->id)->keluar()->render($request->search);
+        }
+
         return view('pages.transaksi.keluar.index', [
             'data' => Surat::keluar()->render($request->search),
             'search' => $request->search,
