@@ -66,10 +66,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('{surat}/disposisi', \App\Http\Controllers\DisposisiController::class)->except(['show']);
     });
 
-    Route::prefix('agenda')->as('agenda.')->group(function () {
-        Route::get('masuk', [\App\Http\Controllers\SuratMasukController::class, 'agenda'])->name('masuk');
+    Route::prefix('riwayat')->as('riwayat.')->group(function () {
+        Route::get('masuk', [\App\Http\Controllers\SuratMasukController::class, 'riwayat'])->name('masuk');
         Route::get('masuk/print', [\App\Http\Controllers\SuratMasukController::class, 'print'])->name('masuk.print');
-        Route::get('keluar', [\App\Http\Controllers\SuratKeluarController::class, 'agenda'])->name('keluar');
+        Route::get('keluar', [\App\Http\Controllers\SuratKeluarController::class, 'riwayat'])->name('keluar');
         Route::get('keluar/print', [\App\Http\Controllers\SuratKeluarController::class, 'print'])->name('keluar.print');
     });
 

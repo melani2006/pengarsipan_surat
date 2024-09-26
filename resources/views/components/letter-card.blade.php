@@ -5,7 +5,7 @@
                 <h5 class="text-nowrap mb-0 fw-bold">{{ $surat->nomor_surat }}</h5>
                 <small class="text-black">
                     {{ $surat->type == 'masuk' ? $surat->pengirim : $surat->penerima }} |
-                    <span class="text-secondary">Agenda Nomor:</span> {{ $surat->nomor_agenda }}
+                    <span class="text-secondary">Riwayat Nomor:</span> {{ $surat->nomor_riwayat }}
                     |
                     {{ $surat->kategori?->type }}
                 </small>

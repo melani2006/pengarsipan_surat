@@ -17,7 +17,7 @@
                     <x-input-form name="penerima" label="Penerima"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
-                    <x-input-form name="nomor_agenda" label="Nomor Agenda"/>
+                    <x-input-form name="nomor_riwayat" label="Nomor Riwayat"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-12">
                     <x-input-form name="tanggal_surat" label="Tanggal Surat" type="date"/>

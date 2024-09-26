@@ -97,4 +97,9 @@ class User extends Authenticatable
                 'search' => $search,
             ]);
     }
+
+    public function isAdmin(): bool
+   {
+    return $this->role === Role::ADMIN->status(); 
+   }
 }

@@ -25,49 +25,78 @@ class SuratMasukController extends Controller
      */
     public function index(Request $request): View
     {
+        $user = auth()->user();
+        
+        // Jika admin, dapatkan semua surat masuk, jika bukan admin hanya surat miliknya sendiri
+        $data = $user->isAdmin() 
+            ? Surat::masuk()->render($request->search)
+            : Surat::masuk()->where('user_id', $user->id)->render($request->search);
+    
         return view('pages.transaksi.masuk.index', [
-            'data' => Surat::masuk()->render($request->search),
+            'data' => $data,
             'search' => $request->search,
         ]);
     }
-
+    
     /**
-     * Display a listing of the surat masuk agenda.
+     * Display a listing of the riwayat surat masuk.
      *
      * @param Request $request
      * @return View
      */
-    public function agenda(Request $request): View
-    {
-        return view('pages.transaksi.masuk.agenda', [
-            'data' => Surat::masuk()->agenda($request->since, $request->until, $request->cari)->render($request->search),
-            'search' => $request->search,
-            'since' => $request->since,
-            'until' => $request->until,
-            'cari' => $request->cari,
-            'query' => $request->getQueryString(),
-        ]);
+    public function riwayat(Request $request): View
+{
+    $user = auth()->user();
+
+    // Jika admin, dapatkan semua surat masuk
+    if ($user->isAdmin()) {
+        $data = Surat::masuk()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+        $dataKeluar = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+    } else {
+        // Jika bukan admin, hanya surat milik pengguna
+        $data = Surat::masuk()->where('user_id', $user->id)->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+        $dataKeluar = Surat::keluar()->where('user_id', $user->id)->riwayat($request->since, $request->until, $request->cari)->render($request->search);
     }
 
+    return view('pages.transaksi.masuk.riwayat', [
+        'data' => $data,
+        'dataKeluar' => $dataKeluar,
+        'search' => $request->search,
+        'since' => $request->since,
+        'until' => $request->until,
+        'cari' => $request->cari,
+        'query' => $request->getQueryString(),
+    ]);
+}
+    
     /**
      * @param Request $request
      * @return View
      */
     public function print(Request $request): View
     {
-        $agenda = __('menu.agenda.menu');
-        $surat = __('menu.agenda.surat_masuk');
-        $title = App::getLocale() == 'id' ? "$agenda $surat" : "$surat $agenda";
+        $user = auth()->user();
+        $riwayat = __('menu.riwayat.menu');
+        $surat = __('menu.riwayat.surat_masuk');
+        $title = App::getLocale() == 'id' ? "$riwayat $surat" : "$surat $riwayat";
+    
+        // Jika admin, dapatkan semua surat untuk dicetak, jika bukan admin hanya miliknya sendiri
+        $data = $user->isAdmin()
+            ? Surat::masuk()->riwayat($request->since, $request->until, $request->cari)->get()
+            : Surat::masuk()->where('user_id', $user->id)
+                            ->riwayat($request->since, $request->until, $request->cari)
+                            ->get();
+    
         return view('pages.transaksi.masuk.print', [
-            'data' => Surat::masuk()->agenda($request->since, $request->until, $request->cari)->get(),
+            'data' => $data,
             'search' => $request->search,
             'since' => $request->since,
             'until' => $request->until,
             'cari' => $request->cari,
-            'config' => Config::pluck('value','code')->toArray(),
+            'config' => Config::pluck('value', 'code')->toArray(),
             'title' => $title,
         ]);
-    }
+    }    
 
     /**
      * Show the form for creating a new resource.

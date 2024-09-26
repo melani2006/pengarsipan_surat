@@ -20,8 +20,8 @@
                 <dt class="col-sm-3">Nomor Surat</dt>
                 <dd class="col-sm-9">{{ $data->nomor_surat }}</dd>
 
-                <dt class="col-sm-3">Nomor Agenda</dt>
-                <dd class="col-sm-9">{{ $data->nomor_agenda }}</dd>
+                <dt class="col-sm-3">Nomor Riwayat</dt>
+                <dd class="col-sm-9">{{ $data->nomor_riwayat }}</dd>
 
                 <dt class="col-sm-3">Kode Kategori</dt>
                 <dd class="col-sm-9">{{ $data->kategori_code }}</dd>

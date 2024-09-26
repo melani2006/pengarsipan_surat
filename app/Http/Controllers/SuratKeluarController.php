@@ -23,50 +23,80 @@ class SuratKeluarController extends Controller
      * @return View
      */
     public function index(Request $request): View
-    {
-        return view('pages.transaksi.keluar.index', [
-            'data' => Surat::keluar()->render($request->search),
-            'search' => $request->search,
-        ]);
+{
+    $user = auth()->user();
+
+    // Admin dapat melihat semua surat keluar
+    $data = Surat::keluar()->render($request->search);
+
+    // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
+    if (!$user->isAdmin()) {
+        $data = Surat::where('user_id', $user->id)->keluar()->render($request->search);
     }
 
-    /**
-     * Display a listing of the surat keluar agenda.
-     *
-     * @param Request $request
-     * @return View
-     */
-    public function agenda(Request $request): View
-    {
-        return view('pages.transaksi.keluar.agenda', [
-            'data' => Surat::keluar()->agenda($request->since, $request->until, $request->cari)->render($request->search),
-            'search' => $request->search,
-            'since' => $request->since,
-            'until' => $request->until,
-            'cari' => $request->cari,
-            'query' => $request->getQueryString(),
-        ]);
+    return view('pages.transaksi.keluar.index', [
+        'data' => $data,
+        'search' => $request->search,
+    ]);
+}
+
+/**
+ * Display a listing of the riwayat surat keluar.
+ *
+ * @param Request $request
+ * @return View
+ */
+public function riwayat(Request $request): View
+{
+    $user = auth()->user();
+
+    // Admin melihat semua surat keluar
+    $data = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+
+    // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
+    if (!$user->isAdmin()) {
+        $data = Surat::where('user_id', $user->id)->keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
     }
 
-    /**
-     * @param Request $request
-     * @return View
-     */
-    public function print(Request $request): View
-    {
-        $agenda = __('menu.agenda.menu');
-        $surat = __('menu.agenda.surat_keluar');
-        $title = App::getLocale() == 'id' ? "$agenda $surat" : "$surat $agenda";
-        return view('pages.transaksi.keluar.print', [
-            'data' => Surat::keluar()->agenda($request->since, $request->until, $request->cari)->get(),
-            'search' => $request->search,
-            'since' => $request->since,
-            'until' => $request->until,
-            'cari' => $request->cari,
-            'config' => Config::pluck('value','code')->toArray(),
-            'title' => $title,
-        ]);
+    return view('pages.transaksi.keluar.riwayat', [
+        'data' => $data,
+        'search' => $request->search,
+        'since' => $request->since,
+        'until' => $request->until,
+        'cari' => $request->cari,
+        'query' => $request->getQueryString(),
+    ]);
+}
+
+/**
+ * @param Request $request
+ * @return View
+ */
+public function print(Request $request): View
+{
+    $user = auth()->user();
+    $riwayat = __('menu.riwayat.menu');
+    $surat = __('menu.riwayat.surat_keluar');
+    $title = App::getLocale() == 'id' ? "$riwayat $surat" : "$surat $riwayat";
+
+    // Admin melihat semua surat keluar
+    $data = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->get();
+
+    // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
+    if (!$user->isAdmin()) {
+        $data = Surat::where('user_id', $user->id)->keluar()->riwayat($request->since, $request->until, $request->cari)->get();
     }
+
+    return view('pages.transaksi.keluar.print', [
+        'data' => $data,
+        'search' => $request->search,
+        'since' => $request->since,
+        'until' => $request->until,
+        'cari' => $request->cari,
+        'config' => Config::pluck('value', 'code')->toArray(),
+        'title' => $title,
+    ]);
+}
 
     /**
      * Show the form for creating a new resource.

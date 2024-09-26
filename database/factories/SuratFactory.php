@@ -20,7 +20,7 @@ class SuratFactory extends Factory
     {
         return [
             'nomor_surat' => $this->faker->ean13(),
-            'nomor_agenda' => $this->faker->randomNumber(5),
+            'nomor_riwayat' => $this->faker->randomNumber(5),
             'pengirim' => $this->faker->name('male'),
             'penerima' => $this->faker->name('female'),
             'tanggal_surat' => $this->faker->date(),

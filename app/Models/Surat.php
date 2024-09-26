@@ -20,7 +20,7 @@ class Surat extends Model
      */
     protected $fillable = [
         'nomor_surat',
-        'nomor_agenda',
+        'nomor_riwayat',
         'pengirim',
         'penerima',
         'tanggal_surat',
@@ -47,11 +47,11 @@ class Surat extends Model
         'formatted_updated_at',
     ];
 
-    public function getFormattedLetterDateAttribute(): string {
+    public function getFormattedTanggalSuratAttribute(): string {
         return Carbon::parse($this->tanggal_surat)->isoFormat('dddd, D MMMM YYYY');
     }
 
-    public function getFormattedReceivedDateAttribute(): string {
+    public function getFormattedTanggalDiterimaAttribute(): string {
         return Carbon::parse($this->tanggal_diterima)->isoFormat('dddd, D MMMM YYYY');
     }
 
@@ -64,9 +64,17 @@ class Surat extends Model
     }
 
     public function scopeType($query, LetterType $type)
-    {
+{
+    $user = auth()->user();
+
+    // Jika admin, ambil semua surat dari tipe yang diberikan
+    // Jika bukan admin, ambil surat yang milik pengguna tersebut
+    if ($user->isAdmin()) {
         return $query->where('type', $type->type());
+    } else {
+        return $query->where('type', $type->type())->where('user_id', $user->id);
     }
+}
 
     public function scopeMasuk($query)
     {
@@ -93,7 +101,7 @@ class Surat extends Model
         return $query->when($search, function($query, $find) {
             return $query
                 ->where('nomor_surat', $find)
-                ->orWhere('nomor_agenda', $find)
+                ->orWhere('nomor_riwayat', $find)
                 ->orWhere('pengirim', 'LIKE', $find . '%')
                 ->orWhere('penerima', 'LIKE', $find . '%');
         });
@@ -111,12 +119,20 @@ class Surat extends Model
             ]);
     }
 
-    public function scopeAgenda($query, $since, $until, $cari)
+    public function scopeRiwayat($query, $since, $until, $cari)
     {
-        return $query
-            ->when($since && $until && $cari, function ($query, $condition) use ($since, $until, $cari) {
+        $user = auth()->user();
+
+        // Admin dapat melihat semua surat dalam rentang waktu yang diberikan
+        // Staf hanya dapat melihat surat miliknya sendiri
+        return $query->when($since && $until, function ($query) use ($since, $until, $cari, $user) {
+            if ($user->isAdmin()) {
                 return $query->whereBetween(DB::raw('DATE(' . $cari . ')'), [$since, $until]);
-            });
+            } else {
+                return $query->where('user_id', $user->id)
+                             ->whereBetween(DB::raw('DATE(' . $cari . ')'), [$since, $until]);
+            }
+        });
     }
 
     /**

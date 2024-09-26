@@ -21,7 +21,7 @@ class StoreSuratRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'nomor_agenda' => __('model.Surat.nomor_agenda'),
+            'nomor_riwayat' => __('model.Surat.nomor_riwayat'),
             'pengirim' => __('model.Surat.pengirim'),
             'penerima' => __('model.Surat.penerima'),
             'nomor_surat' => __('model.Surat.nomor_surat'),
@@ -41,7 +41,7 @@ class StoreSuratRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nomor_agenda' => ['required'],
+            'nomor_riwayat' => ['required'],
             'pengirim' => [Rule::requiredIf($this->type == LetterType::INCOMING->type())],
             'penerima' => [Rule::requiredIf($this->type == LetterType::OUTGOING->type())],
             'type' => ['required'],

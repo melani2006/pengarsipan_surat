@@ -2,10 +2,8 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title }}</title>
     <style>
         body {
             margin: 0;
@@ -24,11 +22,11 @@
 
         table {
             width: 100%;
+            border-collapse: collapse;
         }
 
         table, th, td {
             border: 1px solid black;
-            border-collapse: collapse;
         }
 
         th, td {
@@ -60,18 +58,18 @@
 <table>
     <thead>
     <tr>
-        <th>Nomor Agenda</th>
+        <th>Nomor Riwayat</th>
         <th>Nomor Surat</th>
         <th>Penerima</th>
         <th>Tanggal Surat</th>
         <th>Deskripsi</th>
-        <th>catatan</th>
+        <th>Catatan</th>
     </tr>
     </thead>
     <tbody>
     @foreach($data as $surat)
         <tr>
-            <td>{{ $surat->nomor_agenda }}</td>
+            <td>{{ $surat->nomor_riwayat }}</td>
             <td>{{ $surat->nomor_surat }}</td>
             <td>{{ $surat->penerima }}</td>
             <td>{{ $surat->formatted_tanggal_surat }}</td>

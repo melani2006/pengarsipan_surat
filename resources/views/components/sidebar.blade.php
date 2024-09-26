@@ -42,19 +42,19 @@
                 </li>
             </ul>
         </li>
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.*') ? 'active open' : '' }}">
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-book"></i>
-                <div>Agenda</div>
+                <div>Riwayat</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.masuk') ? 'active' : '' }}">
-                    <a href="{{ route('agenda.masuk') }}" class="menu-link">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.masuk') ? 'active' : '' }}">
+                    <a href="{{ route('riwayat.masuk') }}" class="menu-link">
                         <div>Surat Masuk</div>
                     </a>
                 </li>
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('agenda.keluar') ? 'active' : '' }}">
-                    <a href="{{ route('agenda.keluar') }}" class="menu-link">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.keluar') ? 'active' : '' }}">
+                    <a href="{{ route('riwayat.keluar') }}" class="menu-link">
                         <div>Surat Keluar</div>
                     </a>
                 </li>
