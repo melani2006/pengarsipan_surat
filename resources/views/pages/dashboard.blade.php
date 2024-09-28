@@ -55,23 +55,24 @@
             <div class="mb-4">
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
+
+                    <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                             <div class="">
                                 <div class="card-title">
                                     <h5 class="text-nowrap mb-2">Grafik Hari Ini</h5>
                                     <span class="badge bg-label-warning rounded-pill">Hari Ini</span>
                                 </div>
                                 <div class="mt-sm-auto">
-                                    @if($percentageSuratTransaksi > 0)
+                                    @if($percentageTransaksiSurat > 0)
                                         <small class="text-success text-nowrap fw-semibold">
-                                            <i class="bx bx-chevron-up"></i> {{ $percentageSuratTransaksi }}%
+                                            <i class="bx bx-chevron-up"></i> {{ $percentageTransaksiSurat }}%
                                         </small>
-                                    @elseif($percentageSuratTransaksi < 0)
+                                    @elseif($percentageTransaksiSurat < 0)
                                         <small class="text-danger text-nowrap fw-semibold">
-                                            <i class="bx bx-chevron-down"></i> {{ $percentageSuratTransaksi }}%
+                                            <i class="bx bx-chevron-down"></i> {{ $percentageTransaksiSurat }}%
                                         </small>
                                     @endif
-                                    <h3 class="mb-0 display-4">{{ $todaySuratTransaksi }}</h3>
+                                    <h3 class="mb-0 display-4">{{ $todayTransaksiSurat }}</h3>
                                 </div>
                             </div>
                             <div id="profileReportChart" style="min-height: 80px; width: 80%">

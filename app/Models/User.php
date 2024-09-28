@@ -26,7 +26,7 @@ class User extends Authenticatable
         'phone',
         'role',
         'is_active',
-        'profile_picture',
+        'foto_profile',
     ];
 
     /**
@@ -50,11 +50,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the user's profile picture
+     * Get the user's foto profile
      *
      * @return Attribute
      */
-    public function profilePicture(): Attribute
+    public function fotoprofile(): Attribute
     {
         return Attribute::make(
             get: function ($value) {

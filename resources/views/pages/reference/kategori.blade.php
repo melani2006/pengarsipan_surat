@@ -15,7 +15,7 @@
 
 @section('content')
     <x-breadcrumb
-        :values="['Referensi Menu', 'Kategori']">
+        :values="['Referensi', 'Kategori']">
         <button
             type="button"
             class="btn btn-primary"

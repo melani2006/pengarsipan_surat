@@ -27,7 +27,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -67,7 +67,7 @@
                 @endif
                 <tfoot class="table-border-bottom-0">
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>

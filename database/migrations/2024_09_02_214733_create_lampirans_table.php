@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('path')->nullable();
             $table->string('filename');
-            $table->string('ekstensi')->default('pdf');
+            $table->string('extension')->default('pdf');
             $table->foreignId('surat_id')->constrained('surats')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate();
             $table->timestamps();

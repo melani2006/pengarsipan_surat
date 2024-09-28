@@ -2,7 +2,7 @@
     <div class="card-body">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div>
-                <h5 class="card-title mb-0 text-uppercase">{{ $Extension}}</h5>
+                <h5 class="card-title mb-0 text-uppercase">{{ $extension }}</h5>
                 <small>
                     @if($surat->type == 'masuk')
                         <a href="{{ route('transaksi.masuk.show', $surat) }}" class="fw-bold">{{ $surat->Nomor_Surat }}</a>

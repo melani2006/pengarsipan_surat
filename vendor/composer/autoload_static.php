@@ -769,8 +769,6 @@ class ComposerStaticInit2931fb0f1628e8cec2b065218a85959d
         'DASPRiD\\Enum\\Exception\\SerializeNotSupportedException' => __DIR__ . '/..' . '/dasprid/enum/src/Exception/SerializeNotSupportedException.php',
         'DASPRiD\\Enum\\Exception\\UnserializeNotSupportedException' => __DIR__ . '/..' . '/dasprid/enum/src/Exception/UnserializeNotSupportedException.php',
         'DASPRiD\\Enum\\NullValue' => __DIR__ . '/..' . '/dasprid/enum/src/NullValue.php',
-        'Database\\Factories\\DisposisiFactory' => __DIR__ . '/../..' . '/database/factories/DisposisiFactory.php',
-        'Database\\Factories\\SuratFactory' => __DIR__ . '/../..' . '/database/factories/SuratFactory.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\ConfigSeeder' => __DIR__ . '/../..' . '/database/seeders/ConfigSeeder.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',

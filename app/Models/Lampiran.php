@@ -15,7 +15,7 @@ class Lampiran extends Model
     protected $fillable = [
         'path',
         'filename',
-        'ekstensi',
+        'extension',
         'surat_id',
         'user_id',
     ];

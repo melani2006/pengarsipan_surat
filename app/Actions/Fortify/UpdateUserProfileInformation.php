@@ -53,7 +53,11 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
         $user->forceFill([
             'name' => $input['name'],
             'email' => $input['email'],
+<<<<<<< HEAD
             'email_verifikasi' => null,
+=======
+            'email_verified_at' => null,
+>>>>>>> 94b9881ea231b5389950f801a898e36ce744df4e
         ])->save();
 
         $user->sendEmailVerificationNotification();

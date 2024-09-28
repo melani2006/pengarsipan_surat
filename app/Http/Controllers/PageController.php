@@ -8,7 +8,7 @@ use App\Http\Requests\UpdateConfigRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Lampiran;
 use App\Models\Config;
-use App\Models\Disposisi;
+use App\Models\DisposiSI;
 use App\Models\Surat;
 use App\Models\User;
 use Carbon\Carbon;
@@ -31,12 +31,12 @@ class PageController extends Controller
         $todaySuratMasuk = Surat::masuk()->today()->count();
         $todaySuratKeluar = Surat::keluar()->today()->count();
         $todayDisposisiSurat = Disposisi::today()->count();
-        $todaySuratTransaksi = $todaySuratMasuk + $todaySuratKeluar + $todayDisposisiSurat;
+        $todayTransaksiSurat = $todaySuratMasuk + $todaySuratKeluar + $todayDisposisiSurat;
 
         $yesterdaySuratMasuk = Surat::masuk()->yesterday()->count();
         $yesterdaySuratKeluar = Surat::keluar()->yesterday()->count();
         $yesterdayDisposisiSurat = Disposisi::yesterday()->count();
-        $yesterdaySuratTransaksi = $yesterdaySuratMasuk + $yesterdaySuratKeluar + $yesterdayDisposisiSurat;
+        $yesterdayTransaksiSurat = $yesterdaySuratMasuk + $yesterdaySuratKeluar + $yesterdayDisposisiSurat;
 
         return view('pages.dashboard', [
             'greeting' => GeneralHelper::greeting(),
@@ -44,12 +44,12 @@ class PageController extends Controller
             'todaySuratMasuk' => $todaySuratMasuk,
             'todaySuratKeluar' => $todaySuratKeluar,
             'todayDisposisiSurat' => $todayDisposisiSurat,
-            'todaySuratTransaksi' => $todaySuratTransaksi,
+            'todayTransaksiSurat' => $todayTransaksiSurat,
             'activeUser' => User::active()->count(),
             'percentageSuratMasuk' => GeneralHelper::calculateChangePercentage($yesterdaySuratMasuk, $todaySuratMasuk),
             'percentageSuratKeluar' => GeneralHelper::calculateChangePercentage($yesterdaySuratKeluar, $todaySuratKeluar),
             'percentageDisposisiSurat' => GeneralHelper::calculateChangePercentage($yesterdayDisposisiSurat, $todayDisposisiSurat),
-            'percentageSuratTransaksi' => GeneralHelper::calculateChangePercentage($yesterdaySuratTransaksi, $todaySuratTransaksi),
+            'percentageTransaksiSurat' => GeneralHelper::calculateChangePercentage($yesterdayTransaksiSurat, $todayTransaksiSurat),
         ]);
     }
 
@@ -72,9 +72,9 @@ class PageController extends Controller
     {
         try {
             $newProfile = $request->validated();
-            if ($request->hasFile('profile_picture')) {
+            if ($request->hasFile('foto_profile')) {
 //               DELETE OLD PICTURE
-                $oldPicture = auth()->user()->profile_picture;
+                $oldPicture = auth()->user()->foto_profile;
                 if (str_contains($oldPicture, '/storage/avatars/')) {
                     $url = parse_url($oldPicture, PHP_URL_PATH);
                     Storage::delete(str_replace('/storage', 'public', $url));
@@ -82,10 +82,10 @@ class PageController extends Controller
 
 //                UPLOAD NEW PICTURE
                 $filename = time() .
-                    '-' . $request->file('profile_picture')->getFilename() .
-                    '.' . $request->file('profile_picture')->getClientOriginalExtension();
-                $request->file('profile_picture')->storeAs('public/avatars', $filename);
-                $newProfile['profile_picture'] = asset('storage/avatars/' . $filename);
+                    '-' . $request->file('foto_profile')->getFilename() .
+                    '.' . $request->file('foto_profile')->getClientOriginalExtension();
+                $request->file('foto_profile')->storeAs('public/avatars', $filename);
+                $newProfile['foto_profile'] = asset('storage/avatars/' . $filename);
             }
             auth()->user()->update($newProfile);
             return back()->with('success', __('menu.general.success'));
@@ -126,7 +126,7 @@ class PageController extends Controller
     public function settingsUpdate(UpdateConfigRequest $request): RedirectResponse
     {
         try {
-            DB::beginTransaksi();
+            DB::beginTransaction();
             foreach ($request->validated() as $code => $value) {
                 Config::where('code', $code)->update(['value' => $value]);
             }

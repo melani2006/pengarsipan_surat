@@ -60,7 +60,6 @@
                 </li>
             </ul>
         </li>
-
             @if(auth()->user()->role == 'admin')
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Menu Lainnya</span>
