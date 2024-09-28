@@ -17,7 +17,7 @@
                     <x-input-form name="pengirim" label="Pengirim"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
-                    <x-input-form name="nomor_riwayat" label="Nomor Riwayat"/>
+                    <x-input-form name="kegiatan" label="Kegiatan"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-6">
                     <x-input-form name="tanggal_surat" label="Tanggal Surat" type="date"/>

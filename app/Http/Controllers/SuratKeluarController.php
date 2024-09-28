@@ -136,7 +136,7 @@ public function print(Request $request): View
                         'filename' => $filename,
                         'ekstensi' => $Extension,
                         'user_id' => $user->id,
-                        'surat_id' => $surat->id,
+                        'surat_id' => $Surat->id,
                     ]);
                 }
             }

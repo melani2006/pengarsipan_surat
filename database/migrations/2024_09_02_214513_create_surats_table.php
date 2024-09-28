@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('surats', function (Blueprint $table) {
             $table->id();
             $table->string('nomor_surat')->unique();
-            $table->string('nomor_riwayat');
+            $table->string('kegiatan');
             $table->string('pengirim')->nullable();
             $table->string('penerima')->nullable();
             $table->date('tanggal_surat')->nullable();

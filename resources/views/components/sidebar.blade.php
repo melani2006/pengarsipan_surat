@@ -64,23 +64,17 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Menu Lainnya</span>
         </li>
-            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.*') ? 'active open' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-analyse"></i>
-                    <div>Referensi</div>
+            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.kategori.*') ? 'active' : '' }}">
+                <a href="{{ route('reference.kategori.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-category-alt"></i>
+                    <div>Kategori</div>
                 </a>
-                <ul class="menu-sub">
-                    <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.kategori.*') ? 'active' : '' }}">
-                        <a href="{{ route('reference.kategori.index') }}" class="menu-link">
-                            <div>Kategori</div>
-                        </a>
-                    </li>
-                    <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.status.*') ? 'active' : '' }}">
-                        <a href="{{ route('reference.status.index') }}" class="menu-link">
-                            <div>Status</div>
-                        </a>
-                    </li>
-                </ul>
+            </li>
+            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.status.*') ? 'active' : '' }}">
+                <a href="{{ route('reference.status.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-check-circle"></i>
+                    <div>Status</div>
+                </a>
             </li>
             <!-- Manajemen Pengguna -->
             <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('user.*') ? 'active' : '' }}">
