@@ -587,7 +587,6 @@ class ComposerStaticInit2931fb0f1628e8cec2b065218a85959d
         'App\\View\\Components\\Breadcrumb' => __DIR__ . '/../..' . '/app/View/Components/Breadcrumb.php',
         'App\\View\\Components\\DashboardCardSimple' => __DIR__ . '/../..' . '/app/View/Components/DashboardCardSimple.php',
         'App\\View\\Components\\DispositionCard' => __DIR__ . '/../..' . '/app/View/Components/DispositionCard.php',
-        'App\\View\\Components\\GalleryCard' => __DIR__ . '/../..' . '/app/View/Components/GalleryCard.php',
         'App\\View\\Components\\InputForm' => __DIR__ . '/../..' . '/app/View/Components/InputForm.php',
         'App\\View\\Components\\InputTextareaForm' => __DIR__ . '/../..' . '/app/View/Components/InputTextareaForm.php',
         'App\\View\\Components\\LetterCard' => __DIR__ . '/../..' . '/app/View/Components/LetterCard.php',

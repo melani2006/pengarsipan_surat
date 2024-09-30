@@ -18,12 +18,6 @@ return [
         'start_date' => 'Start Date',
         'end_date' => 'End Date',
     ],
-    'gallery' => [
-        'menu' => 'Letter Gallery',
-        'incoming_letter' => 'Incoming Letter',
-        'surat_keluar' => 'Outgoing Letter',
-        'disposisi_letter' => 'Disposisi Letter',
-    ],
     'reference' => [
         'menu' => 'Reference',
         'kategori' => 'Kategori',

@@ -25,10 +25,10 @@ class UpdateUserRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'name' => __('model.user.name'),
-            'email' => __('model.user.email'),
-            'phone' => __('model.user.phone'),
-            'password' => __('model.user.password'),
+            'name' => 'name',
+            'email' => 'email',
+            'phone' => 'phone',
+            'password' => 'password',
         ];
     }
 

@@ -19,7 +19,7 @@ class StoreStatusSuratRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'status' => __('model.status.status'),
+            'status' => 'status',
         ];
     }
 

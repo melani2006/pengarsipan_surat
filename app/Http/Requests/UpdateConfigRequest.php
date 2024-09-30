@@ -20,15 +20,15 @@ class UpdateConfigRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'default_password' => __('model.config.default_password'),
-            'page_size' => __('model.config.page_size'),
-            'app_name' => __('model.config.app_name'),
-            'institution_name' => __('model.config.institution_name'),
-            'institution_address' => __('model.config.institution_address'),
-            'institution_phone' => __('model.config.institution_phone'),
-            'institution_email' => __('model.config.institution_email'),
-            'language' => __('model.config.language'),
-            'pic' => __('model.config.pic'),
+            'default_password' => 'default_password',
+            'page_size' => 'page_size',
+            'app_name' => 'app_name',
+            'institution_name' => 'institution_name',
+            'institution_address' => 'institution_address',
+            'institution_phone' => 'institution_phone',
+            'institution_email' => 'institution_email',
+            'language' => 'language',
+            'pic' => 'pic',
         ];
     }
 

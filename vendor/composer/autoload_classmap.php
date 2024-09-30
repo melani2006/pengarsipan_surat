@@ -63,7 +63,6 @@ return array(
     'App\\View\\Components\\Breadcrumb' => $baseDir . '/app/View/Components/Breadcrumb.php',
     'App\\View\\Components\\DashboardCardSimple' => $baseDir . '/app/View/Components/DashboardCardSimple.php',
     'App\\View\\Components\\DispositionCard' => $baseDir . '/app/View/Components/DispositionCard.php',
-    'App\\View\\Components\\GalleryCard' => $baseDir . '/app/View/Components/GalleryCard.php',
     'App\\View\\Components\\InputForm' => $baseDir . '/app/View/Components/InputForm.php',
     'App\\View\\Components\\InputTextareaForm' => $baseDir . '/app/View/Components/InputTextareaForm.php',
     'App\\View\\Components\\LetterCard' => $baseDir . '/app/View/Components/LetterCard.php',

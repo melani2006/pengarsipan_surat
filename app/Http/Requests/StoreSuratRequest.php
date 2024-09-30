@@ -21,15 +21,15 @@ class StoreSuratRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'kegiatan' => __('model.Surat.kegiatan'),
-            'pengirim' => __('model.Surat.pengirim'),
-            'penerima' => __('model.Surat.penerima'),
-            'nomor_surat' => __('model.Surat.nomor_surat'),
-            'tanggal_diterima' => __('model.Surat.tanggal_diterima'),
-            'tanggal_surat' => __('model.Surat.tanggal_surat'),
-            'deskripsi' => __('model.Surat.deskripsi'),
-            'catatan' => __('model.Surat.catatan'),
-            'kategori_code' => __('model.Surat.kategori_code'),
+            'kegiatan' => 'kegiatan',
+            'pengirim' => 'pengirim',
+            'penerima' => 'penerima',
+            'nomor_surat' => 'nomor_surat',
+            'tanggal_diterima' => 'tanggal_diterima',
+            'tanggal_surat' => 'tanggal_surat',
+            'deskripsi' => 'deskripsi',
+            'catatan' => 'catatan',
+            'kategori_code' => 'kategori_code',
         ];
     }
 

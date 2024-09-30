@@ -19,11 +19,11 @@ class UpdateDisposisiRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'penerima' => __('model.disposisi.penerima'),
-            'content' => __('model.disposisi.content'),
-            'batas_waktu' => __('model.disposisi.batas_waktu'),
-            'status_surat' => __('model.disposisi.status'),
-            'catatan' => __('model.disposisi.catatan'),
+            'penerima' => penerima',
+            'content' => content',
+            'batas_waktu' => batas_waktu',
+            'status_surat' => status',
+            'catatan' => catatan',
         ];
     }
 

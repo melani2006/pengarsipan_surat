@@ -20,9 +20,9 @@ class StoreKategoriRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'code' => __('model.kategori.code'),
-            'type' => __('model.kategori.type'),
-            'deskripsi' => __('model.kategori.deskripsi'),
+            'code' => 'Kode Kategori',
+            'type' => 'Tipe Kategori',
+            'deskripsi' => 'Deskripsi',
         ];
     }
 
