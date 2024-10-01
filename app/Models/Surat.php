@@ -15,9 +15,6 @@ class Surat extends Model
 {
     use HasFactory;
 
-    /**
-     * @var string[]
-     */
     protected $fillable = [
         'nomor_surat',
         'kegiatan',
@@ -32,9 +29,6 @@ class Surat extends Model
         'user_id',
     ];
 
-    /**
-     * @var string[]
-     */
     protected $casts = [
         'tanggal_surat' => 'date',
         'tanggal_diterima' => 'date',
@@ -64,17 +58,15 @@ class Surat extends Model
     }
 
     public function scopeType($query, LetterType $type)
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
 
-    // Jika admin, ambil semua surat dari tipe yang diberikan
-    // Jika bukan admin, ambil surat yang milik pengguna tersebut
-    if ($user->isAdmin()) {
-        return $query->where('type', $type->type());
-    } else {
-        return $query->where('type', $type->type())->where('user_id', $user->id);
+        if ($user->isAdmin()) {
+            return $query->where('type', $type->type());
+        } else {
+            return $query->where('type', $type->type())->where('user_id', $user->id);
+        }
     }
-}
 
     public function scopeMasuk($query)
     {
@@ -123,8 +115,6 @@ class Surat extends Model
     {
         $user = auth()->user();
 
-        // Admin dapat melihat semua surat dalam rentang waktu yang diberikan
-        // Staf hanya dapat melihat surat miliknya sendiri
         return $query->when($since && $until, function ($query) use ($since, $until, $cari, $user) {
             if ($user->isAdmin()) {
                 return $query->whereBetween(DB::raw('DATE(' . $cari . ')'), [$since, $until]);
@@ -135,33 +125,21 @@ class Surat extends Model
         });
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function kategori(): BelongsTo
     {
         return $this->belongsTo(Kategori::class, 'kategori_code', 'code');
     }
 
-    /**
-     * @return HasMany
-     */
     public function disposisi(): HasMany
     {
         return $this->hasMany(Disposisi::class, 'surat_id', 'id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function lampirans(): HasMany
     {
         return $this->hasMany(Lampiran::class, 'surat_id', 'id');

@@ -4,28 +4,26 @@ namespace App\Enums;
 
 enum Config
 {
-    case DEFAULT_PASSWORD;
+    case password;
     case PAGE_SIZE;
-    case APP_NAME;
-    case INSTITUTION_NAME;
-    case INSTITUTION_ADDRESS;
-    case INSTITUTION_PHONE;
-    case INSTITUTION_EMAIL;
-    case LANGUAGE;
-    case PIC;
+    case nama_aplikasi;
+    case nama_institusi;
+    case alamat_institusi;
+    case telepon_institusi;
+    case email_institusi;
+    case penanggung_jawab;
 
     public function value(): string
     {
         return match ($this) {
-            self::DEFAULT_PASSWORD => 'default_password',
+            self::password => 'password',
             self::PAGE_SIZE => 'page_size',
-            self::APP_NAME => 'app_name',
-            self::INSTITUTION_NAME => 'institution_name',
-            self::INSTITUTION_ADDRESS => 'institution_address',
-            self::INSTITUTION_PHONE => 'institution_phone',
-            self::INSTITUTION_EMAIL => 'institution_email',
-            self::LANGUAGE => 'language',
-            self::PIC => 'pic',
+            self::nama_aplikasi => 'nama_aplikasi',
+            self::nama_institusi => 'nama_institusi',
+            self::alamat_institusi => 'alamat_institusi',
+            self::telepon_institusi => 'telepon_institusi',
+            self::email_institusi => 'email_institusi',
+            self::penanggung_jawab => 'penanggung_jawab',
         };
     }
 }

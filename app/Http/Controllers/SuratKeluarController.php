@@ -23,80 +23,80 @@ class SuratKeluarController extends Controller
      * @return View
      */
     public function index(Request $request): View
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
 
-    // Admin dapat melihat semua surat keluar
-    $data = Surat::keluar()->render($request->search);
+        // Admin dapat melihat semua surat keluar
+        $data = Surat::keluar()->render($request->search);
 
-    // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
-    if (!$user->isAdmin()) {
-        $data = Surat::where('user_id', $user->id)->keluar()->render($request->search);
+        // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
+        if (!$user->isAdmin()) {
+            $data = Surat::where('user_id', $user->id)->keluar()->render($request->search);
+        }
+
+        return view('pages.transaksi.keluar.index', [
+            'data' => $data,
+            'search' => $request->search,
+        ]);
     }
 
-    return view('pages.transaksi.keluar.index', [
-        'data' => $data,
-        'search' => $request->search,
-    ]);
-}
+    /**
+     * Display a listing of the riwayat surat keluar.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function riwayat(Request $request): View
+    {
+        $user = auth()->user();
 
-/**
- * Display a listing of the riwayat surat keluar.
- *
- * @param Request $request
- * @return View
- */
-public function riwayat(Request $request): View
-{
-    $user = auth()->user();
+        // Admin melihat semua surat keluar
+        $data = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
 
-    // Admin melihat semua surat keluar
-    $data = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+        // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
+        if (!$user->isAdmin()) {
+            $data = Surat::where('user_id', $user->id)->keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+        }
 
-    // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
-    if (!$user->isAdmin()) {
-        $data = Surat::where('user_id', $user->id)->keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+        return view('pages.transaksi.keluar.riwayat', [
+            'data' => $data,
+            'search' => $request->search,
+            'since' => $request->since,
+            'until' => $request->until,
+            'cari' => $request->cari,
+            'query' => $request->getQueryString(),
+        ]);
     }
 
-    return view('pages.transaksi.keluar.riwayat', [
-        'data' => $data,
-        'search' => $request->search,
-        'since' => $request->since,
-        'until' => $request->until,
-        'cari' => $request->cari,
-        'query' => $request->getQueryString(),
-    ]);
-}
+    /**
+     * @param Request $request
+     * @return View
+     */
+    public function print(Request $request): View
+    {
+        $user = auth()->user();
+        $riwayat = 'Riwayat Surat';
+        $surat = 'Surat Keluar';
+        $title = "$riwayat $surat";
 
-/**
- * @param Request $request
- * @return View
- */
-public function print(Request $request): View
-{
-    $user = auth()->user();
-    $riwayat = __('menu.riwayat.menu');
-    $surat = __('menu.riwayat.surat_keluar');
-    $title = App::getLocale() == 'id' ? "$riwayat $surat" : "$surat $riwayat";
+        // Admin melihat semua surat keluar
+        $data = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->get();
 
-    // Admin melihat semua surat keluar
-    $data = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->get();
+        // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
+        if (!$user->isAdmin()) {
+            $data = Surat::where('user_id', $user->id)->keluar()->riwayat($request->since, $request->until, $request->cari)->get();
+        }
 
-    // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
-    if (!$user->isAdmin()) {
-        $data = Surat::where('user_id', $user->id)->keluar()->riwayat($request->since, $request->until, $request->cari)->get();
+        return view('pages.transaksi.keluar.print', [
+            'data' => $data,
+            'search' => $request->search,
+            'since' => $request->since,
+            'until' => $request->until,
+            'cari' => $request->cari,
+            'config' => Config::pluck('value', 'code')->toArray(),
+            'title' => $title,
+        ]);
     }
-
-    return view('pages.transaksi.keluar.print', [
-        'data' => $data,
-        'search' => $request->search,
-        'since' => $request->since,
-        'until' => $request->until,
-        'cari' => $request->cari,
-        'config' => Config::pluck('value', 'code')->toArray(),
-        'title' => $title,
-    ]);
-}
 
     /**
      * Show the form for creating a new resource.
@@ -121,15 +121,19 @@ public function print(Request $request): View
         try {
             $user = auth()->user();
 
-            if ($request->type != LetterType::OUTGOING->type()) throw new \Exception(__('menu.transaksi.surat_keluar'));
+            if ($request->type != LetterType::OUTGOING->type()) {
+                throw new \Exception('Jenis surat tidak valid.');
+            }
+            
             $newSurat = $request->validated();
             $newSurat['user_id'] = $user->id;
             $Surat = Surat::create($newSurat);
+
             if ($request->hasFile('lampirans')) {
                 foreach ($request->lampirans as $lampiran) {
-                    $Extension= $lampiran->getClientOriginalExtension();
+                    $Extension = $lampiran->getClientOriginalExtension();
                     if (!in_array($Extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
-                    $filename = time() . '-'. $lampiran->getClientOriginalName();
+                    $filename = time() . '-' . $lampiran->getClientOriginalName();
                     $filename = str_replace(' ', '-', $filename);
                     $lampiran->storeAs('public/lampirans', $filename);
                     Lampiran::create([
@@ -140,9 +144,10 @@ public function print(Request $request): View
                     ]);
                 }
             }
+
             return redirect()
                 ->route('transaksi.keluar.index')
-                ->with('success', __('menu.general.success'));
+                ->with('success', 'Surat keluar berhasil ditambahkan.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -186,11 +191,12 @@ public function print(Request $request): View
     {
         try {
             $keluar->update($request->validated());
+
             if ($request->hasFile('lampirans')) {
                 foreach ($request->lampirans as $lampiran) {
-                    $Extension= $lampiran->getClientOriginalExtension();
+                    $Extension = $lampiran->getClientOriginalExtension();
                     if (!in_array($Extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
-                    $filename = time() . '-'. $lampiran->getClientOriginalName();
+                    $filename = time() . '-' . $lampiran->getClientOriginalName();
                     $filename = str_replace(' ', '-', $filename);
                     $lampiran->storeAs('public/lampirans', $filename);
                     Lampiran::create([
@@ -201,7 +207,8 @@ public function print(Request $request): View
                     ]);
                 }
             }
-            return back()->with('success', __('menu.general.success'));
+
+            return back()->with('success', 'Surat keluar berhasil diperbarui.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -219,7 +226,7 @@ public function print(Request $request): View
             $keluar->delete();
             return redirect()
                 ->route('transaksi.keluar.index')
-                ->with('success', __('menu.general.success'));
+                ->with('success', 'Surat keluar berhasil dihapus.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

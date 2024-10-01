@@ -20,15 +20,13 @@ class UpdateConfigRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'default_password' => 'default_password',
-            'page_size' => 'page_size',
-            'app_name' => 'app_name',
-            'institution_name' => 'institution_name',
-            'institution_address' => 'institution_address',
-            'institution_phone' => 'institution_phone',
-            'institution_email' => 'institution_email',
-            'language' => 'language',
-            'pic' => 'pic',
+            'password' => 'password',
+            'nama_aplikasi' => 'nama_aplikasi',
+            'nama_institusi' => 'nama_institusi',
+            'alamat_institusi' => 'alamat_institusi',
+            'telepon_institusi' => 'telepon_institusi',
+            'email_institusi' => 'email_institusi',
+            'penanggung_jawab' => 'penanggung_jawab',
         ];
     }
 
@@ -40,14 +38,13 @@ class UpdateConfigRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'default_password' => ['required'],
-            'page_size' => ['required'],
-            'app_name' => ['required'],
-            'institution_name' => ['required'],
-            'institution_address' => ['required'],
-            'institution_phone' => ['required'],
-            'institution_email' => ['required'],
-            'pic' => ['required'],
+            'password' => ['required'],
+            'nama_aplikasi' => ['required'],
+            'nama_institusi' => ['required'],
+            'alamat_institusi' => ['required'],
+            'telepon_institusi' => ['required'],
+            'email_institusi' => ['required'],
+            'penanggung_jawab' => ['required'],
         ];
     }
 }

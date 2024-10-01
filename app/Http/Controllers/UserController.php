@@ -45,7 +45,7 @@ class UserController extends Controller
                 return back()->with('error', 'Hanya admin yang dapat membuat password untuk staff.');
             }
             User::create($newUser);
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Pengguna berhasil dibuat.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -70,7 +70,7 @@ class UserController extends Controller
                 unset($newUser['password']); // Jangan izinkan staff mengubah password
             }
             $user->update($newUser);
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Pengguna berhasil diperbarui.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -87,7 +87,7 @@ class UserController extends Controller
     {
         try {
             $user->delete();
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Pengguna berhasil dihapus.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

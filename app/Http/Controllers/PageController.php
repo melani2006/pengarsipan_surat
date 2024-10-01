@@ -73,14 +73,14 @@ class PageController extends Controller
         try {
             $newProfile = $request->validated();
             if ($request->hasFile('foto_profile')) {
-//               DELETE OLD PICTURE
+                // DELETE OLD PICTURE
                 $oldPicture = auth()->user()->foto_profile;
                 if (str_contains($oldPicture, '/storage/avatars/')) {
                     $url = parse_url($oldPicture, PHP_URL_PATH);
                     Storage::delete(str_replace('/storage', 'public', $url));
                 }
 
-//                UPLOAD NEW PICTURE
+                // UPLOAD NEW PICTURE
                 $filename = time() .
                     '-' . $request->file('foto_profile')->getFilename() .
                     '.' . $request->file('foto_profile')->getClientOriginalExtension();
@@ -88,7 +88,7 @@ class PageController extends Controller
                 $newProfile['foto_profile'] = asset('storage/avatars/' . $filename);
             }
             auth()->user()->update($newProfile);
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Profil berhasil diperbarui.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -102,7 +102,7 @@ class PageController extends Controller
         try {
             auth()->user()->update(['is_active' => false]);
             Auth::logout();
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Akun berhasil dinonaktifkan.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -131,7 +131,7 @@ class PageController extends Controller
                 Config::where('code', $code)->update(['value' => $value]);
             }
             DB::commit();
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Pengaturan berhasil diperbarui.');
         } catch (\Throwable $exception) {
             DB::rollBack();
             return back()->with('error', $exception->getMessage());
@@ -152,7 +152,7 @@ class PageController extends Controller
                 Storage::delete(str_replace('/storage', 'public', $url));
             }
             $lampiran->delete();
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Lampiran berhasil dihapus.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

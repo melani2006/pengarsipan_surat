@@ -8,7 +8,6 @@ use App\Models\Kategori;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class KategoriController extends Controller
 {
@@ -36,7 +35,7 @@ class KategoriController extends Controller
     {
         try {
             Kategori::create($request->validated());
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Berhasil menyimpan data.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -53,7 +52,7 @@ class KategoriController extends Controller
     {
         try {
             $kategori->update($request->validated());
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Berhasil memperbarui data.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -69,7 +68,7 @@ class KategoriController extends Controller
     {
         try {
             $kategori->delete();
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Berhasil menghapus data.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

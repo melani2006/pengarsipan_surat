@@ -59,7 +59,7 @@ class DisposisiController extends Controller
             Disposisi::create($newDisposisi);
             return redirect()
                 ->route('transaksi.disposisi.index', $surat)
-                ->with('success', __('menu.general.success'));
+                ->with('success', 'Disposisi berhasil disimpan.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -93,7 +93,7 @@ class DisposisiController extends Controller
     {
         try {
             $disposisi->update($request->validated());
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Disposisi berhasil diperbarui.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -110,7 +110,7 @@ class DisposisiController extends Controller
     {
         try {
             $disposisi->delete();
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Disposisi berhasil dihapus.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

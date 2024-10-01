@@ -17,7 +17,7 @@ class ConfigSeeder extends Seeder
     {
         Config::insert([
             [
-                'code' => 'default_password',
+                'code' => 'password',
                 'value' => 'admin',
             ],
             [
@@ -25,31 +25,27 @@ class ConfigSeeder extends Seeder
                 'value' => '5',
             ],
             [
-                'code' => 'app_name',
-                'value' => 'Aplikasi Surat Menyurat',
+                'code' => 'nama_aplikasi',
+                'value' => ' Pengarsipan Surat',
             ],
             [
-                'code' => 'institution_name',
+                'code' => 'nama_institusi',
                 'value' => 'Gedung Pusat TIK Nasional',
             ],
             [
-                'code' => 'institution_address',
+                'code' => 'alamat_institusi',
                 'value' => 'Jl. Kertamukti, Pisangan, Kec. Ciputat, Kota Tangerang Selatan, Banten',
             ],
             [
-                'code' => 'institution_phone',
+                'code' => 'telepon_institusi',
                 'value' => '082121212121',
             ],
             [
-                'code' => 'institution_email',
+                'code' => 'email_institusi',
                 'value' => 'admin@gmail.com',
             ],
             [
-                'code' => 'language',
-                'value' => 'id',
-            ],
-            [
-                'code' => 'pic',
+                'code' => 'penanggung_jawab',
                 'value' => 'Meilany Herlita Putri',
             ],
         ]);

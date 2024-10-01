@@ -9,11 +9,9 @@ use App\Models\Lampiran;
 use App\Models\Kategori;
 use App\Models\Config;
 use App\Models\Surat;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class SuratMasukController extends Controller
 {
@@ -45,29 +43,29 @@ class SuratMasukController extends Controller
      * @return View
      */
     public function riwayat(Request $request): View
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
 
-    // Jika admin, dapatkan semua surat masuk
-    if ($user->isAdmin()) {
-        $data = Surat::masuk()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
-        $dataKeluar = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
-    } else {
-        // Jika bukan admin, hanya surat milik pengguna
-        $data = Surat::masuk()->where('user_id', $user->id)->riwayat($request->since, $request->until, $request->cari)->render($request->search);
-        $dataKeluar = Surat::keluar()->where('user_id', $user->id)->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+        // Jika admin, dapatkan semua surat masuk
+        if ($user->isAdmin()) {
+            $data = Surat::masuk()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+            $dataKeluar = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+        } else {
+            // Jika bukan admin, hanya surat milik pengguna
+            $data = Surat::masuk()->where('user_id', $user->id)->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+            $dataKeluar = Surat::keluar()->where('user_id', $user->id)->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+        }
+
+        return view('pages.transaksi.masuk.riwayat', [
+            'data' => $data,
+            'dataKeluar' => $dataKeluar,
+            'search' => $request->search,
+            'since' => $request->since,
+            'until' => $request->until,
+            'cari' => $request->cari,
+            'query' => $request->getQueryString(),
+        ]);
     }
-
-    return view('pages.transaksi.masuk.riwayat', [
-        'data' => $data,
-        'dataKeluar' => $dataKeluar,
-        'search' => $request->search,
-        'since' => $request->since,
-        'until' => $request->until,
-        'cari' => $request->cari,
-        'query' => $request->getQueryString(),
-    ]);
-}
     
     /**
      * @param Request $request
@@ -76,10 +74,8 @@ class SuratMasukController extends Controller
     public function print(Request $request): View
     {
         $user = auth()->user();
-        $riwayat = __('menu.riwayat.menu');
-        $surat = __('menu.riwayat.surat_masuk');
-        $title = App::getLocale() == 'id' ? "$riwayat $surat" : "$surat $riwayat";
-    
+        $title = 'Riwayat Surat Masuk'; // Judul tetap, bisa disesuaikan
+
         // Jika admin, dapatkan semua surat untuk dicetak, jika bukan admin hanya miliknya sendiri
         $data = $user->isAdmin()
             ? Surat::masuk()->riwayat($request->since, $request->until, $request->cari)->get()
@@ -121,15 +117,15 @@ class SuratMasukController extends Controller
         try {
             $user = auth()->user();
 
-            if ($request->type != LetterType::INCOMING->type()) throw new \Exception(__('menu.transaksi.surat_masuk'));
+            if ($request->type != LetterType::INCOMING->type()) throw new \Exception('Terjadi kesalahan saat menyimpan surat masuk.');
             $newSurat = $request->validated();
             $newSurat['user_id'] = $user->id;
             $surat = Surat::create($newSurat);
             if ($request->hasFile('lampirans')) {
                 foreach ($request->lampirans as $lampiran) {
-                    $Extension= $lampiran->getClientOriginalExtension();
+                    $Extension = $lampiran->getClientOriginalExtension();
                     if (!in_array($Extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
-                    $filename = time() . '-'. $lampiran->getClientOriginalName();
+                    $filename = time() . '-' . $lampiran->getClientOriginalName();
                     $filename = str_replace(' ', '-', $filename);
                     $lampiran->storeAs('public/lampirans', $filename);
                     Lampiran::create([
@@ -142,7 +138,7 @@ class SuratMasukController extends Controller
             }
             return redirect()
                 ->route('transaksi.masuk.index')
-                ->with('success', __('menu.general.success'));
+                ->with('success', 'Surat masuk berhasil disimpan.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -188,9 +184,9 @@ class SuratMasukController extends Controller
             $masuk->update($request->validated());
             if ($request->hasFile('lampirans')) {
                 foreach ($request->lampirans as $lampiran) {
-                    $Extension= $lampiran->getClientOriginalExtension();
+                    $Extension = $lampiran->getClientOriginalExtension();
                     if (!in_array($Extension, ['png', 'jpg', 'jpeg', 'pdf'])) continue;
-                    $filename = time() . '-'. $lampiran->getClientOriginalName();
+                    $filename = time() . '-' . $lampiran->getClientOriginalName();
                     $filename = str_replace(' ', '-', $filename);
                     $lampiran->storeAs('public/lampirans', $filename);
                     Lampiran::create([
@@ -201,7 +197,7 @@ class SuratMasukController extends Controller
                     ]);
                 }
             }
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Surat masuk berhasil diperbarui.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -219,7 +215,7 @@ class SuratMasukController extends Controller
             $masuk->delete();
             return redirect()
                 ->route('transaksi.masuk.index')
-                ->with('success', __('menu.general.success'));
+                ->with('success', 'Surat masuk berhasil dihapus.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

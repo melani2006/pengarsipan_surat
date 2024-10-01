@@ -34,7 +34,7 @@ class StatusSuratController extends Controller
     {
         try {
             StatusSurat::create($request->validated());
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Status surat berhasil ditambahkan.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -51,7 +51,7 @@ class StatusSuratController extends Controller
     {
         try {
             $status->update($request->validated());
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Status surat berhasil diperbarui.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
@@ -67,7 +67,7 @@ class StatusSuratController extends Controller
     {
         try {
             $status->delete();
-            return back()->with('success', __('menu.general.success'));
+            return back()->with('success', 'Status surat berhasil dihapus.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

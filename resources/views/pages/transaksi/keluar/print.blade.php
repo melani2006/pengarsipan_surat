@@ -41,8 +41,8 @@
 </head>
 <body onload="window.print()">
 
-<h1>{{ $config['institution_name'] }}</h1>
-<h4>{{ $config['institution_address'] }}</h4>
+<h1>{{ $config['nama_institusi'] }}</h1>
+<h4>{{ $config['alamat_institusi'] }}</h4>
 <hr>
 
 <h2>{{ $title }}</h2>
