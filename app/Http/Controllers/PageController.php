@@ -54,47 +54,6 @@ class PageController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return View
-     */
-    public function profile(Request $request): View
-    {
-        return view('pages.profile', [
-            'data' => auth()->user(),
-        ]);
-    }
-
-    /**
-     * @param UpdateUserRequest $request
-     * @return RedirectResponse
-     */
-    public function profileUpdate(UpdateUserRequest $request): RedirectResponse
-    {
-        try {
-            $newProfile = $request->validated();
-            if ($request->hasFile('foto_profile')) {
-                // DELETE OLD PICTURE
-                $oldPicture = auth()->user()->foto_profile;
-                if (str_contains($oldPicture, '/storage/avatars/')) {
-                    $url = parse_url($oldPicture, PHP_URL_PATH);
-                    Storage::delete(str_replace('/storage', 'public', $url));
-                }
-
-                // UPLOAD NEW PICTURE
-                $filename = time() .
-                    '-' . $request->file('foto_profile')->getFilename() .
-                    '.' . $request->file('foto_profile')->getClientOriginalExtension();
-                $request->file('foto_profile')->storeAs('public/avatars', $filename);
-                $newProfile['foto_profile'] = asset('storage/avatars/' . $filename);
-            }
-            auth()->user()->update($newProfile);
-            return back()->with('success', 'Profil berhasil diperbarui.');
-        } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
-        }
-    }
-
-    /**
      * @return RedirectResponse
      */
     public function deactivate(): RedirectResponse
@@ -104,36 +63,6 @@ class PageController extends Controller
             Auth::logout();
             return back()->with('success', 'Akun berhasil dinonaktifkan.');
         } catch (\Throwable $exception) {
-            return back()->with('error', $exception->getMessage());
-        }
-    }
-
-    /**
-     * @param Request $request
-     * @return View
-     */
-    public function settings(Request $request): View
-    {
-        return view('pages.setting', [
-            'configs' => Config::all(),
-        ]);
-    }
-
-    /**
-     * @param UpdateConfigRequest $request
-     * @return RedirectResponse
-     */
-    public function settingsUpdate(UpdateConfigRequest $request): RedirectResponse
-    {
-        try {
-            DB::beginTransaction();
-            foreach ($request->validated() as $code => $value) {
-                Config::where('code', $code)->update(['value' => $value]);
-            }
-            DB::commit();
-            return back()->with('success', 'Pengaturan berhasil diperbarui.');
-        } catch (\Throwable $exception) {
-            DB::rollBack();
             return back()->with('error', $exception->getMessage());
         }
     }

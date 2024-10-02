@@ -58,6 +58,15 @@
                         <div>Surat Keluar</div>
                     </a>
                 </li>
+                <li>
+                    <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                        <button class="dropdown-item cursor-pointer">
+                            <i class="bx bx-power-off me-2"></i>
+                            <span class="align-middle">Keluar</span>
+                        </button>
+                    </form>
+                </li>
             </ul>
         </li>
             @if(auth()->user()->role == 'admin')
@@ -83,6 +92,15 @@
                     <div>Pengguna</div>
                 </a>
             </li>
+            <li>
+                <form action="{{ route('logout') }}" method="post">
+                    @csrf
+                    <button class="dropdown-item cursor-pointer">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Keluar</span>
+                    </button>
+                </form>
+             </li>
         @endif
     </ul>
 </aside>
