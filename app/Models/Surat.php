@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\LetterType;
-use App\Enums\Config as ConfigEnum;
+use App\Enums\SuratType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -57,7 +56,7 @@ class Surat extends Model
         return $this->updated_at->isoFormat('dddd, D MMMM YYYY, HH:mm:ss');
     }
 
-    public function scopeType($query, LetterType $type)
+    public function scopeType($query, SuratType $type)
     {
         $user = auth()->user();
 
@@ -70,12 +69,12 @@ class Surat extends Model
 
     public function scopeMasuk($query)
     {
-        return $this->scopeType($query, LetterType::INCOMING);
+        return $this->scopeType($query, SuratType::INCOMING);
     }
 
     public function scopeKeluar($query)
     {
-        return $this->scopeType($query, LetterType::OUTGOING);
+        return $this->scopeType($query, SuratType::OUTGOING);
     }
 
     public function scopeToday($query)
@@ -105,7 +104,7 @@ class Surat extends Model
             ->with(['lampirans', 'kategori'])
             ->search($search)
             ->latest('tanggal_surat')
-            ->paginate(Config::getValueByCode(ConfigEnum::PAGE_SIZE))
+            ->paginate(10)
             ->appends([
                 'search' => $search,
             ]);

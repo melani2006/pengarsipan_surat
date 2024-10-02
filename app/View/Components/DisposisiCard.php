@@ -7,7 +7,7 @@ use App\Models\Surat;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class DispositionCard extends Component
+class DisposisiCard extends Component
 {
     public Disposisi $disposisi;
     public Surat $surat;
@@ -29,6 +29,6 @@ class DispositionCard extends Component
      */
     public function render(): View
     {
-        return view('components.disposition-card');
+        return view('components.disposisi-card');
     }
 }

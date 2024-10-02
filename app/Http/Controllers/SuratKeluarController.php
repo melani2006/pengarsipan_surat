@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\LetterType;
+use App\Enums\SuratType;
 use App\Http\Requests\StoreSuratRequest;
 use App\Http\Requests\UpdateSuratRequest;
 use App\Models\Lampiran;
 use App\Models\Kategori;
-use App\Models\Config;
 use App\Models\Surat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -93,7 +92,6 @@ class SuratKeluarController extends Controller
             'since' => $request->since,
             'until' => $request->until,
             'cari' => $request->cari,
-            'config' => Config::pluck('value', 'code')->toArray(),
             'title' => $title,
         ]);
     }
@@ -121,7 +119,7 @@ class SuratKeluarController extends Controller
         try {
             $user = auth()->user();
 
-            if ($request->type != LetterType::OUTGOING->type()) {
+            if ($request->type != SuratType::OUTGOING->type()) {
                 throw new \Exception('Jenis surat tidak valid.');
             }
             

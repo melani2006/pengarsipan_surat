@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\LetterType;
+use App\Enums\SuratType;
 use App\Helpers\GeneralHelper;
-use App\Http\Requests\UpdateConfigRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Lampiran;
-use App\Models\Config;
 use App\Models\DisposiSI;
 use App\Models\Surat;
 use App\Models\User;

@@ -7,7 +7,7 @@
     </x-breadcrumb>
 
     @foreach($data as $surat)
-        <x-letter-card
+        <x-surat-card
             :surat="$surat"
         />
     @endforeach

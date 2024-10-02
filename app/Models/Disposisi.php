@@ -50,7 +50,6 @@ class Disposisi extends Model
 
     public function scopeRender($query, Surat $surat, $search)
     {
-        $pageSize = Config::code(\App\Enums\Config::PAGE_SIZE)->first();
         return $query
             ->with(['user', 'status', 'surat'])
             ->search($search)
@@ -59,7 +58,7 @@ class Disposisi extends Model
                     ->where('surat_id', $surat->id);
             })
             ->latest('created_at')
-            ->paginate($pageSize->value)
+            ->paginate(10)
             ->appends([
                 'search' => $search,
             ]);

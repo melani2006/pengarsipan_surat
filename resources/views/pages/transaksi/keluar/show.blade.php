@@ -5,7 +5,7 @@
         :values="['Transaksi', 'Surat Keluar', 'Lihat']">
     </x-breadcrumb>
 
-    <x-letter-card :surat="$data">
+    <x-surat-card :surat="$data">
         <div class="mt-2">
             <div class="divider">
                 <div class="divider-text">Lihat</div>
@@ -43,6 +43,6 @@
                 <dd class="col-sm-9">{{ $data->formatted_updated_at }}</dd>
             </dl>
         </div>
-    </x-letter-card>
+    </x-surat-card>
 
 @endsection

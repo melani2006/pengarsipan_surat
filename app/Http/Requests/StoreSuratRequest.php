@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\LetterType;
+use App\Enums\SuratType;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -42,11 +42,11 @@ class StoreSuratRequest extends FormRequest
     {
         return [
             'kegiatan' => ['required'],
-            'pengirim' => [Rule::requiredIf($this->type == LetterType::INCOMING->type())],
-            'penerima' => [Rule::requiredIf($this->type == LetterType::OUTGOING->type())],
+            'pengirim' => [Rule::requiredIf($this->type == SuratType::INCOMING->type())],
+            'penerima' => [Rule::requiredIf($this->type == SuratType::OUTGOING->type())],
             'type' => ['required'],
             'nomor_surat' => ['required', Rule::unique('surats')],
-            'tanggal_diterima' => [Rule::requiredIf($this->type == LetterType::INCOMING->type())],
+            'tanggal_diterima' => [Rule::requiredIf($this->type == SuratType::INCOMING->type())],
             'tanggal_surat' => ['required'],
             'deskripsi' => ['required'],
             'catatan' => ['nullable'],

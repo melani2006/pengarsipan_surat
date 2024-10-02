@@ -12,7 +12,7 @@
     </div>
 
     @foreach($data as $disposisi)
-        <x-disposition-card
+        <x-disposisi-card
             :surat="$surat"
             :disposisi="$disposisi"
         />

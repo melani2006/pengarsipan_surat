@@ -35,22 +35,28 @@
 @section('content')
     <div class="row">
         <div class="col-lg-8 mb-4 order-0">
-            <div class="card mb-4">
-                <div class="d-flex align-items-end row">
-                    <div class="col-sm-7">
-                        <div class="card-body">
-                            <h4 class="card-title text-primary">{{ $greeting }}</h4>
-                            <p class="mb-4">{{ $currentDate }}</p>
-                            <p style="font-size: smaller" class="text-gray">*) Laporan Hari Ini</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-5 text-center text-sm-left">
-                        <div class="card-body pb-0 px-0 px-md-4">
-                            <img src="{{ asset('sneat/img/cewe.png') }}" height="140" alt="View Badge User">
-                        </div>
+        <div class="card mb-4">
+        <div class="d-flex align-items-end row">
+            <div class="col-sm-7">
+                <div class="card-body">
+                    <h4 class="card-title text-primary">
+                        @if(auth()->user()->role == 'admin')
+                            Halo Admin
+                        @else
+                            Halo {{ auth()->user()->name }}
+                        @endif
+                    </h4>
+                    <p class="mb-4">{{ $currentDate }}</p>
+                    <p style="font-size: smaller" class="text-gray">*) Laporan Hari Ini</p>
+                </div>
+            </div>
+                <div class="col-sm-5 text-center text-sm-left">
+                    <div class="card-body pb-0 px-0 px-md-4">
+                        <img src="{{ asset('sneat/img/cewe.png') }}" height="140" alt="View Badge User">
                     </div>
                 </div>
             </div>
+        </div>
 
             <div class="mb-4">
                 <div class="card">

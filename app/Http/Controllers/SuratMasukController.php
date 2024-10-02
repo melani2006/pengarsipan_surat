@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\LetterType;
+use App\Enums\SuratType;
 use App\Http\Requests\StoreSuratRequest;
 use App\Http\Requests\UpdateSuratRequest;
 use App\Models\Lampiran;
 use App\Models\Kategori;
-use App\Models\Config;
 use App\Models\Surat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -89,7 +88,6 @@ class SuratMasukController extends Controller
             'since' => $request->since,
             'until' => $request->until,
             'cari' => $request->cari,
-            'config' => Config::pluck('value', 'code')->toArray(),
             'title' => $title,
         ]);
     }    
@@ -117,7 +115,7 @@ class SuratMasukController extends Controller
         try {
             $user = auth()->user();
 
-            if ($request->type != LetterType::INCOMING->type()) throw new \Exception('Terjadi kesalahan saat menyimpan surat masuk.');
+            if ($request->type != SuratType::INCOMING->type()) throw new \Exception('Terjadi kesalahan saat menyimpan surat masuk.');
             $newSurat = $request->validated();
             $newSurat['user_id'] = $user->id;
             $surat = Surat::create($newSurat);

@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum LetterType
+enum SuratType
 {
     case INCOMING;
     case OUTGOING;

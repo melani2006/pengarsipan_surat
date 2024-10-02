@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\Config as ConfigEnum;
-use App\Enums\LetterType;
+use App\Enums\SuratType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,7 +34,7 @@ class Lampiran extends Model
         return asset('storage/lampirans/' . $this->filename);
     }
 
-    public function scopeType($query, LetterType $type)
+    public function scopeType($query, SuratType $type)
     {
         return $query->whereHas('surat', function ($query) use ($type) {
             return $query->where('type', $type->type());
@@ -44,12 +43,12 @@ class Lampiran extends Model
 
     public function scopeIncoming($query)
     {
-        return $this->scopeType($query, LetterType::INCOMING);
+        return $this->scopeType($query, SuratType::INCOMING);
     }
 
     public function scopeOutgoing($query)
     {
-        return $this->scopeType($query, LetterType::OUTGOING);
+        return $this->scopeType($query, SuratType::OUTGOING);
     }
 
     public function scopeSearch($query, $search)
@@ -69,7 +68,7 @@ class Lampiran extends Model
             ->with(['surat'])
             ->search($search)
             ->latest('created_at')
-            ->paginate(Config::getValueByCode(ConfigEnum::PAGE_SIZE))
+            ->paginate(10)
             ->appends([
                 'search' => $search,
             ]);

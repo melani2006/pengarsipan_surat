@@ -24,6 +24,7 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Menu Utama</span>
         </li>
+
         <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaksi.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-mail-send"></i>
@@ -42,6 +43,7 @@
                 </li>
             </ul>
         </li>
+
         <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-book"></i>
@@ -58,49 +60,57 @@
                         <div>Surat Keluar</div>
                     </a>
                 </li>
-                <li>
-                    <form action="{{ route('logout') }}" method="post">
-                            @csrf
-                        <button class="dropdown-item cursor-pointer">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Keluar</span>
-                        </button>
-                    </form>
-                </li>
             </ul>
         </li>
-            @if(auth()->user()->role == 'admin')
+
+        @if(auth()->user()->role == 'staff')
+        <li class="menu-item">
+            <form action="{{ route('logout') }}" method="post" style="margin: 0;">
+                @csrf
+                <a href="javascript:void(0);" class="menu-link" 
+                   onclick="event.preventDefault(); this.closest('form').submit();">
+                    <i class="menu-icon tf-icons bx bx-power-off"></i>
+                    <div>Keluar</div>
+                </a>
+            </form>
+        </li>
+        @endif
+
+        @if(auth()->user()->role == 'admin')
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Menu Lainnya</span>
         </li>
-            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.kategori.*') ? 'active' : '' }}">
-                <a href="{{ route('reference.kategori.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-category-alt"></i>
-                    <div>Kategori</div>
+        
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.kategori.*') ? 'active' : '' }}">
+            <a href="{{ route('reference.kategori.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-category-alt"></i>
+                <div>Kategori</div>
+            </a>
+        </li>
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.status.*') ? 'active' : '' }}">
+            <a href="{{ route('reference.status.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-check-circle"></i>
+                <div>Status</div>
+            </a>
+        </li>
+
+        <!-- Manajemen Pengguna -->
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('user.*') ? 'active' : '' }}">
+            <a href="{{ route('user.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-pin"></i>
+                <div>Pengguna</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <form action="{{ route('logout') }}" method="post" style="margin: 0;">
+                @csrf
+                <a href="javascript:void(0);" class="menu-link" 
+                   onclick="event.preventDefault(); this.closest('form').submit();">
+                    <i class="menu-icon tf-icons bx bx-power-off"></i>
+                    <div>Keluar</div>
                 </a>
-            </li>
-            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.status.*') ? 'active' : '' }}">
-                <a href="{{ route('reference.status.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-check-circle"></i>
-                    <div>Status</div>
-                </a>
-            </li>
-            <!-- Manajemen Pengguna -->
-            <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('user.*') ? 'active' : '' }}">
-                <a href="{{ route('user.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                    <div>Pengguna</div>
-                </a>
-            </li>
-            <li>
-                <form action="{{ route('logout') }}" method="post">
-                    @csrf
-                    <button class="dropdown-item cursor-pointer">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Keluar</span>
-                    </button>
-                </form>
-             </li>
+            </form>
+        </li>
         @endif
     </ul>
 </aside>

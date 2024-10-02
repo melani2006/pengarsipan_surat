@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\Config as ConfigEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,7 +25,7 @@ class StatusSurat extends Model
     {
         return $query
             ->search($search)
-            ->paginate(Config::getValueByCode(ConfigEnum::PAGE_SIZE))
+            ->paginate(10)
             ->appends([
                 'search' => $search,
             ]);
