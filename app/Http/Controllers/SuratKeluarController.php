@@ -119,7 +119,7 @@ class SuratKeluarController extends Controller
         try {
             $user = auth()->user();
 
-            if ($request->type != SuratType::OUTGOING->type()) {
+            if ($request->type != SuratType::KELUAR->type()) {
                 throw new \Exception('Jenis surat tidak valid.');
             }
             

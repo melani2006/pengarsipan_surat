@@ -73,7 +73,7 @@ class SuratMasukController extends Controller
     public function print(Request $request): View
     {
         $user = auth()->user();
-        $title = 'Riwayat Surat Masuk'; // Judul tetap, bisa disesuaikan
+        $title = 'Riwayat Surat Masuk';
 
         // Jika admin, dapatkan semua surat untuk dicetak, jika bukan admin hanya miliknya sendiri
         $data = $user->isAdmin()
@@ -115,7 +115,7 @@ class SuratMasukController extends Controller
         try {
             $user = auth()->user();
 
-            if ($request->type != SuratType::INCOMING->type()) throw new \Exception('Terjadi kesalahan saat menyimpan surat masuk.');
+            if ($request->type != SuratType::MASUK->type()) throw new \Exception('Terjadi kesalahan saat menyimpan surat masuk.');
             $newSurat = $request->validated();
             $newSurat['user_id'] = $user->id;
             $surat = Surat::create($newSurat);

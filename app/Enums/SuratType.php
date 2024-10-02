@@ -4,14 +4,14 @@ namespace App\Enums;
 
 enum SuratType
 {
-    case INCOMING;
-    case OUTGOING;
+    case MASUK;
+    case KELUAR;
 
     public function type(): string
     {
         return match ($this) {
-            self::INCOMING => 'masuk',
-            self::OUTGOING => 'keluar',
+            self::MASUK => 'masuk',
+            self::KELUAR => 'keluar',
         };
     }
 }

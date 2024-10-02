@@ -42,11 +42,11 @@ class StoreSuratRequest extends FormRequest
     {
         return [
             'kegiatan' => ['required'],
-            'pengirim' => [Rule::requiredIf($this->type == SuratType::INCOMING->type())],
-            'penerima' => [Rule::requiredIf($this->type == SuratType::OUTGOING->type())],
+            'pengirim' => [Rule::requiredIf($this->type == SuratType::MASUK->type())],
+            'penerima' => [Rule::requiredIf($this->type == SuratType::KELUAR->type())],
             'type' => ['required'],
             'nomor_surat' => ['required', Rule::unique('surats')],
-            'tanggal_diterima' => [Rule::requiredIf($this->type == SuratType::INCOMING->type())],
+            'tanggal_diterima' => [Rule::requiredIf($this->type == SuratType::MASUK->type())],
             'tanggal_surat' => ['required'],
             'deskripsi' => ['required'],
             'catatan' => ['nullable'],

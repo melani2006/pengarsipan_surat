@@ -69,12 +69,12 @@ class Surat extends Model
 
     public function scopeMasuk($query)
     {
-        return $this->scopeType($query, SuratType::INCOMING);
+        return $this->scopeType($query, SuratType::MASUK);
     }
 
     public function scopeKeluar($query)
     {
-        return $this->scopeType($query, SuratType::OUTGOING);
+        return $this->scopeType($query, SuratType::KELUAR);
     }
 
     public function scopeToday($query)
