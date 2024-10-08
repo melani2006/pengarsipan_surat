@@ -6,7 +6,6 @@ use App\Http\Requests\StoreDisposisiRequest;
 use App\Http\Requests\UpdateDisposisiRequest;
 use App\Models\Disposisi;
 use App\Models\Surat;
-use App\Models\StatusSurat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -39,7 +38,6 @@ class DisposisiController extends Controller
     {
         return view('pages.transaksi.disposisi.create', [
             'surat' => $surat,
-            'statuses' => StatusSurat::all(),
         ]);
     }
 

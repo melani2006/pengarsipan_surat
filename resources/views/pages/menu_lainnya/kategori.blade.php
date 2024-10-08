@@ -4,7 +4,7 @@
     <script>
         $(document).on('click', '.btn-edit', function () {
             const id = $(this).data('id');
-            $('#editModal form').attr('action', '{{ route('reference.kategori.index') }}/' + id);
+            $('#editModal form').attr('action', '{{ route('menu_lainnya.kategori.index') }}/' + id);
             $('#editModal input:hidden#id').val(id);
             $('#editModal input#code').val($(this).data('code'));
             $('#editModal input#type').val($(this).data('type'));
@@ -15,13 +15,13 @@
 
 @section('content')
     <x-breadcrumb
-        :values="['Referensi', 'Kategori']">
+        :values="['Kategori']">
         <button
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#createModal">
-            Buat Baru
+            tambah
         </button>
     </x-breadcrumb>
 
@@ -30,9 +30,9 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Kode Kategori</th>
-                    <th>Jenis Kategori</th>
-                    <th>Deskripsi Kategori</th>
+                    <th>Kode</th>
+                    <th>Jenis</th>
+                    <th>Deskripsi</th>
                     <th>Aksi</th>
                 </tr>
                 </thead>
@@ -53,7 +53,7 @@
                                         data-bs-target="#editModal">
                                     Edit
                                 </button>
-                                <form action="{{ route('reference.kategori.destroy', $kategori) }}" class="d-inline" method="post">
+                                <form action="{{ route('menu_lainnya.kategori.destroy', $kategori) }}" class="d-inline" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm btn-delete"
@@ -74,9 +74,9 @@
                 @endif
                 <tfoot class="table-border-bottom-0">
                 <tr>
-                    <th>Kode Kategori</th>
-                    <th>Jenis Kategori</th>
-                    <th>Deskripsi Kategori</th>
+                    <th>Kode</th>
+                    <th>Jenis</th>
+                    <th>Deskripsi</th>
                     <th>Aksi</th>
                 </tr>
                 </tfoot>
@@ -89,10 +89,10 @@
     <!-- Create Modal -->
     <div class="modal fade" id="createModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content" method="post" action="{{ route('reference.kategori.store') }}">
+            <form class="modal-content" method="post" action="{{ route('menu_lainnya.kategori.store') }}">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalTitle">Buat Baru</h5>
+                    <h5 class="modal-title" id="createModalTitle">tambah</h5>
                     <button
                         type="button"
                         class="btn-close"
@@ -101,9 +101,9 @@
                     ></button>
                 </div>
                 <div class="modal-body">
-                    <x-input-form name="code" label="Kode Kategori"/>
-                    <x-input-form name="type" label="Jenis Kategori"/>
-                    <x-input-form name="deskripsi" label="Deskripsi Kategori"/>
+                    <x-input-form name="code" label="Kode"/>
+                    <x-input-form name="type" label="Jenis"/>
+                    <x-input-form name="deskripsi" label="Deskripsi"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -132,9 +132,9 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" value="">
-                    <x-input-form name="code" label="Kode Kategori"/>
-                    <x-input-form name="type" label="Jenis Kategori"/>
-                    <x-input-form name="deskripsi" label="Deskripsi Kategori"/>
+                    <x-input-form name="code" label="Kode"/>
+                    <x-input-form name="type" label="Jenis"/>
+                    <x-input-form name="deskripsi" label="Deskripsi"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">

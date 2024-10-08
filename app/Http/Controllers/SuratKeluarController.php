@@ -48,25 +48,41 @@ class SuratKeluarController extends Controller
     public function riwayat(Request $request): View
     {
         $user = auth()->user();
-
-        // Admin melihat semua surat keluar
-        $data = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
-
-        // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
-        if (!$user->isAdmin()) {
-            $data = Surat::where('user_id', $user->id)->keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+        $tanggal = $request->tanggal;
+        $cari = $request->input('cari', 'tanggal_surat'); // Default ke tanggal_surat jika tidak ada input
+        
+        // Jika admin, dapatkan semua surat keluar
+        if ($user->isAdmin()) {
+            $data = Surat::keluar()->when($tanggal, function ($query, $tanggal) use ($cari) {
+                return $query->whereDate($cari, $tanggal);
+            })->render($request->search);
+            
+            $dataKeluar = Surat::keluar()->when($tanggal, function ($query, $tanggal) use ($cari) {
+                return $query->whereDate($cari, $tanggal);
+            })->render($request->search);
+        } else {
+            // Jika bukan admin, hanya surat milik pengguna
+            $data = Surat::keluar()->where('user_id', $user->id)
+                ->when($tanggal, function ($query, $tanggal) use ($cari) {
+                    return $query->whereDate($cari, $tanggal);
+                })->render($request->search);
+            
+            $dataKeluar = Surat::keluar()->where('user_id', $user->id)
+                ->when($tanggal, function ($query, $tanggal) use ($cari) {
+                    return $query->whereDate($cari, $tanggal);
+                })->render($request->search);
         }
-
+    
         return view('pages.transaksi.keluar.riwayat', [
             'data' => $data,
+            'dataKeluar' => $dataKeluar,
             'search' => $request->search,
-            'since' => $request->since,
-            'until' => $request->until,
+            'tanggal' => $request->tanggal,
             'cari' => $request->cari,
             'query' => $request->getQueryString(),
         ]);
-    }
-
+    }    
+    
     /**
      * @param Request $request
      * @return View
@@ -74,27 +90,27 @@ class SuratKeluarController extends Controller
     public function print(Request $request): View
     {
         $user = auth()->user();
-        $riwayat = 'Riwayat Surat';
-        $surat = 'Surat Keluar';
-        $title = "$riwayat $surat";
-
-        // Admin melihat semua surat keluar
-        $data = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->get();
-
-        // Jika bukan admin, tampilkan hanya surat keluar milik user tersebut
-        if (!$user->isAdmin()) {
-            $data = Surat::where('user_id', $user->id)->keluar()->riwayat($request->since, $request->until, $request->cari)->get();
-        }
-
+        $title = 'Riwayat Surat Keluar';
+        $tanggal = $request->tanggal;
+        $cari = $request->input('cari', 'tanggal_surat'); // Default ke tanggal_surat
+    
+        $data = $user->isAdmin()
+            ? Surat::keluar()->when($tanggal, function ($query, $tanggal) use ($cari) {
+                return $query->whereDate($cari, $tanggal);
+            })->get()
+            : Surat::keluar()->where('user_id', $user->id)
+                            ->when($tanggal, function ($query, $tanggal) use ($cari) {
+                                return $query->whereDate($cari, $tanggal);
+                            })->get();
+    
         return view('pages.transaksi.keluar.print', [
             'data' => $data,
             'search' => $request->search,
-            'since' => $request->since,
-            'until' => $request->until,
+            'tanggal' => $request->tanggal,
             'cari' => $request->cari,
             'title' => $title,
         ]);
-    }
+    }  
 
     /**
      * Show the form for creating a new resource.

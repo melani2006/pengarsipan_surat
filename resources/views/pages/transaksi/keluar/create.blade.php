@@ -2,7 +2,7 @@
 
 @section('content')
     <x-breadcrumb
-        :values="['Transaksi', 'Surat Keluar', 'Buat']">
+        :values="['Transaksi', 'Surat Keluar', 'tambah']">
     </x-breadcrumb>
 
     <div class="card mb-4">

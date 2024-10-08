@@ -11,12 +11,8 @@
                 <input type="hidden" name="search" value="{{ $search ?? '' }}">
                 <div class="row">
                     <div class="col">
-                        <x-input-form name="since" label="Tanggal Mulai" type="date"
-                                      :value="$since ? date('Y-m-d', strtotime($since)) : ''"/>
-                    </div>
-                    <div class="col">
-                        <x-input-form name="until" label="Tanggal Selesai" type="date"
-                                      :value="$until ? date('Y-m-d', strtotime($until)) : ''"/>
+                        <x-input-form name="tanggal" label="Tanggal" type="date"
+                                      :value="$tanggal ? date('Y-m-d', strtotime($tanggal)) : ''"/>
                     </div>
                     <div class="col">
                         <div class="mb-3">
@@ -24,8 +20,6 @@
                             <select class="form-select" id="cari" name="cari">
                                 <option
                                     value="tanggal_surat" @selected(old('cari', $cari) == 'tanggal_surat')>Tanggal Surat</option>
-                                <option
-                                    value="tanggal_diterima" @selected(old('cari', $cari) == 'tanggal_diterima')>Tanggal Diterima</option>
                                 <option
                                     value="created_at" @selected(old('cari', $cari) == 'created_at')>Tanggal Dibuat</option>
                             </select>
@@ -36,14 +30,9 @@
                             <label class="form-label">Aksi</label>
                             <div class="row">
                                 <div class="col">
-                                    <button class="btn btn-primary"
-                                            type="submit">Cari</button>
-                                    <a
-                                        href="{{ route('riwayat.masuk.print') . '?' . $query }}"
-                                        target="_blank"
-                                        class="btn btn-primary">
-                                        Cetak
-                                    </a>
+                                    <button class="btn btn-primary" type="submit">Cari</button>
+                                    <a href="{{ route('riwayat.masuk.print') . '?' . http_build_query(request()->query()) }}"
+                                       target="_blank" class="btn btn-primary">Cetak</a>
                                 </div>
                             </div>
                         </div>
@@ -57,11 +46,11 @@
                 <tr>
                     <th>Kegiatan</th>
                     <th>Nomor Surat</th>
-                    <th>Pengirim</th>
+                    <th>Penerima</th>
                     <th>Tanggal Surat</th>
                 </tr>
                 </thead>
-                @if($data)
+                @if($data->count())
                     <tbody>
                     @foreach($data as $riwayat)
                         <tr>
@@ -70,7 +59,7 @@
                             <td>
                                 <a href="{{ route('transaksi.masuk.show', $riwayat) }}">{{ $riwayat->nomor_surat }}</a>
                             </td>
-                            <td>{{ $riwayat->pengirim }}</td>
+                            <td>{{ $riwayat->penerima }}</td>
                             <td>{{ $riwayat->formatted_tanggal_surat }}</td>
                         </tr>
                     @endforeach
@@ -79,7 +68,7 @@
                     <tbody>
                     <tr>
                         <td colspan="4" class="text-center">
-                            Tidak ada data
+                            Data Kosong
                         </td>
                     </tr>
                     </tbody>
@@ -88,7 +77,7 @@
                 <tr>
                     <th>Kegiatan</th>
                     <th>Nomor Surat</th>
-                    <th>Pengirim</th>
+                    <th>Penerima</th>
                     <th>Tanggal Surat</th>
                 </tr>
                 </tfoot>
@@ -96,5 +85,5 @@
         </div>
     </div>
 
-    {!! $data->appends(['search' => $search, 'since' => $since, 'until' => $until, 'cari' => $cari])->links() !!}
+    {!! $data->appends(request()->query())->links() !!}
 @endsection

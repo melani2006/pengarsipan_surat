@@ -6,7 +6,7 @@
                     <i class="bx {{ $icon }} text-{{ $color }}"></i>
                 </span>
             </div>
-            @if($label != 'Surat Disposisi' && !(auth()->user()->role == 'staff' && $label == 'Pengguna Aktif'))
+            @if($label != 'Disposisi Surat' && !(auth()->user()->role == 'staff' && $label == 'Pengguna Aktif'))
                 <div class="dropdown">
                     <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
@@ -19,9 +19,6 @@
                         @elseif($label == 'Surat Keluar')
                             <a class="dropdown-item"
                                href="{{ route('transaksi.keluar.index') }}">Lihat Selengkapnya</a>
-                        @elseif($label == 'Pengguna Aktif')
-                            <a class="dropdown-item"
-                               href="{{ route('user.index') }}">Lihat Selengkapnya</a>
                         @endif
                     </div>
                 </div>
@@ -29,10 +26,5 @@
         </div>
         <span class="fw-semibold d-block mb-1">{{ $label }} {{ $daily ? '*' : '' }}</span>
         <h3 class="card-title mb-2">{{ $value }}</h3>
-        @if($percentage > 0)
-            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> {{ $percentage }}%</small>
-        @elseif($percentage < 0)
-            <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> {{ $percentage }}%</small>
-        @endif
     </div>
 </div>

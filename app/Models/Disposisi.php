@@ -16,7 +16,6 @@ class Disposisi extends Model
         'batas_waktu',
         'content',
         'catatan',
-        'status_surat',
         'surat_id',
         'user_id'
     ];
@@ -70,14 +69,6 @@ class Disposisi extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function status(): BelongsTo
-    {
-        return $this->belongsTo(StatusSurat::class, 'status_surat', 'id');
     }
 
     /**

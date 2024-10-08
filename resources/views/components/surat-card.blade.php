@@ -5,7 +5,7 @@
                 <h5 class="text-nowrap mb-0 fw-bold">{{ $surat->nomor_surat }}</h5>
                 <small class="text-black">
                     {{ $surat->type == 'masuk' ? $surat->pengirim : $surat->penerima }} |
-                    <span class="text-secondary">Riwayat Nomor:</span> {{ $surat->kegiatan }}
+                    <span class="text-secondary">Kegiatan:</span> {{ $surat->kegiatan }}
                     |
                     {{ $surat->kategori?->type }}
                 </small>
@@ -15,10 +15,10 @@
                     <small class="d-block text-secondary">Tanggal Surat</small>
                     {{ $surat->formatted_tanggal_surat }}
                 </div>
-                @if($surat->type == 'masuk')
+                @if($surat->type == 'masuk' && !Route::is('transaksi.masuk.show'))
                     <div class="mx-3">
                         <a href="{{ route('transaksi.disposisi.index', $surat) }}"
-                           class="btn btn-primary btn">Disposisi <span>({{ $surat->disposisi->count() }})</span></a>
+                           class="btn btn-primary">Disposisi <span>({{ $surat->disposisi->count() }})</span></a>
                     </div>
                 @endif
                 <div class="dropdown d-inline-block">
@@ -30,9 +30,9 @@
                     @if($surat->type == 'masuk')
                         <div class="dropdown-menu dropdown-menu-end"
                              aria-labelledby="dropdown-{{ $surat->type }}-{{ $surat->id }}">
-                            @if(!\Illuminate\Support\Facades\Route::is('*.show'))
+                            @if(!Route::is('*.show'))
                                 <a class="dropdown-item"
-                                   href="{{ route('transaksi.masuk.show', $surat) }}">Lihat</a>
+                                   href="{{ route('transaksi.masuk.show', $surat) }}">Detail</a>
                             @endif
                             <a class="dropdown-item"
                                href="{{ route('transaksi.masuk.edit', $surat) }}">Edit</a>
@@ -47,9 +47,9 @@
                     @else
                         <div class="dropdown-menu dropdown-menu-end"
                              aria-labelledby="dropdown-{{ $surat->type }}-{{ $surat->id }}">
-                            @if(!\Illuminate\Support\Facades\Route::is('*.show'))
+                            @if(!Route::is('*.show'))
                                 <a class="dropdown-item"
-                                   href="{{ route('transaksi.keluar.show', $surat) }}">Lihat</a>
+                                   href="{{ route('transaksi.keluar.show', $surat) }}">Detail</a>
                             @endif
                             <a class="dropdown-item"
                                href="{{ route('transaksi.keluar.edit', $surat) }}">Edit</a>
@@ -71,16 +71,19 @@
         <p>{{ $surat->deskripsi }}</p>
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <small class="text-secondary">{{ $surat->catatan }}</small>
+
             @if(count($surat->lampirans))
                 <div>
                     @foreach($surat->lampirans as $lampiran)
                         <a href="{{ $lampiran->path_url }}" target="_blank">
-                            @if($lampiran->Extension== 'pdf')
+                            @if($lampiran->extension == 'pdf')
                                 <i class="bx bxs-file-pdf display-6 cursor-pointer text-primary"></i>
-                            @elseif(in_array($lampiran->ekstensi, ['jpg', 'jpeg']))
+                            @elseif(in_array($lampiran->extension, ['jpg', 'jpeg']))
                                 <i class="bx bxs-file-jpg display-6 cursor-pointer text-primary"></i>
-                            @elseif($lampiran->Extension== 'png')
+                            @elseif($lampiran->extension == 'png')
                                 <i class="bx bxs-file-png display-6 cursor-pointer text-primary"></i>
+                            @else
+                                <i class="bx bxs-file display-6 cursor-pointer text-primary"></i> <!-- Ikon default -->
                             @endif
                         </a>
                     @endforeach

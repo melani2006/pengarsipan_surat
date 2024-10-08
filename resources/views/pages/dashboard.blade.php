@@ -2,6 +2,28 @@
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('sneat/vendor/libs/apex-charts/apex-charts.css') }}" />
+    <style>
+        .dashboard-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .card-title {
+            width: 100%;
+        }
+
+        .dashboard-card {
+            width: calc(33.33% - 10px); 
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-row {
+                flex-direction: column;
+            }
+        }
+    </style>
 @endpush
 
 @push('script')
@@ -22,7 +44,7 @@
                 categories: [
                     'Surat Masuk',
                     'Surat Keluar',
-                    'Surat Disposisi',
+                    'Disposisi Surat',
                 ],
             }
         }
@@ -34,66 +56,34 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-8 mb-4 order-0">
-        <div class="card mb-4">
-        <div class="d-flex align-items-end row">
-            <div class="col-sm-7">
-                <div class="card-body">
-                    <h4 class="card-title text-primary">
-                        @if(auth()->user()->role == 'admin')
-                            Halo Admin
-                        @else
-                            Halo {{ auth()->user()->name }}
-                        @endif
-                    </h4>
-                    <p class="mb-4">{{ $currentDate }}</p>
-                    <p style="font-size: smaller" class="text-gray">*) Laporan Hari Ini</p>
-                </div>
-            </div>
-                <div class="col-sm-5 text-center text-sm-left">
-                    <div class="card-body pb-0 px-0 px-md-4">
-                        <img src="{{ asset('sneat/img/cewe.png') }}" height="140" alt="View Badge User">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-            <div class="mb-4">
-                <div class="card">
-                    <div class="card-body">
-
-                    <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                            <div class="">
-                                <div class="card-title">
-                                    <h5 class="text-nowrap mb-2">Grafik Hari Ini</h5>
-                                    <span class="badge bg-label-warning rounded-pill">Hari Ini</span>
-                                </div>
-                                <div class="mt-sm-auto">
-                                    @if($percentageTransaksiSurat > 0)
-                                        <small class="text-success text-nowrap fw-semibold">
-                                            <i class="bx bx-chevron-up"></i> {{ $percentageTransaksiSurat }}%
-                                        </small>
-                                    @elseif($percentageTransaksiSurat < 0)
-                                        <small class="text-danger text-nowrap fw-semibold">
-                                            <i class="bx bx-chevron-down"></i> {{ $percentageTransaksiSurat }}%
-                                        </small>
-                                    @endif
-                                    <h3 class="mb-0 display-4">{{ $todayTransaksiSurat }}</h3>
-                                </div>
-                            </div>
-                            <div id="profileReportChart" style="min-height: 80px; width: 80%">
-                                <div id="today-graphic"></div>
-                            </div>
+        <div class="col-lg-12 mb-4 order-0"> 
+            <div class="card mb-4">
+                <div class="d-flex align-items-end row">
+                    <div class="col-sm-7">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary">
+                                @if(auth()->user()->role == 'admin')
+                                    Halo Admin
+                                @else
+                                    Halo {{ auth()->user()->name }}
+                                @endif
+                            </h4>
+                            <p class="mb-4">{{ $currentDate }}</p>
+                            <p style="font-size: smaller" class="text-gray">*) Laporan Hari Ini</p>
                         </div>
                     </div>
-                    
+                    <div class="col-sm-5 text-center text-sm-left">
+                        <div class="card-body pb-0 px-0 px-md-4">
+                            <img src="{{ asset('sneat/img/cewe.png') }}" height="170" alt="View Badge User">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4 col-md-4 order-1">
-            <div class="row">
-                <div class="col-lg-6 col-md-12 col-6 mb-4">
+        <div class="col-lg-12 col-md-12 order-1"> 
+            <div class="dashboard-row">
+                <div class="dashboard-card">
                     <x-dashboard-card-simple
                         :label="'Surat Masuk'"
                         :value="$todaySuratMasuk"
@@ -103,7 +93,7 @@
                         :percentage="$percentageSuratMasuk"
                     />
                 </div>
-                <div class="col-lg-6 col-md-12 col-6 mb-4">
+                <div class="dashboard-card">
                     <x-dashboard-card-simple
                         :label="'Surat Keluar'"
                         :value="$todaySuratKeluar"
@@ -113,24 +103,14 @@
                         :percentage="$percentageSuratKeluar"
                     />
                 </div>
-                <div class="col-lg-6 col-md-12 col-6 mb-4">
+                <div class="dashboard-card">
                     <x-dashboard-card-simple
-                        :label="'Surat Disposisi'"
+                        :label="'Disposisi Surat'"
                         :value="$todayDisposisiSurat"
                         :daily="true"
                         color="primary"
                         icon="bx-envelope"
                         :percentage="$percentageDisposisiSurat"
-                    />
-                </div>
-                <div class="col-lg-6 col-md-12 col-6 mb-4">
-                    <x-dashboard-card-simple
-                        :label="'Pengguna Aktif'"
-                        :value="$activeUser"
-                        :daily="false"
-                        color="info"
-                        icon="bx-user-check"
-                        :percentage="0"
                     />
                 </div>
             </div>

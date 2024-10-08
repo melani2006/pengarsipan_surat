@@ -18,7 +18,7 @@ class StatusSuratController extends Controller
      */
     public function index(Request $request): View
     {
-        return view('pages.reference.status', [
+        return view('pages.menu_lainnya.status', [
             'data' => StatusSurat::render($request->search),
             'search' => $request->search,
         ]);

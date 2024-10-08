@@ -4,7 +4,7 @@
     <script>
         $(document).on('click', '.btn-edit', function () {
             const id = $(this).data('id');
-            $('#editModal form').attr('action', '{{ route('reference.status.index') }}/' + id);
+            $('#editModal form').attr('action', '{{ route('menu_lainnya.status.index') }}/' + id);
             $('#editModal input:hidden#id').val(id);
             $('#editModal input#status').val($(this).data('status'));
         });
@@ -12,13 +12,13 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb :values="['Referensi', 'Status']">
+    <x-breadcrumb :values="['Status']">
         <button
             type="button"
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#createModal">
-            Buat Baru
+            tambah
         </button>
     </x-breadcrumb>
 
@@ -46,7 +46,7 @@
                                         data-bs-target="#editModal">
                                     Edit
                                 </button>
-                                <form action="{{ route('reference.status.destroy', $status) }}" class="d-inline" method="post">
+                                <form action="{{ route('menu_lainnya.status.destroy', $status) }}" class="d-inline" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm btn-delete"
@@ -81,10 +81,10 @@
     <!-- Create Modal -->
     <div class="modal fade" id="createModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content" method="post" action="{{ route('reference.status.store') }}">
+            <form class="modal-content" method="post" action="{{ route('menu_lainnya.status.store') }}">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalTitle">Buat Baru</h5>
+                    <h5 class="modal-title" id="createModalTitle">tambah</h5>
                     <button
                         type="button"
                         class="btn-close"

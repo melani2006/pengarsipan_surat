@@ -1,7 +1,7 @@
 @extends('layout.main')
 
 @section('content')
-    <x-breadcrumb :values="['Transaksi', 'Surat Masuk', 'Lihat']">
+    <x-breadcrumb :values="['Transaksi', 'Surat Masuk', 'Detail']">
     </x-breadcrumb>
 
     <x-surat-card :surat="$data">

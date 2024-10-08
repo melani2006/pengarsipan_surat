@@ -2,13 +2,8 @@
 
 @section('content')
     <x-breadcrumb
-        :values="['Transaksi', $surat->nomor_surat, 'Disposisi Surat', 'Buat Baru']">
+        :values="['Transaksi', $surat->nomor_surat, 'Disposisi Surat', 'tambah']">
     </x-breadcrumb>
-
-    <div class="alert alert-primary alert-dismissible" role="alert">
-        Disposisi untuk surat dengan nomor {{ $surat->nomor_surat }} telah dibuat. <a href="{{ route('transaksi.masuk.show', $surat) }}" class="fw-bold">Lihat</a>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
 
     <div class="card mb-4">
         <form action="{{ route('transaksi.disposisi.store', $surat) }}" method="POST">

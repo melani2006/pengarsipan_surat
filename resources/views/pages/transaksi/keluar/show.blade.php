@@ -2,13 +2,13 @@
 
 @section('content')
     <x-breadcrumb
-        :values="['Transaksi', 'Surat Keluar', 'Lihat']">
+        :values="['Transaksi', 'Surat Keluar', 'Detail']">
     </x-breadcrumb>
 
     <x-surat-card :surat="$data">
         <div class="mt-2">
             <div class="divider">
-                <div class="divider-text">Lihat</div>
+                <div class="divider-text">Detail Surat</div>
             </div>
             <dl class="row mt-3">
 

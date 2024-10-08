@@ -1,8 +1,8 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="{{ route('home') }}" class="app-brand-link">
-            <img src="{{ asset('uin.png') }}" alt="arsip surat" width="70">
-            <span class="app-brand-text demo text-black fw-bolder ms-2">arsip surat</span>
+            <img src="{{ asset('pustipanda.png') }}" alt="pengarsip surat" width="50">
+            <span class="app-brand-text demo text-black fw-bolder ms-1" style="font-size: 23px;">pengarsip surat</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -21,96 +21,92 @@
             </a>
         </li>
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Menu Utama</span>
-        </li>
-
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaksi.*') ? 'active open' : '' }}">
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaksi.*') || \Illuminate\Support\Facades\Route::is('riwayat.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-mail-send"></i>
-                <div>Transaksi</div>
+                <div class="menu-title">Menu Utama</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaksi.masuk.*') || \Illuminate\Support\Facades\Route::is('transaksi.disposisi.*') ? 'active' : '' }}">
-                    <a href="{{ route('transaksi.masuk.index') }}" class="menu-link">
-                        <div>Surat Masuk</div>
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaksi.*') ? 'active open' : '' }}">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <div class="menu-title">Transaksi</div>
                     </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaksi.masuk.*') || \Illuminate\Support\Facades\Route::is('transaksi.disposisi.*') ? 'active' : '' }}">
+                            <a href="{{ route('transaksi.masuk.index') }}" class="menu-link">
+                                <div>Surat Masuk</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaksi.keluar.*') ? 'active' : '' }}">
+                            <a href="{{ route('transaksi.keluar.index') }}" class="menu-link">
+                                <div>Surat Keluar</div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('transaksi.keluar.*') ? 'active' : '' }}">
-                    <a href="{{ route('transaksi.keluar.index') }}" class="menu-link">
-                        <div>Surat Keluar</div>
+
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.*') ? 'active open' : '' }}">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <div class="menu-title">Riwayat</div>
                     </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.masuk') ? 'active' : '' }}">
+                            <a href="{{ route('riwayat.masuk') }}" class="menu-link">
+                                <div>Surat Masuk</div>
+                            </a>
+                        </li>
+                        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.keluar') ? 'active' : '' }}">
+                            <a href="{{ route('riwayat.keluar') }}" class="menu-link">
+                                <div>Surat Keluar</div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>
-
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.*') ? 'active open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-book"></i>
-                <div>Riwayat</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.masuk') ? 'active' : '' }}">
-                    <a href="{{ route('riwayat.masuk') }}" class="menu-link">
-                        <div>Surat Masuk</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('riwayat.keluar') ? 'active' : '' }}">
-                    <a href="{{ route('riwayat.keluar') }}" class="menu-link">
-                        <div>Surat Keluar</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        @if(auth()->user()->role == 'staff')
-        <li class="menu-item">
-            <form action="{{ route('logout') }}" method="post" style="margin: 0;">
-                @csrf
-                <a href="javascript:void(0);" class="menu-link" 
-                   onclick="event.preventDefault(); this.closest('form').submit();">
-                    <i class="menu-icon tf-icons bx bx-power-off"></i>
-                    <div>Keluar</div>
-                </a>
-            </form>
-        </li>
-        @endif
 
         @if(auth()->user()->role == 'admin')
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Menu Lainnya</span>
-        </li>
-        
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.kategori.*') ? 'active' : '' }}">
-            <a href="{{ route('reference.kategori.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-category-alt"></i>
-                <div>Kategori</div>
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('menu_lainnya.kategori.*') || \Illuminate\Support\Facades\Route::is('menu_lainnya.status.*') || \Illuminate\Support\Facades\Route::is('user.*') ? 'active open' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <div>Menu Lainnya</div>
             </a>
-        </li>
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.status.*') ? 'active' : '' }}">
-            <a href="{{ route('reference.status.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-check-circle"></i>
-                <div>Status</div>
-            </a>
-        </li>
+            <ul class="menu-sub">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('menu_lainnya.kategori.*') ? 'active' : '' }}">
+                    <a href="{{ route('menu_lainnya.kategori.index') }}" class="menu-link">
+                        <div>Kategori</div>
+                    </a>
+                </li>
 
-        <!-- Manajemen Pengguna -->
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('user.*') ? 'active' : '' }}">
-            <a href="{{ route('user.index') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user-pin"></i>
-                <div>Pengguna</div>
-            </a>
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('menu_lainnya.status.*') ? 'active' : '' }}">
+                    <a href="{{ route('menu_lainnya.status.index') }}" class="menu-link">
+                        <div>Status</div>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('user.*') ? 'active' : '' }}">
+                    <a href="{{ route('user.index') }}" class="menu-link">
+                        <div>Pengguna</div>
+                    </a>
+                </li>
+            </ul>
         </li>
+        @endif
+
         <li class="menu-item">
             <form action="{{ route('logout') }}" method="post" style="margin: 0;">
                 @csrf
                 <a href="javascript:void(0);" class="menu-link" 
-                   onclick="event.preventDefault(); this.closest('form').submit();">
+                    onclick="event.preventDefault(); this.closest('form').submit();">
                     <i class="menu-icon tf-icons bx bx-power-off"></i>
                     <div>Keluar</div>
                 </a>
             </form>
         </li>
-        @endif
     </ul>
 </aside>
+
+<style>
+
+    .menu-sub .menu-item {
+        padding-left: 8px;
+    }
+</style>

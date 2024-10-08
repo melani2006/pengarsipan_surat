@@ -15,7 +15,6 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // Hanya admin yang diizinkan untuk membuat user baru
         return auth()->user()->role == Role::ADMIN->status();
     }
 

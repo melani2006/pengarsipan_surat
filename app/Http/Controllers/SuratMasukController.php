@@ -44,27 +44,40 @@ class SuratMasukController extends Controller
     public function riwayat(Request $request): View
     {
         $user = auth()->user();
-
+        $tanggal = $request->tanggal;
+        $cari = $request->input('cari', 'tanggal_surat'); // Default ke tanggal_surat jika tidak ada input
+        
         // Jika admin, dapatkan semua surat masuk
         if ($user->isAdmin()) {
-            $data = Surat::masuk()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
-            $dataKeluar = Surat::keluar()->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+            $data = Surat::masuk()->when($tanggal, function ($query, $tanggal) use ($cari) {
+                return $query->whereDate($cari, $tanggal);
+            })->render($request->search);
+            
+            $dataKeluar = Surat::keluar()->when($tanggal, function ($query, $tanggal) use ($cari) {
+                return $query->whereDate($cari, $tanggal);
+            })->render($request->search);
         } else {
             // Jika bukan admin, hanya surat milik pengguna
-            $data = Surat::masuk()->where('user_id', $user->id)->riwayat($request->since, $request->until, $request->cari)->render($request->search);
-            $dataKeluar = Surat::keluar()->where('user_id', $user->id)->riwayat($request->since, $request->until, $request->cari)->render($request->search);
+            $data = Surat::masuk()->where('user_id', $user->id)
+                ->when($tanggal, function ($query, $tanggal) use ($cari) {
+                    return $query->whereDate($cari, $tanggal);
+                })->render($request->search);
+            
+            $dataKeluar = Surat::keluar()->where('user_id', $user->id)
+                ->when($tanggal, function ($query, $tanggal) use ($cari) {
+                    return $query->whereDate($cari, $tanggal);
+                })->render($request->search);
         }
-
+    
         return view('pages.transaksi.masuk.riwayat', [
             'data' => $data,
             'dataKeluar' => $dataKeluar,
             'search' => $request->search,
-            'since' => $request->since,
-            'until' => $request->until,
+            'tanggal' => $request->tanggal,
             'cari' => $request->cari,
             'query' => $request->getQueryString(),
         ]);
-    }
+    }    
     
     /**
      * @param Request $request
@@ -74,19 +87,22 @@ class SuratMasukController extends Controller
     {
         $user = auth()->user();
         $title = 'Riwayat Surat Masuk';
-
-        // Jika admin, dapatkan semua surat untuk dicetak, jika bukan admin hanya miliknya sendiri
+        $tanggal = $request->tanggal;
+        $cari = $request->input('cari', 'tanggal_surat'); // Default ke tanggal_surat
+    
         $data = $user->isAdmin()
-            ? Surat::masuk()->riwayat($request->since, $request->until, $request->cari)->get()
+            ? Surat::masuk()->when($tanggal, function ($query, $tanggal) use ($cari) {
+                return $query->whereDate($cari, $tanggal);
+            })->get()
             : Surat::masuk()->where('user_id', $user->id)
-                            ->riwayat($request->since, $request->until, $request->cari)
-                            ->get();
+                            ->when($tanggal, function ($query, $tanggal) use ($cari) {
+                                return $query->whereDate($cari, $tanggal);
+                            })->get();
     
         return view('pages.transaksi.masuk.print', [
             'data' => $data,
             'search' => $request->search,
-            'since' => $request->since,
-            'until' => $request->until,
+            'tanggal' => $request->tanggal,
             'cari' => $request->cari,
             'title' => $title,
         ]);

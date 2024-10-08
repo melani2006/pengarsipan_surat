@@ -46,9 +46,9 @@
 
 <h2>{{ $title }}</h2>
 
-@if($since && $until && $cari)
+@if($tanggal)
     <div id="cari-section">
-        Cari: {{ $cari }}: {{ "$since - $until" }}
+        Cari: {{ ucfirst($cari) }}: {{ date('d-m-Y', strtotime($tanggal)) }}
         <br>
         Total: {{ count($data) }}
     </div>
@@ -59,7 +59,7 @@
     <tr>
         <th>Kegiatan</th>
         <th>Nomor Surat</th>
-        <th>Pengirim</th>
+        <th>Penerima</th>
         <th>Tanggal Surat</th>
         <th>Deskripsi</th>
         <th>Catatan</th>

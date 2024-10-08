@@ -19,7 +19,7 @@ class KategoriController extends Controller
      */
     public function index(Request $request): View
     {
-        return view('pages.reference.kategori', [
+        return view('pages.menu_lainnya.kategori', [
             'data' => Kategori::render($request->search),
             'search' => $request->search,
         ]);
