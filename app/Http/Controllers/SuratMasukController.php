@@ -45,7 +45,7 @@ class SuratMasukController extends Controller
     {
         $user = auth()->user();
         $tanggal = $request->tanggal;
-        $cari = $request->input('cari', 'tanggal_surat'); // Default ke tanggal_surat jika tidak ada input
+        $cari = $request->input('cari', 'tanggal_surat');
         
         // Jika admin, dapatkan semua surat masuk
         if ($user->isAdmin()) {
@@ -211,7 +211,7 @@ class SuratMasukController extends Controller
                     ]);
                 }
             }
-            return back()->with('success', 'Surat masuk berhasil diperbarui.');
+            return redirect()->route('transaksi.masuk.index')->with('success', 'Surat masuk berhasil diperbarui.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

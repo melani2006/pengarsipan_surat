@@ -68,7 +68,7 @@ class UserController extends Controller
                 unset($newUser['password']); // Jangan izinkan staff mengubah password
             }
             $user->update($newUser);
-            return back()->with('success', 'Pengguna berhasil diperbarui.');
+            return redirect()->route('users.index')->with('success', 'Pengguna berhasil diperbarui.'); // Mengarahkan ke halaman index
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

@@ -47,23 +47,6 @@ class User extends Authenticatable
         'is_active' => 'boolean',
     ];
 
-    /**
-     * Get the user's foto profile
-     *
-     * @return Attribute
-     */
-    public function fotoprofile(): Attribute
-    {
-        return Attribute::make(
-            get: function ($value) {
-                if ($value) return $value;
-
-                $url = 'https://ui-avatars.com/api/?background=6D67E4&color=fff&name=';
-                return $url . urlencode($this->name);
-            },
-        );
-    }
-
     // Mutator untuk memastikan phone hanya angka
     public function setPhoneAttribute($value)
     {

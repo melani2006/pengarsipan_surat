@@ -75,7 +75,6 @@ class DisposisiController extends Controller
         return view('pages.transaksi.disposisi.edit', [
             'data' => $disposisi,
             'surat' => $surat,
-            'statuses' => StatusSurat::all(),
         ]);
     }
 
@@ -91,7 +90,7 @@ class DisposisiController extends Controller
     {
         try {
             $disposisi->update($request->validated());
-            return back()->with('success', 'Disposisi berhasil diperbarui.');
+            return redirect()->route('transaksi.disposisi.index', $surat)->with('success', 'Disposisi berhasil diperbarui.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

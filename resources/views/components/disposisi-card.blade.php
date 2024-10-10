@@ -2,7 +2,7 @@
     <div class="card-header pb-0">
         <div class="d-flex justify-content-between flex-column flex-sm-row">
             <div class="card-title">
-                <h5 class="text-nowrap mb-0 fw-bold">{{ $disposisi->status?->status }}</h5>
+                <h5 class="text-nowrap mb-0 fw-bold">{{ $disposisi->status_surat }}</h5>
                 <small class="text-black">{{ $disposisi->penerima }}</small>
             </div>
             <div class="card-title d-flex flex-row">

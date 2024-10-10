@@ -11,7 +11,6 @@ use App\Models\Surat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 
 class SuratKeluarController extends Controller
 {
@@ -222,7 +221,7 @@ class SuratKeluarController extends Controller
                 }
             }
 
-            return back()->with('success', 'Surat keluar berhasil diperbarui.');
+            return redirect()->route('transaksi.keluar.index')->with('success', 'Surat keluar berhasil diperbarui.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

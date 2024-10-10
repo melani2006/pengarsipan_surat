@@ -4,7 +4,7 @@
     <script>
         $(document).on('click', '.btn-edit', function () {
             const id = $(this).data('id');
-            $('#editModal form').attr('action', '{{ route('menu_lainnya.kategori.index') }}/' + id);
+            $('#editModal form').attr('action', '{{ route('reference.kategori.index') }}/' + id);
             $('#editModal input:hidden#id').val(id);
             $('#editModal input#code').val($(this).data('code'));
             $('#editModal input#type').val($(this).data('type'));
@@ -53,7 +53,7 @@
                                         data-bs-target="#editModal">
                                     Edit
                                 </button>
-                                <form action="{{ route('menu_lainnya.kategori.destroy', $kategori) }}" class="d-inline" method="post">
+                                <form action="{{ route('reference.kategori.destroy', $kategori) }}" class="d-inline" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-danger btn-sm btn-delete"
@@ -89,7 +89,7 @@
     <!-- Create Modal -->
     <div class="modal fade" id="createModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content" method="post" action="{{ route('menu_lainnya.kategori.store') }}">
+            <form class="modal-content" method="post" action="{{ route('reference.kategori.store') }}">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title" id="createModalTitle">tambah</h5>

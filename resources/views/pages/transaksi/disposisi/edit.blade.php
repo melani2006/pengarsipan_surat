@@ -22,23 +22,16 @@
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
                         <label for="status_surat" class="form-label">Status Surat</label>
-                        <select class="form-select" id="status_surat" name="status_surat">
-                            @foreach($statuses as $status)
-                                <option
-                                    value="{{ $status->id }}"
-                                    @selected(old('status_surat', $data->status_surat) == $status->id)>
-                                    {{ $status->status }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <input type="text" class="form-control" id="status_surat" name="status_surat" value="{{ old('status_surat', $data->status_surat) }}" placeholder="Masukkan status surat" />
                     </div>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-8">
-                    <x-input-form name="catatan" :value="$data->catatan ?? ''" label="catatan"/>
+                    <x-input-form name="catatan" :value="$data->catatan ?? ''" label="Catatan"/>
                 </div>
             </div>
             <div class="card-footer pt-0">
                 <button class="btn btn-primary" type="submit">Update</button>
+                <a href="{{ route('transaksi.disposisi.index', $surat) }}" class="btn btn-secondary">Batal</a>
             </div>
         </form>
     </div>

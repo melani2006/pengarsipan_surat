@@ -1,8 +1,8 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="{{ route('home') }}" class="app-brand-link">
-            <img src="{{ asset('pustipanda.png') }}" alt="pengarsip surat" width="50">
-            <span class="app-brand-text demo text-black fw-bolder ms-1" style="font-size: 23px;">pengarsip surat</span>
+            <img src="{{ asset('pustipanda.png') }}" alt="pengarsipan surat" width="50">
+            <span class="app-brand-text demo text-black fw-bolder ms-1" style="font-size: 20px;">pengarsipan surat</span>
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -65,20 +65,14 @@
         </li>
 
         @if(auth()->user()->role == 'admin')
-        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('menu_lainnya.kategori.*') || \Illuminate\Support\Facades\Route::is('menu_lainnya.status.*') || \Illuminate\Support\Facades\Route::is('user.*') ? 'active open' : '' }}">
+        <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.kategori.*') || \Illuminate\Support\Facades\Route::is('reference.status.*') || \Illuminate\Support\Facades\Route::is('user.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <div>Menu Lainnya</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('menu_lainnya.kategori.*') ? 'active' : '' }}">
-                    <a href="{{ route('menu_lainnya.kategori.index') }}" class="menu-link">
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.kategori.*') ? 'active' : '' }}">
+                    <a href="{{ route('reference.kategori.index') }}" class="menu-link">
                         <div>Kategori</div>
-                    </a>
-                </li>
-
-                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('menu_lainnya.status.*') ? 'active' : '' }}">
-                    <a href="{{ route('menu_lainnya.status.index') }}" class="menu-link">
-                        <div>Status</div>
                     </a>
                 </li>
 

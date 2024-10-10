@@ -65,8 +65,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="card-footer pt-0">
-                <button class="btn btn-primary" type="submit">Update</button>
+            <div class="card-footer pt-0 d-flex justify-content-start">
+                <button class="btn btn-primary me-2" type="submit">Update</button>
+                <a href="{{ url()->previous() }}" class="btn btn-secondary">Batal</a>
             </div>
         </form>
     </div>

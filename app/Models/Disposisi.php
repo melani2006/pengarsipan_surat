@@ -17,7 +17,8 @@ class Disposisi extends Model
         'content',
         'catatan',
         'surat_id',
-        'user_id'
+        'user_id',
+        'status_surat',
     ];
 
     protected $appends = [
@@ -50,7 +51,7 @@ class Disposisi extends Model
     public function scopeRender($query, Surat $surat, $search)
     {
         return $query
-            ->with(['user', 'status', 'surat'])
+            ->with(['user', 'surat'])
             ->search($search)
             ->when($surat, function ($query, $surat) {
                 return $query

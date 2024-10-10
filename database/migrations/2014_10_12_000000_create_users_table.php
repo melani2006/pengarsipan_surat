@@ -22,7 +22,6 @@ return new class extends Migration
             $table->bigInteger('phone');
             $table->string('role')->default('staff');
             $table->boolean('is_active')->default(true);
-            $table->string('foto_profile')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

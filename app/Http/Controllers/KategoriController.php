@@ -19,7 +19,7 @@ class KategoriController extends Controller
      */
     public function index(Request $request): View
     {
-        return view('pages.menu_lainnya.kategori', [
+        return view('pages.reference.kategori', [
             'data' => Kategori::render($request->search),
             'search' => $request->search,
         ]);
@@ -52,7 +52,7 @@ class KategoriController extends Controller
     {
         try {
             $kategori->update($request->validated());
-            return back()->with('success', 'Berhasil memperbarui data.');
+            return redirect()->route('kategori.index')->with('success', 'Berhasil memperbarui data.'); // Ganti 'kategori.index' sesuai nama route yang tepat
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

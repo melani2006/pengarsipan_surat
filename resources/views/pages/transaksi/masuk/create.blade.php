@@ -30,13 +30,10 @@
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
                     <div class="mb-3">
-                        <label for="kategori_code"
-                               class="form-label">Kategori</label>
+                        <label for="kategori_code" class="form-label">Kategori</label>
                         <select class="form-select" id="kategori_code" name="kategori_code">
                             @foreach($kategoris as $kategori)
-                                <option
-                                    value="{{ $kategori->code }}"
-                                    @selected(old('kategori_code') == $kategori->code)>
+                                <option value="{{ $kategori->code }}" @selected(old('kategori_code') == $kategori->code)>
                                     {{ $kategori->type }}
                                 </option>
                             @endforeach
@@ -55,8 +52,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer pt-0">
-                <button class="btn btn-primary" type="submit">Simpan</button>
+            <div class="card-footer pt-0 d-flex justify-content-start">
+                <button class="btn btn-primary me-2" type="submit">Simpan</button>
+                <a href="{{ url()->previous() }}" class="btn btn-secondary">Batal</a>
             </div>
         </form>
     </div>
