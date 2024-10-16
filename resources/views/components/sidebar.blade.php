@@ -90,7 +90,7 @@
                 @csrf
                 <a href="javascript:void(0);" class="menu-link" 
                     onclick="event.preventDefault(); this.closest('form').submit();">
-                    <i class="menu-icon tf-icons bx bx-power-off"></i>
+                    <i class="menu-icon tf-icons bx bx-log-out"></i>
                     <div>Keluar</div>
                 </a>
             </form>

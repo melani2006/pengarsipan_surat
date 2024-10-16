@@ -85,7 +85,9 @@ class UserController extends Controller
     {
         try {
             $user->delete();
-            return back()->with('success', 'Pengguna berhasil dihapus.');
+            return redirect()
+                ->route('users.index')
+                ->with('success', 'Pengguna berhasil dihapus.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }
