@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('batas_waktu');
             $table->text('content');
             $table->text('catatan')->nullable();
-            $table->string('status_surat');
+            $table->foreignId('status_surat')->constrained('status_surats', 'id')->cascadeOnDelete();
             $table->foreignId('surat_id')->constrained('surats')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate();
             $table->timestamps();

@@ -9,7 +9,6 @@
             $('#editModal input:hidden#id').val(id);
             $('#editModal input#code').val($(this).data('code'));
             $('#editModal input#type').val($(this).data('type'));
-            $('#editModal input#deskripsi').val($(this).data('deskripsi'));
         });
 
         // Validasi form sebelum submit dengan pesan kustom
@@ -56,7 +55,6 @@
                     <tr>
                         <th>Kode</th>
                         <th>Jenis</th>
-                        <th>Deskripsi</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -66,13 +64,11 @@
                             <tr>
                                 <td>{{ $kategori->code }}</td>
                                 <td>{{ $kategori->type }}</td>
-                                <td>{{ $kategori->deskripsi }}</td>
                                 <td>
                                     <button class="btn btn-info btn-sm btn-edit"
                                             data-id="{{ $kategori->id }}"
                                             data-code="{{ $kategori->code }}"
                                             data-type="{{ $kategori->type }}"
-                                            data-deskripsi="{{ $kategori->deskripsi }}"
                                             data-bs-toggle="modal"
                                             data-bs-target="#editModal">
                                         Edit
@@ -97,7 +93,6 @@
                     <tr>
                         <th>Kode</th>
                         <th>Jenis</th>
-                        <th>Deskripsi</th>
                         <th>Aksi</th>
                     </tr>
                 </tfoot>
@@ -126,11 +121,6 @@
                         <label for="type" class="form-label">Jenis</label>
                         <input type="text" class="form-control" id="type" name="type">
                         <div class="invalid-feedback">Jenis tidak boleh kosong.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                        <input type="text" class="form-control" id="deskripsi" name="deskripsi">
-                        <div class="invalid-feedback">Deskripsi tidak boleh kosong.</div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -162,11 +152,6 @@
                         <label for="type" class="form-label">Jenis</label>
                         <input type="text" class="form-control" id="type" name="type">
                         <div class="invalid-feedback">Jenis tidak boleh kosong.</div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="deskripsi" class="form-label">Deskripsi</label>
-                        <input type="text" class="form-control" id="deskripsi" name="deskripsi">
-                        <div class="invalid-feedback">Deskripsi tidak boleh kosong.</div>
                     </div>
                 </div>
                 <div class="modal-footer">

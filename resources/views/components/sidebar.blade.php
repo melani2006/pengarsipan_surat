@@ -75,6 +75,11 @@
                         <div>Kategori</div>
                     </a>
                 </li>
+                <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('reference.status.*') ? 'active' : '' }}">
+                    <a href="{{ route('reference.status.index') }}" class="menu-link">
+                        <div>Status Surat</div>
+                    </a>
+                </li>
 
                 <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('user.*') ? 'active' : '' }}">
                     <a href="{{ route('user.index') }}" class="menu-link">

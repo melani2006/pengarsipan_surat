@@ -22,7 +22,6 @@ class UpdateKategoriRequest extends FormRequest
         return [
             'code' => 'code',
             'type' => 'type',
-            'deskripsi' => 'deskripsi',
         ];
     }
 
@@ -36,7 +35,6 @@ class UpdateKategoriRequest extends FormRequest
         return [
             'code' => ['required', Rule::unique('kategoris')->ignore($this->id)],
             'type' => ['required'],
-            'deskripsi'=> ['nullable'],
         ];
     }
 }

@@ -75,6 +75,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('reference')->as('reference.')->middleware(['role:admin'])->group(function () {
         Route::resource('kategori', \App\Http\Controllers\KategoriController::class)->except(['show', 'create', 'edit']);
+        Route::resource('status', \App\Http\Controllers\StatusSuratController::class)->except(['show', 'create', 'edit']);
     });
 
 });

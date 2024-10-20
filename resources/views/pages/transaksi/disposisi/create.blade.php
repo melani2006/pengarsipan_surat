@@ -57,9 +57,13 @@
                 <div class="col-sm-12 col-md-6 col-lg-4">
                     <div class="mb-3">
                         <label for="status_surat" class="form-label">Status Surat</label>
-                        <input type="text" class="form-control @error('status_surat') is-invalid @enderror" 
-                               id="status_surat" name="status_surat" value="{{ old('status_surat') }}" />
-                        <div class="invalid-feedback">Status Surat tidak boleh kosong.</div>
+                        <select class="form-select" id="status_surat" name="status_surat">
+                            @foreach($statuses as $status)
+                                <option
+                                    value="{{ $status->id }}"
+                                    @selected(old('status_surat') == $status->id)>{{ $status->status }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
 

@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreKategoriRequest extends FormRequest
+class UpdateStatusSuratRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,8 +19,7 @@ class StoreKategoriRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'code' => 'Kode Kategori',
-            'type' => 'Tipe Kategori',
+            'status' => 'status',
         ];
     }
 
@@ -33,8 +31,7 @@ class StoreKategoriRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', Rule::unique('kategoris')],
-            'type' => ['required'],
+            'status' => ['required'],
         ];
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Surat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use App\Models\StatusSurat;
 
 class DisposisiController extends Controller
 {
@@ -24,6 +25,7 @@ class DisposisiController extends Controller
         return view('pages.transaksi.disposisi.index', [
             'data' => Disposisi::render($surat, $request->search),
             'surat' => $surat,
+            'statuses' => StatusSurat::all(),
             'search' => $request->search,
         ]);
     }
@@ -38,6 +40,7 @@ class DisposisiController extends Controller
     {
         return view('pages.transaksi.disposisi.create', [
             'surat' => $surat,
+            'statuses' => StatusSurat::all(),
         ]);
     }
 
