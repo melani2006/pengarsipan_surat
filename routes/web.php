@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Route::post('logout', function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/pengarsipan_surat', [\App\Http\Controllers\PageController::class, 'index'])->name('home');
 
-    Route::resource('user', \App\Http\Controllers\UserController::class)
+    Route::resource('users', \App\Http\Controllers\UserController::class)
         ->except(['show', 'edit', 'create'])
         ->middleware(['role:admin']);
 

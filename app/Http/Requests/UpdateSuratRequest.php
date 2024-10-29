@@ -21,7 +21,7 @@ class UpdateSuratRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'kegiatan' => 'kegiatan',
+            'perihal' => 'perihal',
             'pengirim' => 'pengirim',
             'penerima' => 'penerima',
             'nomor_surat' => 'nomor_surat',
@@ -41,7 +41,7 @@ class UpdateSuratRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kegiatan' => ['required'],
+            'perihal' => ['required'],
             'pengirim' => [Rule::requiredIf($this->type == SuratType::MASUK->type())],
             'penerima' => [Rule::requiredIf($this->type == SuratType::KELUAR->type())],
             'nomor_surat' => ['required', Rule::unique('surats', 'nomor_surat')->ignore($this->id)],

@@ -82,7 +82,7 @@
                 </li>
 
                 <li class="menu-item {{ \Illuminate\Support\Facades\Route::is('user.*') ? 'active' : '' }}">
-                    <a href="{{ route('user.index') }}" class="menu-link">
+                    <a href="{{ route('users.index') }}" class="menu-link">
                         <div>Pengguna</div>
                     </a>
                 </li>

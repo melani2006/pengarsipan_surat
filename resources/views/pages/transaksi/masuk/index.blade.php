@@ -3,7 +3,7 @@
 @section('content')
     <x-breadcrumb
         :values="['Transaksi', 'Surat Masuk']">
-        <a href="{{ route('transaksi.masuk.create') }}" class="btn btn-primary">tambah</a>
+        <a href="{{ route('transaksi.masuk.create') }}" class="btn btn-primary">Tambah</a>
     </x-breadcrumb>
 
     @foreach($data as $surat)

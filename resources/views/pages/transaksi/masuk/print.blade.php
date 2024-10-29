@@ -57,7 +57,7 @@
 <table>
     <thead>
     <tr>
-        <th>Kegiatan</th>
+        <th>Perihal</th>
         <th>Nomor Surat</th>
         <th>Penerima</th>
         <th>Tanggal Surat</th>
@@ -68,7 +68,7 @@
     <tbody>
     @foreach($data as $surat)
         <tr>
-            <td>{{ $surat->kegiatan }}</td>
+            <td>{{ $surat->perihal }}</td>
             <td>{{ $surat->nomor_surat }}</td>
             <td>{{ $surat->pengirim }}</td>
             <td>{{ $surat->formatted_tanggal_surat }}</td>

@@ -10,6 +10,7 @@
 
     @foreach($data as $disposisi)
         <x-disposisi-card
+            
             :surat="$surat"
             :disposisi="$disposisi"
         />

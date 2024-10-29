@@ -5,12 +5,15 @@
         // Mengisi data saat tombol edit diklik
         $(document).on('click', '.btn-edit', function () {
             const id = $(this).data('id');
-            $('#editModal form').attr('action', '{{ route('user.index') }}/' + id);
+            $('#editModal form').attr('action', '{{ route('users.update', '') }}/' + id);
             $('#editModal input:hidden#id').val(id);
             $('#editModal input#name').val($(this).data('name'));
             $('#editModal input#phone').val($(this).data('phone'));
             $('#editModal input#email').val($(this).data('email'));
-            $('#editModal input#is_active').prop('checked', $(this).data('active') == 1);
+
+            // Menampilkan status aktif
+            const isActive = $(this).data('active') == 1 ? 'Aktif' : 'Nonaktif';
+            $('#status_active_label').text(isActive);
         });
 
         // Validasi form sebelum submit dengan pesan kustom
@@ -46,6 +49,15 @@
             const passwordField = $(this).closest('.modal-body').find('input[name="password"]');
             const type = $(this).is(':checked') ? 'text' : 'password';
             passwordField.attr('type', type);
+        });
+
+        // Konfirmasi penghapusan
+        $(document).on('click', '.btn-hapus', function (e) {
+            e.preventDefault();
+            const form = $(this).closest('form');
+            if (confirm('Apakah Anda yakin ingin menghapus pengguna ini?')) {
+                form.submit();
+            }
         });
     </script>
 @endpush
@@ -92,10 +104,10 @@
                                             data-bs-target="#editModal">
                                         Edit
                                     </button>
-                                    <form action="{{ route('user.destroy', $user) }}" method="post" class="d-inline">
+                                    <form action="{{ route('users.destroy', $user) }}" method="post" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-danger btn-sm" type="button">Hapus</button>
+                                        <button class="btn btn-danger btn-sm btn-hapus" type="button">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
@@ -126,7 +138,7 @@
     <!-- Create Modal -->
     <div class="modal fade" id="createModal" data-bs-backdrop="static" tabindex="-1">
         <div class="modal-dialog">
-            <form class="modal-content" method="post" action="{{ route('user.store') }}">
+            <form class="modal-content" method="post" action="{{ route('users.store') }}">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah</h5>
@@ -176,11 +188,11 @@
                     <label>Status Aktif</label>
                     <div class="d-flex">
                         <div class="form-check me-3">
-                            <input class="form-check-input" type="checkbox" name="is_active" value="true" id="is_active">
+                            <input class="form-check-input" type="radio" name="is_active" value="1" id="is_active" checked>
                             <label class="form-check-label" for="is_active">Aktif</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="nonaktif" value="true" id="nonaktif">
+                            <input class="form-check-input" type="radio" name="is_active" value="0" id="nonaktif">
                             <label class="form-check-label" for="nonaktif">Nonaktif</label>
                         </div>
                     </div>

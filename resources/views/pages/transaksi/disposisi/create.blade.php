@@ -33,7 +33,7 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb :values="['Transaksi', $surat->nomor_surat, 'Disposisi Surat', 'tambah']"></x-breadcrumb>
+    <x-breadcrumb :values="['Transaksi', $surat->nomor_surat, 'Disposisi Surat', 'Tambah']"></x-breadcrumb>
 
     <div class="card mb-4">
         <form action="{{ route('transaksi.disposisi.store', $surat) }}" method="POST">

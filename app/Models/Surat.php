@@ -16,7 +16,7 @@ class Surat extends Model
 
     protected $fillable = [
         'nomor_surat',
-        'kegiatan',
+        'perihal',
         'pengirim',
         'penerima',
         'tanggal_surat',
@@ -92,7 +92,7 @@ class Surat extends Model
         return $query->when($search, function($query, $find) {
             return $query
                 ->where('nomor_surat', $find)
-                ->orWhere('kegiatan', $find)
+                ->orWhere('perihal', $find)
                 ->orWhere('pengirim', 'LIKE', $find . '%')
                 ->orWhere('penerima', 'LIKE', $find . '%');
         });

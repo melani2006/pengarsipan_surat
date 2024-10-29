@@ -21,7 +21,7 @@ class StoreSuratRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'kegiatan' => 'kegiatan',
+            'perihal' => 'perihal',
             'pengirim' => 'pengirim',
             'penerima' => 'penerima',
             'nomor_surat' => 'nomor_surat',
@@ -41,7 +41,7 @@ class StoreSuratRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kegiatan' => ['required'],
+            'perihal' => ['required'],
             'pengirim' => [Rule::requiredIf($this->type == SuratType::MASUK->type())],
             'penerima' => [Rule::requiredIf($this->type == SuratType::KELUAR->type())],
             'type' => ['required'],

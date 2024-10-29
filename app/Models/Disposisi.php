@@ -18,11 +18,16 @@ class Disposisi extends Model
         'catatan',
         'surat_id',
         'user_id',
+        'status_surat',
     ];
 
     protected $appends = [
         'formatted_batas_waktu',
     ];
+
+    public function status() {
+        return $this->belongsTo(StatusSurat::class, 'status_surat', 'id');
+    }
 
     public function getFormattedbataswaktuAttribute(): string {
         return Carbon::parse($this->batas_waktu)->isoFormat('dddd, D MMMM YYYY');

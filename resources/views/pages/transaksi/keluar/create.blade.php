@@ -2,7 +2,7 @@
 
 @section('content')
     <x-breadcrumb
-        :values="['Transaksi', 'Surat Keluar', 'tambah']">
+        :values="['Transaksi', 'Surat Keluar', 'Tambah']">
     </x-breadcrumb>
 
     <div class="card mb-4">
@@ -17,7 +17,7 @@
                     <x-input-form name="penerima" label="Penerima"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
-                    <x-input-form name="kegiatan" label="Kegiatan"/>
+                    <x-input-form name="perihal" label="Perihal"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-12">
                     <x-input-form name="tanggal_surat" label="Tanggal Surat" type="date"/>

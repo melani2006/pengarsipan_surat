@@ -54,8 +54,8 @@
                 </div>
 
                 <div class="col-sm-12 col-md-6 col-lg-4">
-                    <x-input-form name="kegiatan" label="Kegiatan" :value="$data->kegiatan"/>
-                    <div class="invalid-feedback">Kegiatan tidak boleh kosong.</div>
+                    <x-input-form name="perihal" label="Perihal" :value="$data->perihal"/>
+                    <div class="invalid-feedback">Perihal tidak boleh kosong.</div>
                 </div>
 
                 <div class="col-sm-12 col-md-6 col-lg-6">

@@ -78,6 +78,7 @@ class DisposisiController extends Controller
         return view('pages.transaksi.disposisi.edit', [
             'data' => $disposisi,
             'surat' => $surat,
+            'statuses' => StatusSurat::all(), 
         ]);
     }
 

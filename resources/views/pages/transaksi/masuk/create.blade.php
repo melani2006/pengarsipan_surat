@@ -33,7 +33,7 @@
 @endpush
 
 @section('content')
-    <x-breadcrumb :values="['Transaksi', 'Surat Masuk', 'tambah']"></x-breadcrumb>
+    <x-breadcrumb :values="['Transaksi', 'Surat Masuk', 'Tambah']"></x-breadcrumb>
 
     <div class="card mb-4">
         <form action="{{ route('transaksi.masuk.store') }}" method="POST" enctype="multipart/form-data">
@@ -52,8 +52,8 @@
                 </div>
 
                 <div class="col-sm-12 col-md-6 col-lg-4">
-                    <x-input-form name="kegiatan" label="Kegiatan"/>
-                    <div class="invalid-feedback">Kegiatan tidak boleh kosong.</div>
+                    <x-input-form name="perihal" label="Perihal"/>
+                    <div class="invalid-feedback">Perihal tidak boleh kosong.</div>
                 </div>
 
                 <div class="col-sm-12 col-md-6 col-lg-6">

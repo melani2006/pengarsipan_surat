@@ -19,7 +19,7 @@
                     <x-input-form :value="$data->penerima" name="penerima" label="Penerima"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-4">
-                    <x-input-form :value="$data->kegiatan" name="kegiatan" label="Kegiatan"/>
+                    <x-input-form :value="$data->perihal" name="perihal" label="Perihal"/>
                 </div>
                 <div class="col-sm-12 col-12 col-md-6 col-lg-12">
                     <x-input-form :value="date('Y-m-d', strtotime($data->tanggal_surat))" name="tanggal_surat" label="Tanggal Surat" type="date"/>

@@ -52,7 +52,7 @@ class KategoriController extends Controller
     {
         try {
             $kategori->update($request->validated());
-            return redirect()->route('kategori.index')->with('success', 'Berhasil memperbarui data.'); // Ganti 'kategori.index' sesuai nama route yang tepat
+            return redirect()->route('reference.kategori.index')->with('success', 'Berhasil memperbarui data.');
         } catch (\Throwable $exception) {
             return back()->with('error', $exception->getMessage());
         }

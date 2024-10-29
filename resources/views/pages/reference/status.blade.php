@@ -18,7 +18,7 @@
             class="btn btn-primary"
             data-bs-toggle="modal"
             data-bs-target="#createModal">
-            tambah
+            Tambah
         </button>
     </x-breadcrumb>
 

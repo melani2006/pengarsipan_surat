@@ -44,7 +44,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Kegiatan</th>
+                    <th>Perihal</th>
                     <th>Nomor Surat</th>
                     <th>Penerima</th>
                     <th>Tanggal Surat</th>
@@ -55,7 +55,7 @@
                     @foreach($data as $riwayat)
                         <tr>
                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                <strong>{{ $riwayat->kegiatan }}</strong></td>
+                                <strong>{{ $riwayat->perihal }}</strong></td>
                             <td>
                                 <a href="{{ route('transaksi.keluar.show', $riwayat) }}">{{ $riwayat->nomor_surat }}</a>
                             </td>
@@ -75,7 +75,7 @@
                 @endif
                 <tfoot class="table-border-bottom-0">
                 <tr>
-                    <th>Kegiatan</th>
+                    <th>Perihal</th>
                     <th>Nomor Surat</th>
                     <th>Penerima</th>
                     <th>Tanggal Surat</th>
