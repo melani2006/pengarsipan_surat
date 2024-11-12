@@ -36,7 +36,7 @@
                     <tbody>
                     @foreach($data as $status)
                         <tr>
-                            <td>{{ $status->id }}</td>
+                            <td>{{ $loop->iteration }}</td> <!-- Nomor urut otomatis -->
                             <td>{{ $status->status }}</td>
                             <td>
                                 <button class="btn btn-info btn-sm btn-edit"
@@ -59,7 +59,7 @@
                 @else
                     <tbody>
                     <tr>
-                        <td colspan="4" class="text-center">
+                        <td colspan="3" class="text-center">
                             Data Kosong
                         </td>
                     </tr>
@@ -84,7 +84,7 @@
             <form class="modal-content" method="post" action="{{ route('reference.status.store') }}">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createModalTitle">tambah</h5>
+                    <h5 class="modal-title" id="createModalTitle">Tambah</h5>
                     <button
                         type="button"
                         class="btn-close"
